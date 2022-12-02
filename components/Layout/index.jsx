@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import SoundPlayer from '../SoundPlayer'
 
-export default ({ children, title }) => {
+export default function Layout({ children, title }) {
     return (
         <>
             <Head>

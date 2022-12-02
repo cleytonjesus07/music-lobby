@@ -52,7 +52,7 @@ export default function SoundPlayer() {
             }
         })
 
-    }, [songs])
+    }, [songs,items])
 
     function updateBar(e) {
         const { duration, currentTime } = e.target
