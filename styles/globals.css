@@ -1,26 +1,86 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  color: #fff;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+html,
+body {
+  background-color: #1e1e1e;
+}
+
+/* Cards in Section - HOME */
+
+
+
+.card:hover .play {
+  animation: showPlay ease forwards 1s;
+}
+
+@keyframes showPlay {
+  0% {
+    opacity: 0;
   }
-  body {
-    color: white;
-    background: black;
+
+  50%{
+    opacity: 1;
+    bottom: 0.25rem;
+  }
+
+  100% {
+    opacity: 1;
+    bottom: 0.25rem;
+  }
+}
+
+
+/* SoundPlayer */
+
+.hide {
+  animation: hideRight ease-in-out 1s forwards;
+}
+
+.show {
+  animation: showLeft ease-in-out 1s forwards;
+}
+
+.spin {
+  animation: spin 1s infinite linear;
+}
+
+@keyframes showLeft {
+  0% {
+    right: -100%;
+  }
+
+  100% {
+    display: initial;
+    right: 1.25rem;
+  }
+}
+
+@keyframes hideRight {
+  50% {
+    right: -100%;
+  }
+
+  100% {
+    right: -100%;
+    display: none;
+  }
+}
+
+@keyframes spin {
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: 360deg;
   }
 }
