@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client"
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-let prisma = new PrismaClient();
+let prisma;
 export default async function getAlbums(req, res) {
     if (!prisma) {
         prisma = new PrismaClient();

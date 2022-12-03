@@ -82,9 +82,10 @@ function MusicDetails({ items, seeAlbum }) {
 
 
 export async function getServerSideProps(context) {
-
-  let data = await fetch("http://localhost:3000/api/category");
+  /* dlnitCSn7iVdhkIH */
+  let data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/category`);
   data = await data.json();
+  console.log({ data })
   return {
     props: { categories: data }, // will be passed to the page component as props
   }

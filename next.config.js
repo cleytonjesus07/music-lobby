@@ -2,6 +2,9 @@ const { PHASE_DEVELOPMENT_SERVER } = require("next/constants")
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  env: {
+    DATABASE_URL: 'postgresql://postgres:dlnitCSn7iVdhkIH@db.oupjkvghjrdngplvhyxv.supabase.co:5432/postgres'
+  }
 }
 
 const nextConfigDev = {
@@ -14,4 +17,4 @@ const nextConfigDev = {
   }
 }
 
-module.exports = PHASE_DEVELOPMENT_SERVER ? nextConfigDev : nextConfig
+module.exports = nextConfig
