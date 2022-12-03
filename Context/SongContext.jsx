@@ -1,5 +1,5 @@
-import methods from "../pocketbase/index";
-import { createContext, useEffect, useState } from "react"
+
+import { createContext, useState } from "react"
 export const songCtx = createContext();
 
 export default function SongContext({ children }) {

@@ -5,6 +5,7 @@ import Card from "../components/Card"
 import Section from "../components/Section"
 import TopMenu from "../components/TopMenu"
 import { songCtx } from "../Context/SongContext"
+import supabase from "../supabase"
 
 
 Home.title = "Web Player"
@@ -23,8 +24,13 @@ export default function Home({ data }) {
 
 
   async function getMusic(id_music) {
-    let data = await fetch(`/api/music?id_music=${id_music}`);
-    data = await data.json().then((data) => setMusic(data[0])).then(() => setShowPlayer(true));
+    await supabase
+      .from("Music")
+      .select(`
+            *,
+            Album:id_album(album_cover,Artist:id_artist(artist_name))
+        `)
+      .in('id_music', [id_music]).then(({ data }) => setMusic(data[0])).then(() => setShowPlayer(true));
   }
 
   return (
@@ -82,8 +88,19 @@ function MusicDetails({ items, seeAlbum }) {
 
 export async function getServerSideProps() {
 
-  let data = await fetch(`${(process.env.NODE_ENV !== "production") ? "http://localhost:3000" : "https://oupjkvghjrdngplvhyxv.supabase.co"}/api/category`);
-  data = await data.json();
+  const { data } = await supabase
+    .from("Category")
+    .select(`
+            id_category,
+            category_title,
+            CategoriesOnAlbums(
+                Album:id_album(
+                    *,
+                    Artist:id_artist(artist_bio),
+                    Music(*)
+                )
+            )
+        `);
 
   return {
     props: { data }, // will be passed to the page component as props
