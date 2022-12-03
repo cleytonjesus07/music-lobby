@@ -7,7 +7,7 @@ export default function SongContext({ children }) {
     const [music, setMusic] = useState();
     const [showPlayer, setShowPlayer] = useState(false);
 
-   
+
 
     /*   async function getMusics() {
           let res = await methods.musics();

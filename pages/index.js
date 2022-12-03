@@ -8,7 +8,7 @@ import { songCtx } from "../Context/SongContext"
 
 
 Home.title = "Web Player"
-export default function Home({ categories }) {
+export default function Home({ data }) {
   const { songsCtx: { setSongs }, currentMusic: { setMusic }, soundPlayer: { setShowPlayer } } = useContext(songCtx);
   const [seeAlbum, setSeeAlbum] = useState({ ok: false, index: 0 });
 
@@ -17,16 +17,14 @@ export default function Home({ categories }) {
   }
 
   useEffect(() => {
-    setSongs(old => ({ ...old, items: categories }))
+    setSongs(old => ({ ...old, items: data }))
   }, [])
 
 
 
-  async function getMusic(id_album) {
-    let data = await fetch(`/api/music?id_album=${id_album}`);
-    data = await data.json().then(setMusic).then(() => setShowPlayer(true));
-
-
+  async function getMusic(id_music) {
+    let data = await fetch(`/api/music?id_music=${id_music}`);
+    data = await data.json().then((data) => setMusic(data[0])).then(() => setShowPlayer(true));
   }
 
   return (
@@ -39,12 +37,13 @@ export default function Home({ categories }) {
           <MusicDetails items={items} seeAlbum={seeAlbum} />
           :
           (
-            categories.map(({ id_category, category_title, categoriesOnAlbums }) => {
+            data.map(({ id_category, category_title, CategoriesOnAlbums }) => {
               return (
                 <Section key={id_category} title={category_title}>
-                  {categoriesOnAlbums.map(({ album: { id_album, album_title, album_cover, artist: { artist_bio } } }) => {
+                  {CategoriesOnAlbums.map(({ Album: { id_album, album_title, album_cover, Artist: { artist_bio }, Music } }) => {
                     return (
-                      <Card key={id_album} onClick={() => getMusic(id_album)} title={album_title} cover={album_cover} desc={artist_bio} />
+
+                      <Card key={id_album} onClick={() => getMusic(Music[0]?.id_music)} title={album_title} cover={album_cover} desc={artist_bio} />
                     )
                   })}
                 </Section>
@@ -81,12 +80,12 @@ function MusicDetails({ items, seeAlbum }) {
 }
 
 
-export async function getServerSideProps(context) {
-  /* dlnitCSn7iVdhkIH */
-  let data = await fetch(`/api/category`);
+export async function getServerSideProps() {
+
+  let data = await fetch(`${(process.env.NODE_ENV !== "production") ? "http://localhost:3000" : "https://oupjkvghjrdngplvhyxv.supabase.co"}/api/category`);
   data = await data.json();
-  console.log({ data })
+
   return {
-    props: { categories: data }, // will be passed to the page component as props
+    props: { data }, // will be passed to the page component as props
   }
 }
