@@ -83,7 +83,7 @@ function MusicDetails({ items, seeAlbum }) {
 
 export async function getServerSideProps(context) {
   /* dlnitCSn7iVdhkIH */
-  let data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/category`);
+  let data = await fetch(`/api/category`);
   data = await data.json();
   console.log({ data })
   return {
