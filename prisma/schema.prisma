@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+//Meus modelos abaixo
+model User {
+  id_user       String          @id @default(uuid())
+  user_name     String
+  usersOnMusics UsersOnMusics[]
+}
+
+model UsersOnMusics {
+  user       User     @relation(fields: [id_user], references: [id_user])
+  id_user    String // relation scalar field (used in the `@relation` attribute above)
+  music      Music    @relation(fields: [id_music], references: [id_music])
+  id_music   String // relation scalar field (used in the `@relation` attribute above)
+  assignedAt DateTime @default(now())
+
+  @@id([id_user, id_music])
+}
+
+model Music {
+  id_music      String          @id @default(uuid())
+  music_title   String
+  music_link    String
+  usersOnMusics UsersOnMusics[]
+  category      Category?
+  album         Album           @relation(fields: [id_album], references: [id_album])
+  id_album      String          @unique
+}
+
+model CategoriesOnAlbums {
+  category    Category @relation(fields: [id_category], references: [id_category])
+  id_category String // relation scalar field (used in the `@relation` attribute above)
+  album       Album    @relation(fields: [id_album], references: [id_album])
+  id_album    String // relation scalar field (used in the `@relation` attribute above)
+  assignedAt  DateTime @default(now())
+
+  @@id([id_category, id_album])
+}
+
+model Category {
+  id_category        String               @id @default(uuid())
+  category_title     String
+  music              Music                @relation(fields: [id_music], references: [id_music])
+  id_music           String               @unique
+  album              Album                @relation(fields: [id_album], references: [id_album])
+  id_album           String
+  categoriesOnAlbums CategoriesOnAlbums[]
+}
+
+model Album {
+  id_album           String               @id @default(uuid())
+  album_title        String
+  album_cover        String
+  music              Music?
+  category           Category[]
+  artist             Artist               @relation(fields: [id_artist], references: [id_artist])
+  id_artist          String
+  categoriesOnAlbums CategoriesOnAlbums[]
+}
+
+model Artist {
+  id_artist   String  @id @default(uuid())
+  artist_name String
+  artist_bio  String
+  album       Album[]
+}

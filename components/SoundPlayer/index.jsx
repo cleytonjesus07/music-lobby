@@ -6,7 +6,7 @@ import { songCtx } from "../../Context/SongContext";
 import { pauseSong, playSong, forward, backward } from "./controls";
 
 export default function SoundPlayer() {
-    const { songsCtx: { songs: { items, index }, setSongs, songs }, soundPlayer: { showPlayer, setShowPlayer } } = useContext(songCtx);
+    const { currentMusic: { music }, soundPlayer: { showPlayer, setShowPlayer } } = useContext(songCtx);
     const audioRef = useRef();
     const timeBarRef = useRef();
     const [timestamps, setTimestamps] = useState({
@@ -29,10 +29,10 @@ export default function SoundPlayer() {
     }, [])
 
     useEffect(() => {
-        console.log(items.length <= 1)
-        if (items.length <= 1) {
-            return;
-        }
+
+        /*  if (items.length <= 1) {
+             return;
+         } */
         setPlaying(false);
         audioRef.current.currentTime = 0;
         timeBarRef.current.style.width = "0%";
@@ -52,7 +52,7 @@ export default function SoundPlayer() {
             }
         })
 
-    }, [songs,items])
+    }, [music])
 
     function updateBar(e) {
         const { duration, currentTime } = e.target
@@ -106,13 +106,13 @@ export default function SoundPlayer() {
         <div className={`fixed flex bottom-2 right-5 rounded-md w-80 h-32 bg-neutral-800 ${showPlayer ? 'show' : 'hide'}`}>
             <CloseSoundPlayer />
             <div className="h-full w-1/3 mx-5 flex items-center justify-center">
-                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''}`} style={{ backgroundImage: `url(${items[index]?.cover})` }}>
+                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''}`} style={{ backgroundImage: `url(${music?.album?.album_cover})` }}>
                     <span className="h-5 w-5 bg-neutral-800 absolute rounded-full"></span>
                 </div>
             </div>
             <div className="w-full flex flex-col justify-center space-y-1 px-3">
-                <h2 className="font-bold">{items[index]?.title}</h2>
-                <span className="font-extralight text-xs">{items[index]?.artist}</span>
+                <h2 className="font-bold">{music?.music_title}</h2>
+                <span className="font-extralight text-xs">{music?.album?.artist?.artist_name}</span>
                 <div className="relative w-full h-[2px] bg-neutral-600 rounded-md flex items-center ">
                     <div ref={timeBarRef} className={`h-full  bg-white`}>
                     </div>
@@ -144,7 +144,7 @@ export default function SoundPlayer() {
                     </div>
                 </div>
             </div>
-            <audio ref={audioRef} className="absolute hidden " src={items[index]?.audio} controls onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)} onTimeUpdate={(e) => updateBar(e)} onLoadedData={(e) => {
+            <audio ref={audioRef} className="absolute hidden " src={music?.music_link} controls onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)} onTimeUpdate={(e) => updateBar(e)} onLoadedData={(e) => {
                 console.log(Math.floor(e.target?.duration / 60))
                 setTimestamps(old => {
                     const minutes = (Math.floor(e.target.duration / 60));
