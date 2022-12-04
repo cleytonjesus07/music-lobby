@@ -55,7 +55,7 @@ export default function Home({ data, recents }) {
             <>
               <div className="bg-gradient-to-b from-black to-neutral-900">
                 <Section key={"#recent"} title={"Adicionados recentemente"}>
-                  {recents.slice(0, 5).map(({ Album: { album_cover, Artist: { id_artist, artist_bio } }, Music: { music_title } }, i) => {
+                  {recents.map(({ Album: { album_cover, Artist: { id_artist, artist_bio } }, Music: { music_title } }, i) => {
                     return (
 
                       <Card key={i}
@@ -124,7 +124,7 @@ export async function getServerSideProps() {
     .select(`
          Music:id_music(*),
          Album:id_album(*,Artist:id_artist(*))
-      `).order("id_music", { ascending: false })
+      `).order("id_album", { ascending: false }).limit(5)
   const recents = data2.data
 
   return {
