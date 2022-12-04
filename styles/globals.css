@@ -27,7 +27,7 @@ body {
     opacity: 0;
   }
 
-  50%{
+  50% {
     opacity: 1;
     bottom: 0.25rem;
   }
@@ -53,25 +53,28 @@ body {
   animation: spin 1s infinite linear;
 }
 
+
+
 @keyframes showLeft {
   0% {
     right: -100%;
   }
 
   100% {
-    display: initial;
+
     right: 1.25rem;
   }
 }
 
 @keyframes hideRight {
   50% {
-    right: -100%;
+
+    right: 1.25rem;
   }
 
   100% {
+
     right: -100%;
-    display: none;
   }
 }
 

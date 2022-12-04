@@ -12,7 +12,14 @@ export default function MusicDetails() {
         soundPlayer: {
             setShowPlayer
         },
-        currentMusic: { music, setMusic }
+        currentMusic: {
+            music: {
+                Album,
+                Music
+            }
+            ,
+            setMusic
+        }
     } = useContext(songCtx);
 
     const [list, setList] = useState([]);
@@ -31,8 +38,11 @@ export default function MusicDetails() {
         fetchMusics();
     }, [])
 
+    
+
     async function getMusic(id_music) {
-        if (id_music === music.id_music) {
+
+        if (id_music === Music?.id_music) {
             return;
         }
         /* await supabase
@@ -43,14 +53,13 @@ export default function MusicDetails() {
             `)
             .in("id_music", [id_music]) */
         await supabase
-            .from("Music")
+            .from("MusicsOnAlbums")
             .select(`
-                *
-                `)
-            .in("id_music", [id_music])
+                Music:id_music(*),
+                Album:id_album(*,Artist:id_artist(artist_name))
+        `).in("id_music", [id_music])
             .then(({ data }) => setMusic(data[0]))
             .then(setShowPlayer(true))
-
     }
 
 

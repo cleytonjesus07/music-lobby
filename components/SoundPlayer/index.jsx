@@ -114,16 +114,16 @@ export default function SoundPlayer() {
 
 
     return (
-        <div className={`fixed flex bottom-2 right-5 rounded-md w-80 h-32 bg-neutral-800 ${showPlayer ? 'show' : 'hide'}`}>
+        <div id="player" className={`fixed flex bottom-2 right-5 rounded-md w-80 h-32 bg-neutral-800 ${showPlayer ? 'show' : 'hide'}`}>
             <CloseSoundPlayer />
             <div className="h-full w-1/3 mx-5 flex items-center justify-center">
-                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''}`} style={{ backgroundImage: `url(${album?.Album?.album_cover})` }}>
+                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''}`} style={{ backgroundImage: `url(${music?.Album?.album_cover})` }}>
                     <span className="h-5 w-5 bg-neutral-800 absolute rounded-full"></span>
                 </div>
             </div>
             <div className="w-full flex flex-col justify-center space-y-1 px-3">
-                <h2 className="font-bold">{music?.music_title}</h2>
-                <span className="font-extralight text-xs">{album?.Album?.Artist?.artist_name}</span>
+                <h2 className="font-bold">{music?.Music?.music_title}</h2>
+                <span className="font-extralight text-xs">{music?.Album?.Artist?.artist_name}</span>
                 <div className="relative w-full h-[2px] bg-neutral-600 rounded-md flex items-center ">
                     <div ref={timeBarRef} className={`h-full  bg-white`}>
                     </div>
@@ -157,7 +157,7 @@ export default function SoundPlayer() {
             </div>
             <audio ref={audioRef}
                 className="absolute hidden "
-                src={music?.music_link}
+                src={music?.Music?.music_link}
                 controls
                 onPlaying={() => setPlaying(true)}
                 onPause={() => setPlaying(false)}
