@@ -1,5 +1,5 @@
 
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 export const songCtx = createContext();
 
 export default function SongContext({ children }) {
@@ -8,7 +8,7 @@ export default function SongContext({ children }) {
     const [album, setAlbum] = useState();
     const [showPlayer, setShowPlayer] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
-
+    const [idMusic, setIdMusic] = useState();
 
     /*   async function getMusics() {
           let res = await methods.musics();
@@ -22,6 +22,14 @@ export default function SongContext({ children }) {
       }, [])
    */
 
+    useEffect(() => {
+        if (document.body.clientWidth < 640 && showPlayer) {
+            document.body.style.overflow = "hidden"
+        } else {
+            document.body.style.overflow = "auto"
+        }
+    }, [showPlayer])
+
     return (
         <songCtx.Provider
             value={{
@@ -29,6 +37,7 @@ export default function SongContext({ children }) {
                 soundPlayer: { showPlayer, setShowPlayer },
                 albumList: { album, setAlbum },
                 currentMusic: { music, setMusic },
+                choice: { idMusic, setIdMusic },
                 asideMenu: { openMenu, setOpenMenu }
             }}>
             {children}

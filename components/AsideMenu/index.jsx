@@ -2,13 +2,15 @@ import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { VscChromeClose } from "react-icons/vsc"
 import { VscLibrary } from "react-icons/vsc";
 import Link from "next/link";
-import { useCallback, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { songCtx } from "../../Context/SongContext";
+import { appCtx } from "../../Context/AppContext";
 
 
 
 export default function AsideMenu({ closeMusicDetails }) {
     const { asideMenu: { openMenu, setOpenMenu } } = useContext(songCtx);
+    const { scroll: { lockScroll } } = useContext(appCtx);
     const menus = [
         {
             icon: <AiFillHome className="w-full h-full" />,
@@ -31,13 +33,7 @@ export default function AsideMenu({ closeMusicDetails }) {
         openMenu ? lockScroll(true) : lockScroll(false);
     }, [openMenu])
 
-    const lockScroll = useCallback((option) => {
-        if (option) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "unset";
-        }
-    }, [])
+
 
     return (
         <>
@@ -57,7 +53,7 @@ export default function AsideMenu({ closeMusicDetails }) {
                     <ul className="max-md:flex max-md:flex-col  ">
                         {menus.map(({ icon, title, href }, index) => {
                             return (
-                                <li key={index} className="flex max-md:justify-center h-20 my-5">
+                                <li key={index} className="flex max-md:justify-center  ">
                                     <Link href={href} onClick={() => {
                                         if (index === 0) {
                                             closeMusicDetails()

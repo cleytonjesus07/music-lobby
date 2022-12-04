@@ -42,11 +42,11 @@ body {
 /* SoundPlayer */
 
 .hide {
-  animation: toRight ease-in-out 1s forwards;
+  animation: toRight ease-in-out 1s forwards, invisible ease-in-out 1s forwards;
 }
 
 .show {
-  animation: toLeft ease-in-out 1s forwards;
+  animation: toLeft ease-in-out 1s forwards, onScreen ease-in-out 1s forwards;
 }
 
 .spin {
@@ -58,7 +58,17 @@ body {
   visibility: hidden;
 }
 
+@keyframes onScreen {
+  100% {
+    visibility: visible;
+  }
+}
 
+@keyframes invisible {
+  100% {
+    visibility: hidden;
+  }
+}
 
 
 @keyframes toLeft {
@@ -73,14 +83,13 @@ body {
 }
 
 @keyframes toRight {
-  50% {
+  0% {
 
     right: 1.25rem;
   }
 
   100% {
     right: -100%;
-    visibility: hidden;
   }
 }
 

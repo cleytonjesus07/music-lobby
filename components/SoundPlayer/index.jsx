@@ -10,7 +10,12 @@ export default function SoundPlayer() {
         music
     },
         soundPlayer: { showPlayer, setShowPlayer },
-        albumList: { album } } = useContext(songCtx);
+        albumList: { album },
+        currentMusic: {
+            Music
+        },
+        choice: { setIdMusic }
+    } = useContext(songCtx);
 
     const audioRef = useRef();
     const timeBarRef = useRef();
@@ -27,11 +32,7 @@ export default function SoundPlayer() {
 
     const [playing, setPlaying] = useState(false);
 
-    useEffect(() => {
-        if (!audioRef.current.src && !audioRef.current) {
-            return;
-        }
-    }, [])
+    
 
     useEffect(() => {
 
@@ -46,21 +47,6 @@ export default function SoundPlayer() {
         audioRef.current.currentTime = 0;
         timeBarRef.current.style.width = "0%";
         audioRef.current.pause();
-
-        setTimestamps(old => {
-            return {
-                ...old,
-                currentTime: {
-                    minutes: 0,
-                    seconds: 0
-                },
-                duration: {
-                    minutes: 0,
-                    seconds: 0
-                }
-            }
-        })
-
     }
 
     function updateBar(e) {
@@ -92,7 +78,7 @@ export default function SoundPlayer() {
         const close = () => {
             audioRef.current.pause();
             audioRef.current.currentTime = 0;
-
+            setIdMusic(null)
             setPlaying(false);
             setShowPlayer(false);
             setTimestamps(old => {
@@ -109,12 +95,12 @@ export default function SoundPlayer() {
                 }
             })
         }
-        return <button type={"button"} className="absolute right-3 top-2 cursor-pointer opacity-40 hover:opacity-100 transition-all p-1 " title="close" onClick={() => close()}><VscChromeClose className="w-full h-full" /></button>
+        return <button type={"button"} className="absolute right-3 top-2 cursor-pointer opacity-40 hover:opacity-100 transition-all p-1 max-md:w-10" title="close" onClick={() => close()}><VscChromeClose className="w-full h-full" /></button>
     }
 
 
     return (
-        <div id="player" className={`fixed flex bottom-2 right-5 rounded-md w-80 h-32  bg-neutral-800 ${showPlayer ? 'show' : 'hide'} max-sm:top-0 max-sm:left-0 max-sm:w-full max-sm:h-screen max-sm:flex-col max-sm:items-center max-sm:py-10`}>
+        <div id="player" className={`fixed flex bottom-2 right-5 rounded-md w-80 h-32  bg-neutral-800 ${showPlayer ? 'show' : 'hide'} max-sm:top-0 max-sm:left-0 max-sm:w-full max-sm:h-screen max-sm:flex-col max-sm:items-center max-sm:py-10 `}>
             <CloseSoundPlayer />
             <div className="h-full w-1/3 mx-5 flex items-center justify-center max-sm:w-full ">
                 <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''} max-sm:w-[calc(100%/.9)] max-sm:h-[calc(100%/.9)] max-sm:max-w-[300px] max-sm:max-h-[300px]`} style={{ backgroundImage: `url(${music?.Album?.album_cover})` }}>
@@ -162,7 +148,7 @@ export default function SoundPlayer() {
                 onPlaying={() => setPlaying(true)}
                 onPause={() => setPlaying(false)}
                 onTimeUpdate={(e) => updateBar(e)}
-                onLoadedData={(e) => {
+                onDurationChange={(e) => {
                     setTimestamps(old => {
                         const minutes = (Math.floor(e.target.duration / 60));
                         const seconds = (Math.floor(e.target?.duration % 60));

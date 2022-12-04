@@ -1,7 +1,10 @@
 import Head from 'next/head'
+import { useContext } from 'react'
+import { songCtx } from '../../Context/SongContext'
 import SoundPlayer from '../SoundPlayer'
 
 export default function Layout({ children, title }) {
+    const { soundPlayer: { showPlayer } } = useContext(songCtx);
     return (
         <>
             <Head>
@@ -11,7 +14,7 @@ export default function Layout({ children, title }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             {children}
-            <SoundPlayer />
+            {showPlayer && <SoundPlayer />}
         </>
     )
 }
