@@ -114,11 +114,11 @@ export default function SoundPlayer() {
 
 
     return (
-        <div id="player" className={`fixed flex bottom-2 right-5 rounded-md w-80 h-32 bg-neutral-800 ${showPlayer ? 'show' : 'hide'}`}>
+        <div id="player" className={`fixed flex bottom-2 right-5 rounded-md w-80 h-32  bg-neutral-800 ${showPlayer ? 'show' : 'hide'} max-sm:top-0 max-sm:left-0 max-sm:w-full max-sm:h-screen max-sm:flex-col max-sm:items-center max-sm:py-10`}>
             <CloseSoundPlayer />
-            <div className="h-full w-1/3 mx-5 flex items-center justify-center">
-                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''}`} style={{ backgroundImage: `url(${music?.Album?.album_cover})` }}>
-                    <span className="h-5 w-5 bg-neutral-800 absolute rounded-full"></span>
+            <div className="h-full w-1/3 mx-5 flex items-center justify-center max-sm:w-full ">
+                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''} max-sm:w-[calc(100%/.9)] max-sm:h-[calc(100%/.9)] max-sm:max-w-[300px] max-sm:max-h-[300px]`} style={{ backgroundImage: `url(${music?.Album?.album_cover})` }}>
+                    <span className="h-5 w-5 bg-neutral-800 absolute rounded-full max-sm:w-1/5 max-sm:h-1/5"></span>
                 </div>
             </div>
             <div className="w-full flex flex-col justify-center space-y-1 px-3">
@@ -132,26 +132,26 @@ export default function SoundPlayer() {
                 <div className="text-center">
                     <span className="text-[10px]">{(timestamps.currentTime?.minutes < 10) ? '0' + timestamps.currentTime?.minutes : timestamps.currentTime?.minutes} : {(timestamps.currentTime?.seconds < 10) ? '0' + timestamps.currentTime?.seconds : timestamps.currentTime?.seconds} / {`${timestamps.duration?.minutes < 10 ? '0' + timestamps.duration?.minutes : timestamps.duration?.minutes} : ${timestamps.duration?.seconds < 10 ? '0' + timestamps.duration?.seconds : timestamps.duration?.seconds}`}</span>
                 </div>
-                <div className="flex justify-center space-x-2">
-                    <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"backward"}>
-                        <IoMdSkipBackward onClick={() => backward(setSongs, setPlaying)} />
+                <div className="flex justify-center space-x-2 buttons">
+                    <div className="hover:cursor-pointer opacity-40 hover:opacity-100  transition-all" title={"backward"}>
+                        <IoMdSkipBackward className="button" onClick={() => backward(setSongs, setPlaying)} />
                     </div>
                     {!playing
                         ?
                         (
                             <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"play"}>
-                                <BsFillPlayCircleFill onClick={() => playSong(audioRef, audioRef.current.src)} />
+                                <BsFillPlayCircleFill className="button" onClick={() => playSong(audioRef, audioRef.current.src)} />
                             </div>
 
                         )
                         :
                         (
                             <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"pause"}>
-                                <BsPauseCircleFill onClick={() => pauseSong(audioRef, audioRef.current.src)} />
+                                <BsPauseCircleFill className="button" onClick={() => pauseSong(audioRef, audioRef.current.src)} />
                             </div>
                         )}
                     <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"forward"}>
-                        <IoMdSkipForward onClick={() => forward(setSongs, setPlaying)} />
+                        <IoMdSkipForward className="button" onClick={() => forward(setSongs, setPlaying)} />
                     </div>
                 </div>
             </div>

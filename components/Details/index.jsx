@@ -38,7 +38,7 @@ export default function MusicDetails() {
         fetchMusics();
     }, [])
 
-    
+
 
     async function getMusic(id_music) {
 
@@ -68,14 +68,14 @@ export default function MusicDetails() {
     return (
         <div>
             <section className="relative flex  items-center w-full h-96 bg-neutral-900 bg-top bg-cover bg-no-repeat" style={{ backgroundImage: `url(${album_cover})` }}>
-                <div className="flex flex-col justify-center space-y-5 bg-gradient-to-r from-black to-transparent h-full w-[100%] px-10">
-                    <h2 className="font-bold text-7xl">{artist_name}</h2>
-                    <div className="w-1/2 bg-black
-                    p-4 rounded-md bg-opacity-70">
+                <div className="flex flex-col justify-center space-y-5 bg-gradient-to-r from-black to-transparent h-full w-[100%] px-10 max-md:items-center">
+                    <h2 className="font-bold text-5xl">{artist_name}</h2>
+                    <div className="w-1/2 max-lg:w-full  bg-black
+                    p-4 rounded-md bg-opacity-70 ">
                         {artist_bio}
                     </div>
-                    <div className="absolute right-20 top-20">
-                        <div className="relative  w-80 h-80 rotate-12 shadow-md shadow-black">
+                    <div className="absolute right-20 top-20 max-lg:hidden">
+                        <div className="relative  w-80 h-80 rotate-12 shadow-md shadow-black ">
                             <Image src={album_cover} fill sizes="100%" alt={"Imagem da capa do álbum"} className="object-cover" />
                         </div>
                     </div>

@@ -26,7 +26,7 @@ export default function AsideMenu({ closeMusicDetails }) {
     return (
         <>
             {/* Menu Lateral */}
-            <div className='h-full w-56 bg-black fixed'>
+            <div className='h-full w-56 bg-black fixed max-md:hidden'>
                 <Link href={"/"}>
                     <div className="bg-no-repeat bg-[20px] bg-contain w-full h-[50px] my-5 flex items-center justify-end" style={{ backgroundImage: "url(/images/logo.png)" }}>
                         <span className="text-lg font-extrabold mx-5">Music Lobby</span>

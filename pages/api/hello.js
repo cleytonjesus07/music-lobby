@@ -6,7 +6,7 @@ export default async (req, res) => {
         .select(`
                 id_music(*),
                 id_album(*,id_artist(artist_name))
-        `).in("id_music",[1])
+        `).in("id_music", [1])
 
 
 
