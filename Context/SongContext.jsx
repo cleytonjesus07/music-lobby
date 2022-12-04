@@ -4,7 +4,8 @@ export const songCtx = createContext();
 
 export default function SongContext({ children }) {
     const [songs, setSongs] = useState({ items: [], index: 0 });
-    const [music, setMusic] = useState();
+    const [music, setMusic] = useState({});
+    const [album, setAlbum] = useState();
     const [showPlayer, setShowPlayer] = useState(false);
 
 
@@ -22,7 +23,13 @@ export default function SongContext({ children }) {
    */
 
     return (
-        <songCtx.Provider value={{ songsCtx: { songs, setSongs }, soundPlayer: { showPlayer, setShowPlayer }, currentMusic: { music, setMusic } }}>
+        <songCtx.Provider
+            value={{
+                songsCtx: { songs, setSongs },
+                soundPlayer: { showPlayer, setShowPlayer },
+                albumList: { album, setAlbum },
+                currentMusic: { music, setMusic }
+            }}>
             {children}
         </songCtx.Provider>
     )

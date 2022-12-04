@@ -6,7 +6,12 @@ import { songCtx } from "../../Context/SongContext";
 import { pauseSong, playSong, forward, backward } from "./controls";
 
 export default function SoundPlayer() {
-    const { currentMusic: { music }, soundPlayer: { showPlayer, setShowPlayer } } = useContext(songCtx);
+    const { currentMusic: {
+        music
+    },
+        soundPlayer: { showPlayer, setShowPlayer },
+        albumList: { album } } = useContext(songCtx);
+
     const audioRef = useRef();
     const timeBarRef = useRef();
     const [timestamps, setTimestamps] = useState({
@@ -33,6 +38,10 @@ export default function SoundPlayer() {
         /*  if (items.length <= 1) {
              return;
          } */
+        setToInit()
+    }, [music])
+
+    function setToInit() {
         setPlaying(false);
         audioRef.current.currentTime = 0;
         timeBarRef.current.style.width = "0%";
@@ -52,7 +61,7 @@ export default function SoundPlayer() {
             }
         })
 
-    }, [music])
+    }
 
     function updateBar(e) {
         const { duration, currentTime } = e.target
@@ -77,6 +86,8 @@ export default function SoundPlayer() {
 
     }
 
+
+
     function CloseSoundPlayer() {
         const close = () => {
             audioRef.current.pause();
@@ -98,7 +109,7 @@ export default function SoundPlayer() {
                 }
             })
         }
-        return <button className="absolute right-3 top-2 cursor-pointer opacity-40 hover:opacity-100 transition-all p-1 " title="close" onClick={() => close()}><VscChromeClose className="w-full h-full" /></button>
+        return <button type={"button"} className="absolute right-3 top-2 cursor-pointer opacity-40 hover:opacity-100 transition-all p-1 " title="close" onClick={() => close()}><VscChromeClose className="w-full h-full" /></button>
     }
 
 
@@ -106,13 +117,13 @@ export default function SoundPlayer() {
         <div className={`fixed flex bottom-2 right-5 rounded-md w-80 h-32 bg-neutral-800 ${showPlayer ? 'show' : 'hide'}`}>
             <CloseSoundPlayer />
             <div className="h-full w-1/3 mx-5 flex items-center justify-center">
-                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''}`} style={{ backgroundImage: `url(${music?.Album?.album_cover})` }}>
+                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''}`} style={{ backgroundImage: `url(${album?.Album?.album_cover})` }}>
                     <span className="h-5 w-5 bg-neutral-800 absolute rounded-full"></span>
                 </div>
             </div>
             <div className="w-full flex flex-col justify-center space-y-1 px-3">
                 <h2 className="font-bold">{music?.music_title}</h2>
-                <span className="font-extralight text-xs">{music?.Album?.Artist?.artist_name}</span>
+                <span className="font-extralight text-xs">{album?.Album?.Artist?.artist_name}</span>
                 <div className="relative w-full h-[2px] bg-neutral-600 rounded-md flex items-center ">
                     <div ref={timeBarRef} className={`h-full  bg-white`}>
                     </div>
@@ -144,19 +155,28 @@ export default function SoundPlayer() {
                     </div>
                 </div>
             </div>
-            <audio ref={audioRef} className="absolute hidden " src={music?.music_link} controls onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)} onTimeUpdate={(e) => updateBar(e)} onLoadedData={(e) => {
-                setTimestamps(old => {
-                    const minutes = (Math.floor(e.target.duration / 60));
-                    const seconds = (Math.floor(e.target?.duration % 60));
-                    return {
-                        ...old,
-                        duration: {
-                            minutes,
-                            seconds
+            <audio ref={audioRef}
+                className="absolute hidden "
+                src={music?.music_link}
+                controls
+                onPlaying={() => setPlaying(true)}
+                onPause={() => setPlaying(false)}
+                onTimeUpdate={(e) => updateBar(e)}
+                onLoadedData={(e) => {
+                    setTimestamps(old => {
+                        const minutes = (Math.floor(e.target.duration / 60));
+                        const seconds = (Math.floor(e.target?.duration % 60));
+                        return {
+                            ...old,
+                            duration: {
+                                minutes,
+                                seconds
+                            }
                         }
-                    }
-                })
-            }}></audio>
+                    })
+                }}
+                onEnded={setToInit}
+            ></audio>
         </div>
     )
 }

@@ -48,6 +48,10 @@ export default function AsideMenu({ closeMusicDetails }) {
 
                     </ul>
                 </div>
+                <div className="absolute bottom-10 text-center w-full flex flex-col">
+                    <span className="font-thin text-[.7em]">Projeto desenvolvido apenas para estudo</span>
+                    <span className="font-thin text-[.7em]" >Desenvolvido por <span className="font-bold">Cleyton Jesus</span></span>
+                </div>
             </div>
         </>
     )

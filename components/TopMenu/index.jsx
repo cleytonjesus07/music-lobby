@@ -3,14 +3,16 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 export default function TopMenu() {
     return (
-        <div className="w-[calc(100%-w-56)] ml-56 h-16 bg-black bg-opacity-70 flex items-center">
+        <header className="w-[calc(100%-w-56)] ml-56 h-16 bg-black bg-opacity-70 flex items-center">
             <div className="w-32 mr-5 flex items-center justify-center ">
-                <button className="bg-black p-2 rounded-full mx-5 opacity-70 hover:opacity-100 transition-all">
+                <button type={"button"} className="bg-black p-2 rounded-full mx-5 opacity-70 hover:opacity-100 transition-all">
                     <FaChevronLeft />
+                    <span className="hidden">{"<"}</span>
                 </button>
-                <button className="bg-black p-2 rounded-full
+                <button type={"button"} className="bg-black p-2 rounded-full
                 opacity-70 hover:opacity-100 transition-all">
                     <FaChevronRight />
+                    <span className="hidden">{"<"}</span>
                 </button>
             </div>
             <div>
@@ -24,11 +26,11 @@ export default function TopMenu() {
             </div>
             <div className="absolute right-8">
                 <Link href={"#"}>
-                    <button className="bg-white text-black font-semibold py-2 px-7 rounded-full">
+                    <button type={"button"} className="bg-white text-black font-semibold py-2 px-7 rounded-full">
                         Entrar
                     </button>
                 </Link>
             </div>
-        </div>
+        </header>
     )
 }
