@@ -46,7 +46,7 @@ export default function Home({ data, recents }) {
     <>
       <AsideMenu closeMusicDetails={closeMusicDetails} />
       <TopMenu />
-      <main className="ml-56 max-md:ml-0">
+      <main className="ml-56 max-md:ml-0 max-md:flex max-md:flex-col max-md:justify-center max-md:w-full">
         {seeAlbum
           ?
           <MusicDetails />

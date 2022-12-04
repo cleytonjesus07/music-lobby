@@ -7,7 +7,7 @@ export default function SongContext({ children }) {
     const [music, setMusic] = useState({});
     const [album, setAlbum] = useState();
     const [showPlayer, setShowPlayer] = useState(false);
-
+    const [openMenu, setOpenMenu] = useState(false);
 
 
     /*   async function getMusics() {
@@ -28,7 +28,8 @@ export default function SongContext({ children }) {
                 songsCtx: { songs, setSongs },
                 soundPlayer: { showPlayer, setShowPlayer },
                 albumList: { album, setAlbum },
-                currentMusic: { music, setMusic }
+                currentMusic: { music, setMusic },
+                asideMenu: { openMenu, setOpenMenu }
             }}>
             {children}
         </songCtx.Provider>
