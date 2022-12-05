@@ -7,7 +7,7 @@ import { pauseSong, playSong, forward, backward } from "./controls";
 
 export default function SoundPlayer() {
 
-    let titleAba = document.title;
+
     const { currentMusic: {
         music
     },
@@ -32,7 +32,7 @@ export default function SoundPlayer() {
             seconds: 0
         }
     });
-
+    let titleAba = document.title;
     useEffect(() => {
 
         /*  if (items.length <= 1) {
@@ -42,7 +42,7 @@ export default function SoundPlayer() {
     }, [music])
 
     useEffect(() => {
-        if (playing) return;
+        if (!playing) return;
         document.title = titleAba;
     }, [playing])
 

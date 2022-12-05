@@ -3,6 +3,7 @@ module.exports = {
         if (!src) {
             return;
         }
+        
         audioRef.current.play().then(() => {
             document.title = `Tocando: ${music?.Music?.music_title}`
         })
