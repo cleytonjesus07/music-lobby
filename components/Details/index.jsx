@@ -62,7 +62,6 @@ export default function MusicDetails() {
         `).in("Music.id_music", [id_music])
             .then(({ data }) => {
                 const choiceMusic = data.filter(({ Music }) => Music !== null)[0];
-                console.log({ choiceMusic })
                 setMusic(choiceMusic)
                 setIdMusic(id_music);
             })
