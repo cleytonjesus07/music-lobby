@@ -9,6 +9,7 @@ export default function SongContext({ children }) {
     const [showPlayer, setShowPlayer] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
     const [idMusic, setIdMusic] = useState();
+    const [playing, setPlaying] = useState(false);
 
     /*   async function getMusics() {
           let res = await methods.musics();
@@ -35,6 +36,7 @@ export default function SongContext({ children }) {
             value={{
                 songsCtx: { songs, setSongs },
                 soundPlayer: { showPlayer, setShowPlayer },
+                isPlaying: { playing, setPlaying },
                 albumList: { album, setAlbum },
                 currentMusic: { music, setMusic },
                 choice: { idMusic, setIdMusic },

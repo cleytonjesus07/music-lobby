@@ -16,7 +16,8 @@ export default function SoundPlayer() {
         currentMusic: {
             Music
         },
-        choice: { setIdMusic }
+        choice: { setIdMusic },
+        isPlaying: { playing, setPlaying }
     } = useContext(songCtx);
 
     const audioRef = useRef();
@@ -31,10 +32,6 @@ export default function SoundPlayer() {
             seconds: 0
         }
     });
-
-    const [playing, setPlaying] = useState(false);
-
-
 
     useEffect(() => {
 

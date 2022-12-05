@@ -20,7 +20,8 @@ export default function MusicDetails() {
             ,
             setMusic
         },
-        choice: { idMusic, setIdMusic }
+        choice: { idMusic, setIdMusic },
+        isPlaying: { playing }
     } = useContext(songCtx);
 
     const [list, setList] = useState([]);
@@ -64,7 +65,6 @@ export default function MusicDetails() {
                 console.log({ choiceMusic })
                 setMusic(choiceMusic)
                 setIdMusic(id_music);
-                console.log()
             })
             .then(setShowPlayer(true))
     }
@@ -97,7 +97,16 @@ export default function MusicDetails() {
                         &&
                         (
                             <ul className="block p-10">
-                                {list.map(({ Music: { id_music, music_title } }, i) => <li key={id_music} onClick={() => getMusic(id_music)} className="bg-gradient-to-r from-neutral-900 to-neutral-600 p-4 rounded-lg opacity-70 hover:opacity-100 transition-all cursor-pointer my-2">{i + 1} - {music_title}</li>)}
+                                {list.map(({ Music: { id_music, music_title } }, i) =>
+                                (
+                                    <>
+                                        <li key={id_music} onClick={() => getMusic(id_music)} className={`${(idMusic === id_music && playing) ? "bg-white text-neutral-900" : "bg-gradient-to-r from-neutral-900 to-neutral-600"} p-4 rounded-lg opacity-70 hover:opacity-100 transition-all cursor-pointer my-2 flex items-center`}>
+                                            {(idMusic === id_music && playing) && <Image src={"/audio/audiowave.gif"} width={20} height={20} className="mr-2" />}
+                                            {i + 1} - {music_title}
+                                        </li>
+                                    </>
+                                )
+                                )}
                             </ul>
                         )
                     }
