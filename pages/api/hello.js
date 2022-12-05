@@ -1,6 +1,14 @@
 import supabase from "../../supabase"
 
 export default async (req, res) => {
+
+    const { data } = await supabase
+        .from("MusicsOnAlbums")
+        .select(`
+                Music:id_music(*),
+                Album:id_album(*,Artist:id_artist(artist_name))
+        `).in("Music.id_music", [1])
+
     /* 
 
     Todas as músicas do artista

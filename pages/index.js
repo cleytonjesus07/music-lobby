@@ -124,7 +124,7 @@ export async function getServerSideProps() {
     .select(`
          Music:id_music(*),
          Album:id_album(*,Artist:id_artist(*))
-      `).order("id_album", { ascending: false }).limit(5)
+      `).order("id_music", { ascending: false }).limit(5)
   const recents = data2.data
 
   return {

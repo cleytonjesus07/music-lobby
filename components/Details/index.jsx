@@ -58,10 +58,13 @@ export default function MusicDetails() {
             .select(`
                 Music:id_music(*),
                 Album:id_album(*,Artist:id_artist(artist_name))
-        `).in("id_music", [id_music])
+        `).in("Music.id_music", [id_music])
             .then(({ data }) => {
-                setMusic(data[0])
+                const choiceMusic = data.filter(({ Music }) => Music !== null)[0];
+                console.log({ choiceMusic })
+                setMusic(choiceMusic)
                 setIdMusic(id_music);
+                console.log()
             })
             .then(setShowPlayer(true))
     }
@@ -70,35 +73,37 @@ export default function MusicDetails() {
 
 
     return (
-        <div>
-            <section className="relative flex  items-center w-full h-96 bg-neutral-900 bg-top bg-cover bg-no-repeat" style={{ backgroundImage: `url(${album_cover})` }}>
-                <div className="flex flex-col justify-center space-y-5 bg-gradient-to-r from-black to-transparent h-full w-[100%] px-10 max-md:items-center">
-                    <h2 className="font-bold text-5xl">{artist_name}</h2>
-                    <div className="w-1/2 max-lg:w-full  bg-black
+        <>
+            <div>
+                <section className="relative flex  items-center w-full h-96 bg-neutral-900 bg-top bg-cover bg-no-repeat" style={{ backgroundImage: `url(${album_cover})` }}>
+                    <div className="flex flex-col justify-center space-y-5 bg-gradient-to-r from-black to-transparent h-full w-[100%] px-10 max-md:items-center">
+                        <h2 className="font-bold text-5xl">{artist_name}</h2>
+                        <div className="w-1/2 max-lg:w-full  bg-black
                     p-4 rounded-md bg-opacity-70 ">
-                        {artist_bio}
-                    </div>
-                    <div className="absolute right-20 top-20 max-lg:hidden">
-                        <div className="relative  w-80 h-80 rotate-12 shadow-md shadow-black ">
-                            <Image src={album_cover} fill sizes="100%" alt={"Imagem da capa do álbum"} className="object-cover" />
+                            {artist_bio}
+                        </div>
+                        <div className="absolute right-20 top-20 max-lg:hidden">
+                            <div className="relative  w-80 h-80 rotate-12 shadow-md shadow-black ">
+                                <Image src={album_cover} fill sizes="100%" alt={"Imagem da capa do álbum"} className="object-cover" />
+                            </div>
                         </div>
                     </div>
+                </section>
+                <div className="bg-gradient-to-t from-black to-neutral-800 h-screen w-full">
+                    <div className="w-full p-4 bg-black">
+                        <span className="font-semibold text-3xl">Músicas</span>
+                    </div>
+                    {list.length
+                        &&
+                        (
+                            <ul className="block p-10">
+                                {list.map(({ Music: { id_music, music_title } }, i) => <li key={id_music} onClick={() => getMusic(id_music)} className="bg-gradient-to-r from-neutral-900 to-neutral-600 p-4 rounded-lg opacity-70 hover:opacity-100 transition-all cursor-pointer my-2">{i + 1} - {music_title}</li>)}
+                            </ul>
+                        )
+                    }
                 </div>
-            </section>
-            <div className="bg-gradient-to-t from-black to-neutral-800 h-screen w-full">
-                <div className="w-full p-4 bg-black">
-                    <span className="font-semibold text-3xl">Músicas</span>
-                </div>
-                {list.length
-                    &&
-                    (
-                        <ul className="block p-10">
-                            {list.map(({ Music: { id_music, music_title } }, i) => <li key={id_music} onClick={() => getMusic(id_music)} className="bg-gradient-to-r from-neutral-900 to-neutral-600 p-4 rounded-lg opacity-70 hover:opacity-100 transition-all cursor-pointer my-2">{i + 1} - {music_title}</li>)}
-                        </ul>
-                    )
-                }
-            </div>
 
-        </div>
+            </div>
+        </>
     )
 }
