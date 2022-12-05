@@ -1,15 +1,19 @@
 module.exports = {
-    playSong(audioRef, src) {
+    playSong(audioRef, src, music) {
         if (!src) {
             return;
         }
-        audioRef.current.play()
+        audioRef.current.play().then(() => {
+            document.title = `Tocando: ${music?.Music?.music_title}`
+        })
     },
-    pauseSong(audioRef, src) {
+    pauseSong(audioRef, src, music) {
         if (!src || audioRef.current.paused) {
             return;
         }
+
         audioRef.current.pause();
+        document.title = `Pausado: ${music?.Music?.music_title}`
     },
     forward(setSongs) {
         setSongs(old => {

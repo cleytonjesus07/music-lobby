@@ -6,6 +6,8 @@ import { songCtx } from "../../Context/SongContext";
 import { pauseSong, playSong, forward, backward } from "./controls";
 
 export default function SoundPlayer() {
+
+    let titleAba = document.title;
     const { currentMusic: {
         music
     },
@@ -32,7 +34,7 @@ export default function SoundPlayer() {
 
     const [playing, setPlaying] = useState(false);
 
-    
+
 
     useEffect(() => {
 
@@ -41,6 +43,11 @@ export default function SoundPlayer() {
          } */
         setToInit()
     }, [music])
+
+    useEffect(() => {
+        if (playing) return;
+        document.title = titleAba;
+    }, [playing])
 
     function setToInit() {
         setPlaying(false);
@@ -126,14 +133,14 @@ export default function SoundPlayer() {
                         ?
                         (
                             <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"play"}>
-                                <BsFillPlayCircleFill className="button" onClick={() => playSong(audioRef, audioRef.current.src)} />
+                                <BsFillPlayCircleFill className="button" onClick={() => playSong(audioRef, audioRef.current.src, music)} />
                             </div>
 
                         )
                         :
                         (
                             <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"pause"}>
-                                <BsPauseCircleFill className="button" onClick={() => pauseSong(audioRef, audioRef.current.src)} />
+                                <BsPauseCircleFill className="button" onClick={() => pauseSong(audioRef, audioRef.current.src, music)} />
                             </div>
                         )}
                     <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"forward"}>
