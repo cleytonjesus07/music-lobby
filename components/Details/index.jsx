@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {BsArrowDownCircleFill} from "react-icons/bs"
+import { BsArrowDownCircleFill } from "react-icons/bs"
 import { useContext, useEffect, useState } from "react";
 import { songCtx } from "../../Context/SongContext";
 import supabase from "../../supabase";
@@ -41,7 +41,7 @@ export default function MusicDetails() {
         fetchMusics();
     }, [])
 
-  
+
 
 
     async function getMusic(id_music) {
@@ -92,7 +92,7 @@ export default function MusicDetails() {
                 </section>
                 <div className="bg-gradient-to-t from-black to-neutral-800 h-screen w-full">
                     <div className="w-full py-4  bg-black flex items-center">
-                        <BsArrowDownCircleFill className="ml-12 w-5 h-5"/>
+                        <BsArrowDownCircleFill className="ml-12 w-5 h-5" />
                         <span className="font-semibold text-1xl ml-2 ">Musics/Soundtracks</span>
                     </div>
                     {list.length

@@ -2,12 +2,13 @@ import { useContext, useEffect, useRef, useState } from "react"
 import { BsFillPlayCircleFill, BsPauseCircleFill } from "react-icons/bs"
 import { IoMdSkipBackward, IoMdSkipForward } from "react-icons/io"
 import { VscChromeClose } from "react-icons/vsc"
+import { appCtx } from "../../Context/AppContext";
 import { songCtx } from "../../Context/SongContext";
 import { pauseSong, playSong, forward, backward } from "./controls";
 
 export default function SoundPlayer() {
 
-
+    const {scroll:{lockScroll}} = useContext(appCtx)
     const { currentMusic: {
         music
     },
@@ -33,6 +34,9 @@ export default function SoundPlayer() {
         }
     });
     let titleAba = document.title;
+
+    useEffect(()=>lockScroll(true),[])
+
     useEffect(() => {
 
         /*  if (items.length <= 1) {
@@ -104,10 +108,10 @@ export default function SoundPlayer() {
 
 
     return (
-        <div id="player" className={`fixed flex bottom-2 right-5 rounded-md w-80 h-32  bg-neutral-800 ${showPlayer ? 'show' : 'hide'} max-sm:top-0 max-sm:left-0 max-sm:w-full max-sm:h-screen max-sm:flex-col max-sm:items-center max-sm:py-10 `}>
+        <div id="player" className={`fixed flex bottom-2 right-5 rounded-md w-80 h-32  bg-neutral-800 ${showPlayer ? 'show' : 'hide'} max-sm:top-0 max-sm:left-0 max-sm:w-full max-sm:h-screen max-sm:flex-col max-sm:items-center max-sm:py-28 `}>
             <CloseSoundPlayer />
             <div className="h-full w-1/3 mx-5 flex items-center justify-center max-sm:w-full ">
-                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''} max-sm:w-[calc(100%/.9)] max-sm:h-[calc(100%/.9)] max-sm:max-w-[300px] max-sm:max-h-[300px]`} style={{ backgroundImage: `url(${music?.Album?.album_cover})` }}>
+                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''} max-sm:w-[calc(100%/.6)] max-sm:h-[calc(100%/.6)] max-sm:max-w-[300px] max-sm:max-h-[300px]`} style={{ backgroundImage: `url(${music?.Album?.album_cover})` }}>
                     <span className="h-3 w-3 bg-neutral-800 absolute rounded-full max-sm:w-1/6 max-sm:h-1/6"></span>
                 </div>
             </div>

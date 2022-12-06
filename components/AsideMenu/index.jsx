@@ -8,7 +8,8 @@ import { appCtx } from "../../Context/AppContext";
 
 
 
-export default function AsideMenu({ closeMusicDetails }) {
+export default function AsideMenu() {
+    const { page: { setPage } } = useContext(appCtx);
     const [whoMenuIsActive, setWhoMenuIsActive] = useState(null);
     const { asideMenu: { openMenu, setOpenMenu } } = useContext(songCtx);
     const { scroll: { lockScroll } } = useContext(appCtx);
@@ -64,13 +65,10 @@ export default function AsideMenu({ closeMusicDetails }) {
                         {menus.map(({ id, icon, title, href }, index) => {
                             return (
                                 <li key={index} className="flex max-md:justify-center  ">
-                                    <Link href={href} onClick={() => {
-                                        if (index === 0) {
-                                            closeMusicDetails()
-                                            setOpenMenu(false);
-                                        }
-                                    }} className={
-                                        `
+                                    <Link href={href}
+                                        onClick={() => setPage(title.toLowerCase())}
+                                        className={
+                                            `
                                         flex 
                                         items-center 
                                         group 
@@ -80,7 +78,7 @@ export default function AsideMenu({ closeMusicDetails }) {
                                         my-3
                                        
                                         `
-                                    }>
+                                        }>
                                         <div className="w-7 mx-5 py-2 opacity-70">{icon}</div>
                                         <div
                                             onClick={() => handleActiveMenu(title)}

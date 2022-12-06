@@ -1,5 +1,5 @@
 
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import AsideMenu from "../components/AsideMenu"
 import MusicDetails from "../components/Details"
 import TopMenu from "../components/TopMenu"
@@ -7,33 +7,42 @@ import { songCtx } from "../Context/SongContext"
 import InicioPage from "../pageComponents/InicioPage"
 import supabase from "../supabase"
 
+import { appCtx } from "../Context/AppContext"
+import SearchPage from "../pageComponents/SearchPage"
 
 Home.title = "Web Player"
 export default function Home({ data, recents }) {
+  const { page: { page, setPage } } = useContext(appCtx);
   const { songsCtx: { setSongs }, albumList: { album, setAlbum }, soundPlayer: { setShowPlayer } } = useContext(songCtx);
-  const [seeAlbum, setSeeAlbum] = useState(false);
 
-  function closeMusicDetails() {
-    setSeeAlbum(false);
+  const pageManager = {
+    pages: (page) => {
+      /* Páginas */
+      switch (page) {
+        case "início":
+          return <InicioPage recents={recents} data={data} setAlbum={setAlbum} setPage={setPage} />
+        case "pesquisar":
+          return <SearchPage />
+        case "details":
+          return <MusicDetails />
+        default:
+          break;
+      }
+    }
   }
 
+
   useEffect(() => {
+    /* pages.data = {data,recents} */
     setSongs(old => ({ ...old, items: data }))
   }, [])
 
   return (
     <>
-      <AsideMenu closeMusicDetails={closeMusicDetails} />
+      <AsideMenu />
       <TopMenu />
       <main className="ml-56 max-md:ml-0 max-md:flex max-md:flex-col max-md:justify-center max-md:w-full">
-        {seeAlbum
-          ?
-          <MusicDetails />
-          :
-          (
-            <InicioPage recents={recents} data={data} setAlbum={setAlbum} setSeeAlbum={setSeeAlbum} />
-          )
-        }
+        {pageManager.pages(page)}
       </main>
     </>
   )

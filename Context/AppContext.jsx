@@ -1,11 +1,12 @@
 
-import { createContext, useCallback } from "react"
+import { createContext, useCallback, useState } from "react"
 export const appCtx = createContext();
 
 export default function AppContext({ children }) {
+    const [page, setPage] = useState("início");
     const lockScroll = useCallback((option) => {
         if (option) {
-            document.body.style.overflow = "hidden";
+            document.body.classList.add(".lockScroll")
         } else {
             document.body.style.overflow = "unset";
         }
@@ -14,7 +15,8 @@ export default function AppContext({ children }) {
     return (
         <appCtx.Provider
             value={{
-                scroll:{
+                page: { page, setPage },
+                scroll: {
                     lockScroll
                 }
             }}>

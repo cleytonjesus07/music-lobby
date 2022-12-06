@@ -2,7 +2,7 @@ import Card from "../../components/Card"
 import Section from "../../components/Section"
 import supabase from "../../supabase"
 
-export default function InicioPage({ recents, data, setAlbum, setSeeAlbum }) {
+export default function InicioPage({ recents, data, setAlbum, setPage }) {
     return (
         <>
             <div className="bg-gradient-to-b from-black to-neutral-900">
@@ -10,9 +10,9 @@ export default function InicioPage({ recents, data, setAlbum, setSeeAlbum }) {
                     {recents.map(({ Album: { album_cover, Artist: { id_artist, artist_bio } }, Music: { music_title } }, i) => {
                         return (
 
-                            <Card  key={i}
+                            <Card key={i}
                                 onClick={() => {
-                                    getArtistMusicsDetails(id_artist, setAlbum, setSeeAlbum)
+                                    getArtistMusicsDetails(id_artist, setAlbum, setPage)
                                 }}
                                 title={music_title}
                                 cover={album_cover}
@@ -31,7 +31,7 @@ export default function InicioPage({ recents, data, setAlbum, setSeeAlbum }) {
 
                                     <Card key={id_album}
                                         onClick={() => {
-                                            getArtistMusicsDetails(id_artist, setAlbum, setSeeAlbum)
+                                            getArtistMusicsDetails(id_artist, setAlbum)
                                         }}
                                         title={album_title}
                                         cover={album_cover}
@@ -47,7 +47,7 @@ export default function InicioPage({ recents, data, setAlbum, setSeeAlbum }) {
 }
 
 
-async function getArtistMusicsDetails(id_artist, setAlbum, setSeeAlbum) {
+async function getArtistMusicsDetails(id_artist, setAlbum, setPage) {
     await supabase
         .from("MusicsOnAlbums")
         .select(`
@@ -62,5 +62,5 @@ async function getArtistMusicsDetails(id_artist, setAlbum, setSeeAlbum) {
             return data.filter(({ Album }) => Album !== null)[0]
         })
         .then(setAlbum)
-        .then(() => setSeeAlbum(true));
+        .then(() => setPage("details"));
 }

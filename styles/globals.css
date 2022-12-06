@@ -17,6 +17,9 @@ body {
 }
 
 /* Scrollbar */
+.lockScroll{
+  overflow: hidden !important;
+}
 .hiddenScroll::-webkit-scrollbar {
   height: 0px !important
 }
@@ -144,7 +147,7 @@ body {
   }
 }
 
-.btn-container {}
+
 
 .btn-left,
 .btn-right {
