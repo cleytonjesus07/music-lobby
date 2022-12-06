@@ -26,14 +26,14 @@ export default function TopMenu() {
                 {/* Menu Hamburguer */}
                 <GiHamburgerMenu className="w-5 h-5 group-hover:fill-black" />
             </button>
-            <div className="max-sm:hidden">
+            <div>
                 {/* SearchBox */}
                 {page === "pesquisar" && (
                     <div className="relative flex items-center">
                         <div className="absolute w-7 mx-2 pointer-events-none">
                             <AiOutlineSearch className="fill-black w-full h-full " />
                         </div>
-                        <input type={"search"} value={search} onChange={handleOnChange} placeholder="O que você quer ouvir?" className="p-2 px-10 rounded-full placeholder:font-light placeholder:text-sm  text-black outline-none max-sm:hidden" />
+                        <input type={"search"} value={search} onChange={handleOnChange} placeholder="O que você quer ouvir?" className="p-2 px-10 rounded-full placeholder:font-light placeholder:text-sm  text-black outline-none " />
                     </div>
                 )}
             </div>
