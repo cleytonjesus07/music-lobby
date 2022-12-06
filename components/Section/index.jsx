@@ -59,7 +59,7 @@ export default function Section({ children, title,wrap }) {
             </div>
             <div className="relative" >
                 {showButtons && <Buttons toLeft={toLeft} cardContainerRef={cardContainerRef} toRight={toRight} />}
-                <div ref={cardContainerRef} className={`relative flex justify-start scroll-smooth   hiddenScroll overflow-x-auto px-[2rem] ${wrap ||""}`}>
+                <div ref={cardContainerRef} className={`relative flex justify-start scroll-smooth   hiddenScroll overflow-x-auto px-[2rem] ${wrap && "flex-wrap"}`}>
                     {children}
                 </div>
             </div>

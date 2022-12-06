@@ -2,7 +2,7 @@ import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { VscChromeClose } from "react-icons/vsc"
 import { VscLibrary } from "react-icons/vsc";
 import Link from "next/link";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { songCtx } from "../../Context/SongContext";
 import { appCtx } from "../../Context/AppContext";
 
@@ -49,7 +49,7 @@ export default function AsideMenu() {
     return (
         <>
             {/* Menu Lateral */}
-            <div className={`h-full w-56 bg-black fixed max-md:w-full max-md:z-10  max-md:flex max-md:flex-col max-md:fixed ${openMenu ? "" : "max-md:hidden"}`} style={{zIndex:999}}>
+            <div className={`h-full w-56 bg-black fixed max-md:w-full max-md:z-10  max-md:flex max-md:flex-col max-md:fixed ${openMenu ? "" : "max-md:hidden"}`} style={{ zIndex: 999 }}>
                 <button onClick={() => {
                     setOpenMenu(false)
                 }} className="absolute right-10 top-9 md:hidden">

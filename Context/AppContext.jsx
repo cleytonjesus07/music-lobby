@@ -1,10 +1,15 @@
 
-import { createContext, useCallback, useState } from "react"
+import { createContext, useCallback, useDeferredValue, useState } from "react"
 export const appCtx = createContext();
 
 export default function AppContext({ children }) {
-    const [page, setPage] = useState("pesquisar");
-    const [search,setSearch] = useState("");
+    const [page, setPage] = useState("início");
+    const [search, setSearch] = useState("");
+    const deferredValue = useDeferredValue(search);
+    const handleOnChange = (e) => {
+        const value = e.target.value;
+        setSearch(value)
+    }
     const lockScroll = useCallback((option) => {
         if (option) {
             document.body.classList.add(".lockScroll")
@@ -20,7 +25,7 @@ export default function AppContext({ children }) {
                 scroll: {
                     lockScroll
                 },
-                search:{search,setSearch}
+                search: { search, handleOnChange,deferredValue }
             }}>
             {children}
         </appCtx.Provider>
