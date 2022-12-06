@@ -37,13 +37,13 @@ export default function TopMenu() {
                     </div>
                 )}
             </div>
-            <div className="absolute right-8">
+            {/* <div className="absolute right-8">
                 <Link href={"#"}>
                     <button type={"button"} className="bg-white text-black font-semibold py-2 px-7 rounded-full">
                         Entrar
                     </button>
                 </Link>
-            </div>
+            </div> */}
         </header>
     )
 }
