@@ -99,7 +99,7 @@ export default function SoundPlayer() {
                 }
             })
         }
-        return <button type={"button"} className="absolute right-3 top-2 cursor-pointer opacity-40 hover:opacity-100 transition-all p-1 max-md:w-10" title="close" onClick={() => close()}><VscChromeClose className="w-full h-full" /></button>
+        return <button type={"button"} className="absolute right-3 top-2 cursor-pointer opacity-40 hover:opacity-100 transition-all p-1 max-sm:w-10" title="close" onClick={() => close()}><VscChromeClose className="w-full h-full" /></button>
     }
 
 
