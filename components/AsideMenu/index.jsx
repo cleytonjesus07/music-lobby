@@ -77,7 +77,7 @@ export default function AsideMenu({ closeMusicDetails }) {
                                         max-md:inline-flex
                                         max-md:items-center
                                         max-md:w-[200px]
-                                        max-md:my-9
+                                        my-3
                                        
                                         `
                                     }>
