@@ -49,7 +49,7 @@ export default function AsideMenu() {
     return (
         <>
             {/* Menu Lateral */}
-            <div className={`h-full w-56 bg-black fixed max-md:w-full max-md:z-10  max-md:flex max-md:flex-col max-md:fixed ${openMenu ? "" : "max-md:hidden"}`}>
+            <div className={`h-full w-56 bg-black fixed max-md:w-full max-md:z-10  max-md:flex max-md:flex-col max-md:fixed ${openMenu ? "" : "max-md:hidden"}`} style={{zIndex:999}}>
                 <button onClick={() => {
                     setOpenMenu(false)
                 }} className="absolute right-10 top-9 md:hidden">
@@ -66,7 +66,10 @@ export default function AsideMenu() {
                             return (
                                 <li key={index} className="flex max-md:justify-center  ">
                                     <Link href={href}
-                                        onClick={() => setPage(title.toLowerCase())}
+                                        onClick={() => {
+                                            setPage(title.toLowerCase())
+                                            setOpenMenu(false)
+                                        }}
                                         className={
                                             `
                                         flex 

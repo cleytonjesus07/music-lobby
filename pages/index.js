@@ -14,15 +14,32 @@ Home.title = "Web Player"
 export default function Home({ data, recents }) {
   const { page: { page, setPage } } = useContext(appCtx);
   const { songsCtx: { setSongs }, albumList: { album, setAlbum }, soundPlayer: { setShowPlayer } } = useContext(songCtx);
-
+  async function getArtistMusicsDetails(id_artist, setAlbum) {
+    console.log(id_artist)
+    await supabase
+      .from("MusicsOnAlbums")
+      .select(`
+        id_music(*),
+        Album:id_album(
+            album_cover,
+            album_title,
+            Artist:id_artist(*)
+        )
+    `).in("Album.id_artist", [id_artist])
+      .then(({ data }) => {
+        return data.filter(({ Album }) => Album !== null)[0]
+      })
+      .then(setAlbum)
+      .then(() => setPage("details"));
+  }
   const pageManager = {
     pages: (page) => {
       /* Páginas */
       switch (page) {
         case "início":
-          return <InicioPage recents={recents} data={data} setAlbum={setAlbum} setPage={setPage} />
+          return <InicioPage recents={recents} data={data} setAlbum={setAlbum} setPage={setPage} getArtistMusicsDetails={getArtistMusicsDetails} />
         case "pesquisar":
-          return <SearchPage />
+          return <SearchPage data={data} getArtistMusicsDetails={getArtistMusicsDetails} setPage={setPage} setAlbum={setAlbum} />
         case "details":
           return <MusicDetails />
         default:
@@ -41,7 +58,7 @@ export default function Home({ data, recents }) {
     <>
       <AsideMenu />
       <TopMenu />
-      <main className="ml-56 max-md:ml-0 max-md:flex max-md:flex-col max-md:justify-center max-md:w-full">
+      <main className="ml-56 max-md:ml-0 max-md:flex max-md:flex-col max-md:justify-center max-md:w-full ">
         {pageManager.pages(page)}
       </main>
     </>

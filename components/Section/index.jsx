@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai"
 let scrollStep;
-export default function Section({ children, title }) {
+export default function Section({ children, title,wrap }) {
 
     const cardContainerRef = useRef();
     const [showButtons, setShowButtons] = useState(false);
@@ -59,7 +59,7 @@ export default function Section({ children, title }) {
             </div>
             <div className="relative" >
                 {showButtons && <Buttons toLeft={toLeft} cardContainerRef={cardContainerRef} toRight={toRight} />}
-                <div ref={cardContainerRef} className=" relative flex justify-start scroll-smooth   hiddenScroll overflow-x-auto px-[2rem]   ">
+                <div ref={cardContainerRef} className={`relative flex justify-start scroll-smooth   hiddenScroll overflow-x-auto px-[2rem] ${wrap ||""}`}>
                     {children}
                 </div>
             </div>

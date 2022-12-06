@@ -2,7 +2,7 @@ import Card from "../../components/Card"
 import Section from "../../components/Section"
 import supabase from "../../supabase"
 
-export default function InicioPage({ recents, data, setAlbum, setPage }) {
+export default function InicioPage({ recents, data, setAlbum, setPage,getArtistMusicsDetails }) {
     return (
         <>
             <div className="bg-gradient-to-b from-black to-neutral-900">
@@ -31,7 +31,7 @@ export default function InicioPage({ recents, data, setAlbum, setPage }) {
 
                                     <Card key={id_album}
                                         onClick={() => {
-                                            getArtistMusicsDetails(id_artist, setAlbum)
+                                            getArtistMusicsDetails(id_artist, setAlbum,setPage)
                                         }}
                                         title={album_title}
                                         cover={album_cover}
@@ -47,20 +47,3 @@ export default function InicioPage({ recents, data, setAlbum, setPage }) {
 }
 
 
-async function getArtistMusicsDetails(id_artist, setAlbum, setPage) {
-    await supabase
-        .from("MusicsOnAlbums")
-        .select(`
-        id_music(*),
-        Album:id_album(
-            album_cover,
-            album_title,
-            Artist:id_artist(*)
-        )
-    `).in("Album.id_artist", [id_artist])
-        .then(({ data }) => {
-            return data.filter(({ Album }) => Album !== null)[0]
-        })
-        .then(setAlbum)
-        .then(() => setPage("details"));
-}
