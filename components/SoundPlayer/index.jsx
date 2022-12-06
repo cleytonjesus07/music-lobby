@@ -121,7 +121,7 @@ export default function SoundPlayer() {
                     <span className="w-2 h-2 relative -left-1  rounded-full bg-white"></span>
                 </div>
                 <div className="text-center">
-                    <span className="text-[10px]">{(timestamps.currentTime?.minutes < 10) ? '0' + timestamps.currentTime?.minutes : timestamps.currentTime?.minutes} : {(timestamps.currentTime?.seconds < 10) ? '0' + timestamps.currentTime?.seconds : timestamps.currentTime?.seconds} / {`${timestamps.duration?.minutes < 10 ? '0' + timestamps.duration?.minutes : timestamps.duration?.minutes} : ${timestamps.duration?.seconds < 10 ? '0' + timestamps.duration?.seconds : timestamps.duration?.seconds}`}</span>
+                    <span className="text-[10px] max-sm:text-base">{(timestamps.currentTime?.minutes < 10) ? '0' + timestamps.currentTime?.minutes : timestamps.currentTime?.minutes} : {(timestamps.currentTime?.seconds < 10) ? '0' + timestamps.currentTime?.seconds : timestamps.currentTime?.seconds} / {`${timestamps.duration?.minutes < 10 ? '0' + timestamps.duration?.minutes : timestamps.duration?.minutes} : ${timestamps.duration?.seconds < 10 ? '0' + timestamps.duration?.seconds : timestamps.duration?.seconds}`}</span>
                 </div>
                 <div className="flex justify-center space-x-2 buttons">
                     <div className="hover:cursor-pointer opacity-40 hover:opacity-100  transition-all" title={"backward"}>

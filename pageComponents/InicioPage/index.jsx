@@ -10,7 +10,7 @@ export default function InicioPage({ recents, data, setAlbum, setSeeAlbum }) {
                     {recents.map(({ Album: { album_cover, Artist: { id_artist, artist_bio } }, Music: { music_title } }, i) => {
                         return (
 
-                            <Card key={i}
+                            <Card  key={i}
                                 onClick={() => {
                                     getArtistMusicsDetails(id_artist, setAlbum, setSeeAlbum)
                                 }}
