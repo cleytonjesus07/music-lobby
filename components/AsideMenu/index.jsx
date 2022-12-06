@@ -2,30 +2,35 @@ import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { VscChromeClose } from "react-icons/vsc"
 import { VscLibrary } from "react-icons/vsc";
 import Link from "next/link";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { songCtx } from "../../Context/SongContext";
 import { appCtx } from "../../Context/AppContext";
 
 
 
 export default function AsideMenu({ closeMusicDetails }) {
+    const [whoMenuIsActive, setWhoMenuIsActive] = useState(null);
     const { asideMenu: { openMenu, setOpenMenu } } = useContext(songCtx);
     const { scroll: { lockScroll } } = useContext(appCtx);
+
     const menus = [
         {
+            id: 0,
             icon: <AiFillHome className="w-full h-full" />,
             title: "Início",
             href: "/"
         },
         {
+            id: 1,
             icon: <AiOutlineSearch className="w-full h-full" />,
             title: "Pesquisar",
-            href: "search"
+            href: "/"
         },
         {
+            id: 2,
             icon: <VscLibrary className="w-full h-full" />,
             title: "Biblioteca",
-            href: "collection"
+            href: "/"
         },
     ]
 
@@ -33,7 +38,12 @@ export default function AsideMenu({ closeMusicDetails }) {
         openMenu ? lockScroll(true) : lockScroll(false);
     }, [openMenu])
 
+    function handleActiveMenu(menu) {
+        setWhoMenuIsActive({ active: menu });
+        return;
+    }
 
+    useEffect(() => handleActiveMenu('Início'), [])
 
     return (
         <>
@@ -51,7 +61,7 @@ export default function AsideMenu({ closeMusicDetails }) {
                 </Link>
                 <div>
                     <ul className="max-md:flex max-md:flex-col  ">
-                        {menus.map(({ icon, title, href }, index) => {
+                        {menus.map(({ id, icon, title, href }, index) => {
                             return (
                                 <li key={index} className="flex max-md:justify-center  ">
                                     <Link href={href} onClick={() => {
@@ -72,7 +82,16 @@ export default function AsideMenu({ closeMusicDetails }) {
                                         `
                                     }>
                                         <div className="w-7 mx-5 py-2 opacity-70">{icon}</div>
-                                        <div className="font-semibold text-sm opacity-70 group-hover:opacity-100 transition-all">{title}</div>
+                                        <div
+                                            onClick={() => handleActiveMenu(title)}
+                                            className={`
+                                            font-semibold 
+                                            text-sm 
+                                            opacity-70 
+                                            ${(whoMenuIsActive?.active === title) ? "opacity-100" : ""}
+                                            transition-all
+                                        `}
+                                        >{title}</div>
                                     </Link>
                                 </li>
 

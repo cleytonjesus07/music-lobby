@@ -5,6 +5,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import { useContext } from "react";
 import { songCtx } from "../../Context/SongContext";
 export default function TopMenu() {
+
     const { asideMenu: { setOpenMenu } } = useContext(songCtx);
     return (
         <header className="w-[calc(100%-w-56)] ml-56 max-md:ml-0 h-16 bg-black bg-opacity-70 flex items-center">
@@ -19,7 +20,7 @@ export default function TopMenu() {
                     <span className="hidden">{"<"}</span>
                 </button>
             </div>
-            <button onClick={() => setOpenMenu(true)} className="ml-10 mr-5 flex items-center justify-center md:hidden rounded-full hover:bg-white group transition-all p-2">
+            <button type={"button"} onClick={() => setOpenMenu(true)} className="ml-10 mr-5 flex items-center justify-center md:hidden rounded-full hover:bg-white group transition-all p-2">
                 {/* Menu Hamburguer */}
                 <GiHamburgerMenu className="w-5 h-5 group-hover:fill-black" />
             </button>

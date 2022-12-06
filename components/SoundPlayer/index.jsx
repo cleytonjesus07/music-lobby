@@ -49,7 +49,7 @@ export default function SoundPlayer() {
     function setToInit() {
         setPlaying(false);
         audioRef.current.currentTime = 0;
-        timeBarRef.current.style.width = "0%";
+        timeBarRef.current.style.width = "0px";
         audioRef.current.pause();
     }
 
@@ -108,16 +108,17 @@ export default function SoundPlayer() {
             <CloseSoundPlayer />
             <div className="h-full w-1/3 mx-5 flex items-center justify-center max-sm:w-full ">
                 <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''} max-sm:w-[calc(100%/.9)] max-sm:h-[calc(100%/.9)] max-sm:max-w-[300px] max-sm:max-h-[300px]`} style={{ backgroundImage: `url(${music?.Album?.album_cover})` }}>
-                    <span className="h-5 w-5 bg-neutral-800 absolute rounded-full max-sm:w-1/5 max-sm:h-1/5"></span>
+                    <span className="h-3 w-3 bg-neutral-800 absolute rounded-full max-sm:w-1/6 max-sm:h-1/6"></span>
                 </div>
             </div>
+            
             <div className="w-full flex flex-col justify-center space-y-1 px-3">
                 <h2 className="font-bold">{music?.Music?.music_title}</h2>
                 <span className="font-extralight text-xs">{music?.Album?.Artist?.artist_name}</span>
-                <div className="relative w-full h-[2px] bg-neutral-600 rounded-md flex items-center ">
-                    <div ref={timeBarRef} className={`h-full  bg-white`}>
+                <div className={`relative w-full h-[2px] max-sm:h-1 bg-neutral-600 rounded-md flex items-center `}>
+                    <div ref={timeBarRef} className={`h-full  bg-white rounded-tl-md rounded-bl-md`}>
                     </div>
-                    <span className="w-2 h-2 rounded-full  bg-white"></span>
+                    <span className="w-2 h-2 relative -left-1  rounded-full bg-white"></span>
                 </div>
                 <div className="text-center">
                     <span className="text-[10px]">{(timestamps.currentTime?.minutes < 10) ? '0' + timestamps.currentTime?.minutes : timestamps.currentTime?.minutes} : {(timestamps.currentTime?.seconds < 10) ? '0' + timestamps.currentTime?.seconds : timestamps.currentTime?.seconds} / {`${timestamps.duration?.minutes < 10 ? '0' + timestamps.duration?.minutes : timestamps.duration?.minutes} : ${timestamps.duration?.seconds < 10 ? '0' + timestamps.duration?.seconds : timestamps.duration?.seconds}`}</span>

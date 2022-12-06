@@ -6,7 +6,7 @@ import supabase from "../../supabase";
 export default function MusicDetails() {
     const { songsCtx: { setSongs },
         albumList: { album: {
-            Album: { album_cover, Artist: { id_artist, artist_name, artist_bio } },
+            Album: { album_cover, album_title, Artist: { id_artist, artist_name, artist_bio } },
 
         } },
         soundPlayer: {
@@ -40,6 +40,7 @@ export default function MusicDetails() {
         fetchMusics();
     }, [])
 
+  
 
 
     async function getMusic(id_music) {
@@ -89,8 +90,8 @@ export default function MusicDetails() {
                     </div>
                 </section>
                 <div className="bg-gradient-to-t from-black to-neutral-800 h-screen w-full">
-                    <div className="w-full p-4 bg-black">
-                        <span className="font-semibold text-3xl">Músicas</span>
+                    <div className="w-full py-4  bg-black">
+                        <span className="font-semibold text-1xl ml-12">Músicas do álbum: {album_title}</span>
                     </div>
                     {list.length
                         &&
@@ -101,7 +102,7 @@ export default function MusicDetails() {
                                     <>
                                         <li key={id_music} onClick={() => getMusic(id_music)} className={`${(idMusic === id_music && playing) ? "bg-white text-neutral-900" : "bg-gradient-to-r from-neutral-900 to-neutral-600"} p-4 rounded-lg opacity-70 hover:opacity-100 transition-all cursor-pointer my-2 flex items-center`}>
                                             {(idMusic === id_music && playing) && <Image src={"/audio/audiowave.gif"} width={20} height={20} className="mr-2" />}
-                                            {i + 1} - {music_title}
+                                            <span className={`font-bold mr-1 group-span ${(idMusic === id_music && playing) && "bg-white text-neutral-900"}`}>{i + 1}</span> - {music_title}
                                         </li>
                                     </>
                                 )
