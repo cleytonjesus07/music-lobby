@@ -33,12 +33,6 @@ export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
         fetchMusics();
     }, [])
 
-
-    useEffect(() => {
-        console.log(musics)
-    }, [musics])
-
-
     if (!filteredMusics.length && !musics.length) {
         return (
             <span>
