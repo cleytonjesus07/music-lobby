@@ -11,7 +11,7 @@ export default function TopMenu() {
 
     return (
         <header className="w-[calc(100%-w-56)] ml-56 max-md:ml-0 h-16 bg-black bg-opacity-70 flex items-center">
-            <div className="w-32 mr-5 flex items-center justify-center max-md:hidden ">
+            <div className="w-32 mr-5  items-center justify-center hidden ">
                 <button type={"button"} className="bg-black p-2 rounded-full mx-5 opacity-70 hover:opacity-100 transition-all">
                     <FaChevronLeft />
                     <span className="hidden">{"<"}</span>
