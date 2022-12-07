@@ -59,7 +59,7 @@ export default function Section({ children, title, wrap, seeMore,justifyCenter }
             </div>
             <div className="relative w-full" >
                 {showButtons && <Buttons toLeft={toLeft} cardContainerRef={cardContainerRef} toRight={toRight} />}
-                <div ref={cardContainerRef} className={`relative flex justify-start ${justifyCenter && 'justify-center'} scroll-smooth   hiddenScroll overflow-x-auto  ${wrap && "flex-wrap"} px-2`}>
+                <div ref={cardContainerRef} className={`relative flex justify-start ${justifyCenter && 'max-sm:justify-center'} scroll-smooth   hiddenScroll overflow-x-auto  ${wrap && "flex-wrap"} px-2`}>
                     {children}
                 </div>
             </div>
