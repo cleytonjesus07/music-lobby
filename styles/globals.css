@@ -14,12 +14,14 @@ body {
   overflow-x: hidden;
   scroll-behavior: smooth;
   background-color: #1e1e1e;
+
 }
 
 /* Scrollbar */
-.lockScroll{
+.lockScroll {
   overflow: hidden !important;
 }
+
 .hiddenScroll::-webkit-scrollbar {
   height: 0px !important
 }
