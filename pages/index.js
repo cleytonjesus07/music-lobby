@@ -15,7 +15,6 @@ export default function Home({ data, recents }) {
   const { page: { page, setPage } } = useContext(appCtx);
   const { songsCtx: { setSongs }, albumList: { album, setAlbum }, soundPlayer: { setShowPlayer } } = useContext(songCtx);
   async function getArtistMusicsDetails(id_artist, setAlbum) {
-    console.log(id_artist)
     await supabase
       .from("MusicsOnAlbums")
       .select(`

@@ -53,7 +53,7 @@ export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
         </span>
     }
     return (
-        <Section title={"Pesquisar"} wrap={true}>
+        <Section title={"Pesquisar"} wrap={true} justifyCenter={true}>
             {filteredMusics.map(({ Music: { id_music, music_title }, Album: { album_cover, Artist: { id_artist, artist_bio } } }) => {
                 return <Card key={id_music} cover={album_cover} desc={artist_bio} title={music_title} onClick={() => getArtistMusicsDetails(id_artist, setAlbum)} />
             })}
