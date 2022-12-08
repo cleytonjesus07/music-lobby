@@ -129,7 +129,7 @@ export default function SoundPlayer() {
             </div>
 
             <div className="w-full flex flex-col justify-center  px-3">
-                <h2 className="font-bold">{music?.Music?.music_title}</h2>
+                <h2 className="font-bold text-sm">{music?.Music?.music_title}</h2>
                 <span className="font-extralight text-xs">{music?.Album?.Artist?.artist_name}</span>
                 <div className={`relative w-full  max-sm:h-1 rounded-md flex items-center max-sm:my-9 mt-4 h-[5px]  `}>
                     <input id="range" type={"range"} min={0} max={100} ref={timeBarRef} onChange={seekTo} className={`rounded-md overflow-hidden w-full h-full max-sm:h-[2em] `} />
