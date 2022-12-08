@@ -131,11 +131,12 @@ export default function SoundPlayer() {
             <div className="w-full flex flex-col justify-center  px-3">
                 <h2 className="font-bold text-sm">{music?.Music?.music_title}</h2>
                 <span className="font-extralight text-xs">{music?.Album?.Artist?.artist_name}</span>
-                <div className={`relative w-full  max-sm:h-1 rounded-md flex items-center max-sm:my-9 mt-4 h-[5px]  `}>
+                <div className={`relative w-full  max-sm:h-full rounded-md flex flex-col items-center max-sm:my-9 mt-4 h-5  `}>
                     <input id="range" type={"range"} min={0} max={100} ref={timeBarRef} onChange={seekTo} className={`rounded-md overflow-hidden w-full h-full max-sm:h-[2em] `} />
-                </div>
-                <div className="text-center">
-                    <span className="text-[10px] max-sm:text-base">{(timestamps.currentTime?.minutes < 10) ? '0' + timestamps.currentTime?.minutes : timestamps.currentTime?.minutes} : {(timestamps.currentTime?.seconds < 10) ? '0' + timestamps.currentTime?.seconds : timestamps.currentTime?.seconds} / {`${timestamps.duration?.minutes < 10 ? '0' + timestamps.duration?.minutes : timestamps.duration?.minutes} : ${timestamps.duration?.seconds < 10 ? '0' + timestamps.duration?.seconds : timestamps.duration?.seconds}`}</span>
+                    <div className="flex w-full justify-between">
+                        <span className="text-xs">{(timestamps.currentTime?.minutes < 10) ? '0' + timestamps.currentTime?.minutes : timestamps.currentTime?.minutes} : {(timestamps.currentTime?.seconds < 10) ? '0' + timestamps.currentTime?.seconds : timestamps.currentTime?.seconds} </span>
+                        <span className="text-xs">{timestamps.duration?.minutes < 10 ? '0' + timestamps.duration?.minutes : timestamps.duration?.minutes} : {timestamps.duration?.seconds < 10 ? '0' + timestamps.duration?.seconds : timestamps.duration?.seconds}</span>
+                    </div>
                 </div>
                 <div className="flex justify-center space-x-2 buttons">
                     <div className="hover:cursor-pointer opacity-40 hover:opacity-100  transition-all" title={"backward"}>
@@ -164,26 +165,26 @@ export default function SoundPlayer() {
                 className="absolute hidden "
                 src={music?.Music?.music_link}
                 onLoadStart={() => timeBarRef.current.value = 0}
-            onLoadedData={() => {
-                timeBarRef.current.removeAttribute("disabled");
-            }}
-            onPlaying={() => setPlaying(true)}
-            onPause={() => setPlaying(false)}
-            onTimeUpdate={(e) => updateBar(e)}
-            onDurationChange={(e) => {
-                setTimestamps(old => {
-                    const minutes = (Math.floor(e.target.duration / 60));
-                    const seconds = (Math.floor(e.target?.duration % 60));
-                    return {
-                        ...old,
-                        duration: {
-                            minutes,
-                            seconds
+                onLoadedData={() => {
+                    timeBarRef.current.removeAttribute("disabled");
+                }}
+                onPlaying={() => setPlaying(true)}
+                onPause={() => setPlaying(false)}
+                onTimeUpdate={(e) => updateBar(e)}
+                onDurationChange={(e) => {
+                    setTimestamps(old => {
+                        const minutes = (Math.floor(e.target.duration / 60));
+                        const seconds = (Math.floor(e.target?.duration % 60));
+                        return {
+                            ...old,
+                            duration: {
+                                minutes,
+                                seconds
+                            }
                         }
-                    }
-                })
-            }}
-            onEnded={setToInit}
+                    })
+                }}
+                onEnded={setToInit}
             ></audio>
         </div >
     )
