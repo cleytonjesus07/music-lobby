@@ -101,9 +101,9 @@ export default function MusicDetails() {
                             <ul className="block p-10">
                                 {list.map(({ Music: { id_music, music_title } }, i) =>
                                 (
-                                    <li key={id_music} onClick={() => getMusic(id_music)} className={`${(idMusic === id_music && playing) ? "bg-white text-neutral-900" : "bg-gradient-to-r from-neutral-900 to-neutral-600"} p-4 rounded-lg opacity-70 hover:opacity-100 transition-all cursor-pointer my-2 flex items-center`}>
+                                    <li key={id_music} onClick={() => getMusic(id_music)} className={`${(idMusic === id_music && playing) ? "bg-white text-neutral-900 " : "bg-gradient-to-r from-neutral-900 to-neutral-600 scale-[.9]"} p-4 rounded-lg opacity-70 hover:opacity-100 transition-all cursor-pointer my-2 flex items-center `}>
                                         {(idMusic === id_music && playing) && <Image src={"/audio/audiowave.gif"} width={20} height={20} className="mr-2" alt="gif" />}
-                                        <span className={`font-bold mr-1 group-span ${(idMusic === id_music && playing) && "bg-white text-neutral-900"}`}>{i + 1}</span> - {music_title}
+                                        <span className={`font-bold mr-1  group-span ${(idMusic === id_music && playing) && "bg-white text-neutral-900"}`}>{i + 1}</span> - {music_title}
                                     </li>
                                 )
                                 )}
