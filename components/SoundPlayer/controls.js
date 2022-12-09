@@ -32,7 +32,7 @@ module.exports = {
     backward(setIndex, musicas) {
         
         setIndex(old => {
-            console.log({old,musicas})
+           
             if (old <= 0) {
                 return (musicas - 1);
             }
