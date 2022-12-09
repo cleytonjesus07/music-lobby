@@ -1,35 +1,44 @@
 module.exports = {
-    playSong(audioRef, src, music) {
+    playSong(audioRef, src,setPlaying) {
         if (!src) {
             return;
         }
-        
+
         audioRef.current.play().then(() => {
-            document.title = `Tocando: ${music?.Music?.music_title}`
+            
+            setPlaying(true)
         })
     },
-    pauseSong(audioRef, src, music) {
+    pauseSong(audioRef, src,setPlaying) {
         if (!src || audioRef.current.paused) {
             return;
         }
-
+        setPlaying(false)
         audioRef.current.pause();
-        document.title = `Pausado: ${music?.Music?.music_title}`
+       
+        
     },
-    forward(setSongs) {
-        setSongs(old => {
-            return {
-                ...old,
-                index: (old.index < (old.items.length - 1)) ? old.index + 1 : 0
+    forward(setIndex, musicas) {
+        setIndex(old => {
+
+            if (old >= (musicas - 1)) {
+                return 0;
             }
+
+            return (old + 1);
+
         })
     },
-    backward(setSongs) {
-        setSongs(old => {
-            return {
-                ...old,
-                index: (old.index <= 0) ? (old.items.length - 1) : old.index - 1
+    backward(setIndex, musicas) {
+        
+        setIndex(old => {
+            console.log({old,musicas})
+            if (old <= 0) {
+                return (musicas - 1);
             }
+
+            return (old - 1);
+
         })
     }
 }

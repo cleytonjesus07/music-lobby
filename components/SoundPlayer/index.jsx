@@ -14,10 +14,8 @@ export default function SoundPlayer() {
     },
         soundPlayer: { showPlayer, setShowPlayer },
         albumList: { album },
-        currentMusic: {
-            Music
-        },
-        choice: { setIdMusic },
+
+        choice: { idMusic, setIdMusic },
         isPlaying: { playing, setPlaying }
     } = useContext(songCtx);
 
@@ -33,6 +31,7 @@ export default function SoundPlayer() {
             seconds: 0
         }
     });
+
     let titleAba = document.title;
 
     useEffect(() => {
@@ -40,25 +39,37 @@ export default function SoundPlayer() {
     }, [])
 
 
-    useEffect(() => {
 
-        /*  if (items.length <= 1) {
-             return;
-         } */
-        timeBarRef.current.value = 0;
-        setToInit()
-    }, [music])
 
     useEffect(() => {
-        if (!playing) return;
-        document.title = titleAba;
-    }, [playing])
+        switch (playing) {
+            case true:
+                document.title = `Tocando: ${music?.MusicsOnAlbums[idMusic]?.Music?.music_title}`
+                break;
+            case false:
+                document.title = `Pausado: ${music?.MusicsOnAlbums[idMusic]?.Music?.music_title}`;
+                break;
+            default:
+                document.title = titleAba;
+                break;
+        }
+
+    }, [idMusic, playing])
 
     function setToInit() {
-        setPlaying(false);
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
-        timeBarRef.current.value = 0;
+
+        setIdMusic(old => {
+
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+            timeBarRef.current.value = 0;
+            if (old >= (music?.MusicsOnAlbums.length - 1)) {
+                return 0;
+            }
+
+            return (old + 1);
+        })
+
 
     }
 
@@ -94,9 +105,9 @@ export default function SoundPlayer() {
 
 
     function close() {
+
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
-        setIdMusic(null)
         setPlaying(false);
         setShowPlayer(false);
         setTimestamps(old => {
@@ -123,14 +134,14 @@ export default function SoundPlayer() {
             {/* Close Btn */}
             <button type={"button"} className="absolute right-3 top-2 cursor-pointer opacity-40 hover:opacity-100 transition-all p-1 max-sm:w-10" title="close" onClick={() => close()}><VscChromeClose className="w-full h-full" /></button>
             <div className="h-full w-1/3 mx-5 flex items-center justify-center max-sm:w-full ">
-                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''} max-sm:w-[calc(100%/.6)] max-sm:h-[calc(100%/.6)] max-sm:max-w-[300px] max-sm:max-h-[300px]`} style={{ backgroundImage: `url(${music?.Album?.album_cover})` }}>
+                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''} max-sm:w-[calc(100%/.6)] max-sm:h-[calc(100%/.6)] max-sm:max-w-[300px] max-sm:max-h-[300px]`} style={{ backgroundImage: `url(${music?.album_cover})` }}>
                     <span className="h-3 w-3 bg-neutral-800 absolute rounded-full max-sm:w-1/6 max-sm:h-1/6"></span>
                 </div>
             </div>
 
             <div className="w-full flex flex-col justify-center  px-3">
-                <h2 className="font-bold text-sm">{music?.Music?.music_title}</h2>
-                <span className="font-extralight text-xs">{music?.Album?.Artist?.artist_name}</span>
+                <h2 className="font-bold text-sm">{music?.MusicsOnAlbums[idMusic]?.Music?.music_title}</h2>
+                <span className="font-extralight text-xs">{music?.Artist?.artist_name}</span>
                 <div className={`relative w-full  max-sm:h-full rounded-md flex flex-col items-center max-sm:my-9 mt-4 h-5  `}>
                     <input id="range" type={"range"} min={0} max={100} ref={timeBarRef} onChange={seekTo} className={`rounded-md overflow-hidden w-full h-full max-sm:h-[2em] `} />
                     <div className="flex w-full justify-between">
@@ -139,37 +150,43 @@ export default function SoundPlayer() {
                     </div>
                 </div>
                 <div className="flex justify-center space-x-2 buttons">
-                    <div className="hover:cursor-pointer opacity-40 hover:opacity-100  transition-all" title={"backward"}>
-                        <IoMdSkipBackward className="button" onClick={() => backward(setSongs, setPlaying)} />
-                    </div>
+                    {(music?.MusicsOnAlbums.length > 1) &&
+                        (
+                            <div className="hover:cursor-pointer opacity-40 hover:opacity-100  transition-all" title={"backward"}>
+                                <IoMdSkipBackward className="button" onClick={() => backward(setIdMusic, music.MusicsOnAlbums.length)} />
+                            </div>
+                        )}
                     {!playing
                         ?
                         (
                             <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"play"}>
-                                <BsFillPlayCircleFill className="button" onClick={() => playSong(audioRef, audioRef.current.src, music)} />
+                                <BsFillPlayCircleFill className="button" onClick={() => playSong(audioRef, audioRef.current.src, setPlaying)} />
                             </div>
 
                         )
                         :
                         (
                             <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"pause"}>
-                                <BsPauseCircleFill className="button" onClick={() => pauseSong(audioRef, audioRef.current.src, music)} />
+                                <BsPauseCircleFill className="button" onClick={() => pauseSong(audioRef, audioRef.current.src, setPlaying)} />
                             </div>
                         )}
-                    <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"forward"}>
-                        <IoMdSkipForward className="button" onClick={() => forward(setSongs, setPlaying)} />
-                    </div>
+                    {(music?.MusicsOnAlbums.length > 1) &&
+                        (
+                            <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"forward"}>
+                                <IoMdSkipForward className="button" onClick={() => forward(setIdMusic, music.MusicsOnAlbums.length)} />
+                            </div>
+                        )}
                 </div>
             </div>
             <audio ref={audioRef}
                 className="absolute hidden "
-                src={music?.Music?.music_link}
+                src={music?.MusicsOnAlbums[idMusic]?.Music?.music_link}
                 onLoadStart={() => timeBarRef.current.value = 0}
                 onLoadedData={() => {
                     timeBarRef.current.removeAttribute("disabled");
                 }}
-                onPlaying={() => setPlaying(true)}
-                onPause={() => setPlaying(false)}
+                /* onPlaying={() => setPlaying(true)} */
+                /* onPause={() => setPlaying(false)} */
                 onTimeUpdate={(e) => updateBar(e)}
                 onDurationChange={(e) => {
                     setTimestamps(old => {
@@ -185,6 +202,9 @@ export default function SoundPlayer() {
                     })
                 }}
                 onEnded={setToInit}
+                onCanPlay={() => {
+                    playSong(audioRef, audioRef.current.src, setPlaying)
+                }}
             ></audio>
         </div >
     )

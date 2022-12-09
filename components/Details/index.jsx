@@ -14,15 +14,10 @@ export default function MusicDetails() {
             setShowPlayer
         },
         currentMusic: {
-            music: {
-                Album,
-                Music
-            }
-            ,
             setMusic
         },
         choice: { idMusic, setIdMusic },
-        isPlaying: { playing }
+        isPlaying: { playing, setPlaying }
     } = useContext(songCtx);
 
     const [list, setList] = useState([]);
@@ -36,7 +31,7 @@ export default function MusicDetails() {
                 `).in("Album.id_artist", [id_artist])
             data = data.
                 filter(({ Album }) => Album.length)
-                .filter((arr) => setList(arr.Album[0].MusicsOnAlbums))
+                .filter((arr) => setList(arr.Album[0]))
         }
         fetchMusics();
     }, [])
@@ -44,11 +39,12 @@ export default function MusicDetails() {
 
 
 
-    async function getMusic(id_music) {
 
-        if (id_music === idMusic) {
+    async function getMusic(id_artist, i) {
+        setPlaying(false)
+        /* if (id_music === idMusic) {
             return;
-        }
+        } */
         /* await supabase
             .from("Music")
             .select(`*,
@@ -56,22 +52,21 @@ export default function MusicDetails() {
  
             `)
             .in("id_music", [id_music]) */
-        await supabase
+        /* await supabase
             .from("MusicsOnAlbums")
             .select(`
                 Music:id_music(*),
                 Album:id_album(*,Artist:id_artist(artist_name))
-        `).in("Music.id_music", [id_music])
-            .then(({ data }) => {
-                const choiceMusic = data.filter(({ Music }) => Music !== null)[0];
-                setMusic(choiceMusic)
-                setIdMusic(id_music);
-            })
-            .then(setShowPlayer(true))
+        `).in("Music.id_music", [id_music]) */
+        const { data } = await supabase
+            .from("Album")
+            .select(`*,Artist(*),
+        MusicsOnAlbums(Music(*))
+`).eq('id_artist', id_artist)
+        setMusic(data[0])
+        setIdMusic(i);
+        setShowPlayer(true)
     }
-
-
-
 
     return (
         <>
@@ -95,15 +90,15 @@ export default function MusicDetails() {
                         <BsArrowDownCircleFill className="ml-12 w-5 h-5" />
                         <span className="font-semibold text-1xl ml-2 ">Musics/Soundtracks</span>
                     </div>
-                    {list.length
+                    {list?.MusicsOnAlbums?.length
                         &&
                         (
                             <ul className="block p-10">
-                                {list.map(({ Music: { id_music, music_title } }, i) =>
+                                {list?.MusicsOnAlbums?.map(({ Music: { id_music, music_title } }, i) =>
                                 (
-                                    <li key={id_music} onClick={() => getMusic(id_music)} className={`${(idMusic === id_music && playing) ? "bg-white text-neutral-900 " : "bg-gradient-to-r from-neutral-900 to-neutral-600 scale-[.9]"} p-4 rounded-lg opacity-70 hover:opacity-100 transition-all cursor-pointer my-2 flex items-center `}>
-                                        {(idMusic === id_music && playing) && <Image src={"/audio/audiowave.gif"} width={20} height={20} className="mr-2" alt="gif" />}
-                                        <span className={`font-bold mr-1  group-span ${(idMusic === id_music && playing) && "bg-white text-neutral-900"}`}>{i + 1}</span> - {music_title}
+                                    <li key={id_music} onClick={() => getMusic(list.id_artist, i)} className={`${((idMusic === i) && playing) ? "bg-white text-neutral-900 " : "bg-gradient-to-r from-neutral-900 to-neutral-600 scale-[.9]"} p-4 rounded-lg opacity-70 hover:opacity-100 transition-all cursor-pointer my-2 flex items-center `}>
+                                        {((idMusic === i) && playing) && <Image src={"/audio/audiowave.gif"} width={20} height={20} className="mr-2" alt="gif" />}
+                                        <span className={`font-bold mr-1  group-span ${((idMusic === i) && playing) && "bg-white text-neutral-900"}`}>{i + 1}</span> - {music_title}
                                     </li>
                                 )
                                 )}
@@ -111,7 +106,6 @@ export default function MusicDetails() {
                         )
                     }
                 </div>
-
             </div>
         </>
     )
