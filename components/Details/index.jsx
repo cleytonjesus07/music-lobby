@@ -57,7 +57,7 @@ export default function MusicDetails() {
         MusicsOnAlbums(Music(*))
 `).eq('id_artist', id_artist)
         setMusic(data[0])
-        setIdMusic({ id: id_music, refId: index });
+        setIdMusic({ id: id_music, refId: Number(index) });
         setShowPlayer(true)
     }
 

@@ -57,17 +57,17 @@ export default function SoundPlayer() {
     }, [idMusic, playing])
 
     function setToInit() {
-
+        const id = music?.MusicsOnAlbums[idMusic.refId]?.Music.id_music;
         setIdMusic(old => {
 
             audioRef.current.pause();
             audioRef.current.currentTime = 0;
             timeBarRef.current.value = 0;
-            if (old >= (music?.MusicsOnAlbums.length - 1)) {
-                return { ...old, refId: 0 };
+            if (old.refId >= (music?.MusicsOnAlbums.length - 1)) {
+                return { id, refId: 0 };
             }
 
-            return { ...old, refId: (old + 1) };
+            return { id, refId: (old.refId + 1) };
         })
 
 
@@ -153,7 +153,7 @@ export default function SoundPlayer() {
                     {(music?.MusicsOnAlbums.length > 1) &&
                         (
                             <div className="hover:cursor-pointer opacity-40 hover:opacity-100  transition-all" title={"backward"}>
-                                <IoMdSkipBackward className="button" onClick={() => backward(setIdMusic, music.MusicsOnAlbums.length)} />
+                                <IoMdSkipBackward className="button" onClick={() => backward(setIdMusic, music.MusicsOnAlbums.length,music?.MusicsOnAlbums[idMusic.refId]?.Music.id_music)} />
                             </div>
                         )}
                     {!playing
@@ -173,7 +173,7 @@ export default function SoundPlayer() {
                     {(music?.MusicsOnAlbums.length > 1) &&
                         (
                             <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"forward"}>
-                                <IoMdSkipForward className="button" onClick={() => forward(setIdMusic, music.MusicsOnAlbums.length)} />
+                                <IoMdSkipForward className="button" onClick={() => forward(setIdMusic, music.MusicsOnAlbums.length,music?.MusicsOnAlbums[idMusic.refId]?.Music.id_music)} />
                             </div>
                         )}
                 </div>

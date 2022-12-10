@@ -8,7 +8,7 @@ export default function SongContext({ children }) {
     const [album, setAlbum] = useState();
     const [showPlayer, setShowPlayer] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
-    const [idMusic, setIdMusic] = useState({id:null,refId:null});
+    const [idMusic, setIdMusic] = useState({ id: Number(0), refId: Number(0) });
     const [playing, setPlaying] = useState(false);
 
     /*   async function getMusics() {

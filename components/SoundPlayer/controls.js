@@ -17,26 +17,28 @@ module.exports = {
 
 
     },
-    forward(setIndex, musicas) {
+    forward(setIndex, musicas,id) {
+        
         setIndex(old => {
-
+            
             if (old.refId >= (musicas - 1)) {
-                return { ...old, refId: 0 };
+                
+                return { id, refId: 0 };
             }
-
-            return { ...old, refId: old + 1 };
+            console.log(old.refId)
+            return { id, refId: (old.refId + 1) };
 
         })
     },
-    backward(setIndex, musicas) {
+    backward(setIndex,musicas,id) {
 
         setIndex(old => {
 
             if (old.refId <= 0) {
-                return { ...old, refId: 0 };
+                return { id, refId: (musicas - 1) };
             }
 
-            return { ...old, refId: old - 1 };
+            return { id, refId: (old.refId - 1) };
 
         })
     }
