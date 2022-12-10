@@ -5,7 +5,6 @@ module.exports = {
         }
 
         audioRef.current.play().then(() => {
-
             setPlaying(true)
         })
     },
@@ -21,7 +20,7 @@ module.exports = {
     forward(setIndex, musicas) {
         setIndex(old => {
 
-            if (old >= (musicas - 1)) {
+            if (old.refId >= (musicas - 1)) {
                 return { ...old, refId: 0 };
             }
 
@@ -33,11 +32,11 @@ module.exports = {
 
         setIndex(old => {
 
-            if (old <= 0) {
-                return (musicas - 1);
+            if (old.refId <= 0) {
+                return { ...old, refId: 0 };
             }
 
-            return (old - 1);
+            return { ...old, refId: old - 1 };
 
         })
     }
