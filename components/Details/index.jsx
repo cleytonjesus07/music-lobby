@@ -5,9 +5,9 @@ import { songCtx } from "../../Context/SongContext";
 import supabase from "../../supabase";
 
 export default function MusicDetails() {
-    const { songsCtx: { setSongs },
+    const {
         albumList: { album: {
-            Album: { album_cover, album_title, Artist: { id_artist, artist_name, artist_bio } },
+            Album: { album_cover, Artist: { id_artist, artist_name, artist_bio } },
 
         } },
         soundPlayer: {
@@ -44,34 +44,20 @@ export default function MusicDetails() {
 
     async function getMusic(id_artist, id_music, index) {
 
-        if (idMusic?.id != null && idMusic?.id == id_music) {
+        if (idMusic?.id == id_music) {
+            /* Bloquear quando faz a requisição para a mesma música */
             return;
         }
-        console.log(id_music,idMusic)
+
         setPlaying(false)
-        /* if (id_music === idMusic) {
-            return;
-        } */
-        /* await supabase
-            .from("Music")
-            .select(`*,
-            Album:id_album(album_cover,Artist:id_artist(id_artist,artist_name,artist_bio))
- 
-            `)
-            .in("id_music", [id_music]) */
-        /* await supabase
-            .from("MusicsOnAlbums")
-            .select(`
-                Music:id_music(*),
-                Album:id_album(*,Artist:id_artist(artist_name))
-        `).in("Music.id_music", [id_music]) */
+
         const { data } = await supabase
             .from("Album")
             .select(`*,Artist(*),
         MusicsOnAlbums(Music(*))
 `).eq('id_artist', id_artist)
         setMusic(data[0])
-        setIdMusic(old => ({ id: id_music, refId: index }));
+        setIdMusic({ id: id_music, refId: index });
         setShowPlayer(true)
     }
 

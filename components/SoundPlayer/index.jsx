@@ -105,7 +105,7 @@ export default function SoundPlayer() {
 
 
     function close() {
-
+        setIdMusic({id:null,refId:null})
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
         setPlaying(false);
