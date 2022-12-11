@@ -59,20 +59,15 @@ export default function SoundPlayer() {
     }, [playing, playingMusicId])
 
     function setToInit() {
-        const id = music?.MusicsOnAlbums[playingMusicId.index]?.Music.id_music;
-        setPlayingMusicId(old => {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        timeBarRef.current.value = 0;
 
-            audioRef.current.pause();
-            audioRef.current.currentTime = 0;
-            timeBarRef.current.value = 0;
-            if (old.index >= (music?.MusicsOnAlbums.length - 1)) {
-                return { ...old, index: 0 };
-            }
-
-            return { ...old, index: (old + 1) };
-        })
-
-
+        if (playingMusicId.index >= (music?.MusicsOnAlbums?.length - 1)) {
+            return setPlayingMusicId({ ...playingMusicId, index: 0 });
+        } else {
+            return setPlayingMusicId({ ...playingMusicId, index: (playingMusicId.index + 1) })
+        }
     }
 
     function updateBar(e) {
@@ -151,34 +146,37 @@ export default function SoundPlayer() {
                         <span className="text-xs">{timestamps.duration?.minutes < 10 ? '0' + timestamps.duration?.minutes : timestamps.duration?.minutes} : {timestamps.duration?.seconds < 10 ? '0' + timestamps.duration?.seconds : timestamps.duration?.seconds}</span>
                     </div>
                 </div>
-                <div className="flex justify-center space-x-2 buttons">
-                    {(music?.MusicsOnAlbums.length > 1) &&
-                        (
-                            <div className="hover:cursor-pointer opacity-40 hover:opacity-100  transition-all" title={"backward"}>
-                                <IoMdSkipBackward className="button" onClick={() => backward(setPlayingMusicId, music.MusicsOnAlbums.length, music, playingMusicId)} />
-                            </div>
-                        )}
-                    {!playing
-                        ?
-                        (
-                            <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"play"}>
-                                <BsFillPlayCircleFill className="button" onClick={() => playSong(audioRef, audioRef.current.src, setPlaying)} />
-                            </div>
+                {playing &&
+                    (
+                        <div className="flex justify-center space-x-2 buttons">
+                            {(music?.MusicsOnAlbums.length > 1) &&
+                                (
+                                    <div className="hover:cursor-pointer opacity-40 hover:opacity-100  transition-all" title={"backward"}>
+                                        <IoMdSkipBackward className="button" onClick={() => backward(setPlayingMusicId, music.MusicsOnAlbums.length, music, playingMusicId)} />
+                                    </div>
+                                )}
+                            {!playing
+                                ?
+                                (
+                                    <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"play"}>
+                                        <BsFillPlayCircleFill className="button" onClick={() => playSong(audioRef, audioRef.current.src, setPlaying)} />
+                                    </div>
 
-                        )
-                        :
-                        (
-                            <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"pause"}>
-                                <BsPauseCircleFill className="button" onClick={() => pauseSong(audioRef, audioRef.current.src, setPlaying)} />
-                            </div>
-                        )}
-                    {(music?.MusicsOnAlbums.length > 1) &&
-                        (
-                            <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"forward"}>
-                                <IoMdSkipForward className="button" onClick={() => forward(setPlayingMusicId, music.MusicsOnAlbums.length, music, playingMusicId)} />
-                            </div>
-                        )}
-                </div>
+                                )
+                                :
+                                (
+                                    <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"pause"}>
+                                        <BsPauseCircleFill className="button" onClick={() => pauseSong(audioRef, audioRef.current.src, setPlaying)} />
+                                    </div>
+                                )}
+                            {(music?.MusicsOnAlbums.length > 1) &&
+                                (
+                                    <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"forward"}>
+                                        <IoMdSkipForward className="button" onClick={() => forward(setPlayingMusicId, music.MusicsOnAlbums.length, music, playingMusicId)} />
+                                    </div>
+                                )}
+                        </div>
+                    )}
             </div>
             <audio ref={audioRef}
                 className="absolute hidden "

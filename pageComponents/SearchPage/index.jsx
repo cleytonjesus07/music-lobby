@@ -5,7 +5,7 @@ import { appCtx } from "../../Context/AppContext";
 import supabase from "../../supabase";
 
 export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
-    const { search: { search, deferredValue } } = useContext(appCtx)
+    const { search: { deferredValue } } = useContext(appCtx)
     const [musics, setMusics] = useState([]);
     const [filteredMusics, setFilteredMusics] = useState(musics);
 

@@ -9,6 +9,7 @@ export default function AppContext({ children }) {
     const handleOnChange = (e) => {
         const value = e.target.value;
         setSearch(value)
+
     }
     const lockScroll = useCallback((option) => {
         if (option) {
@@ -25,7 +26,7 @@ export default function AppContext({ children }) {
                 scroll: {
                     lockScroll
                 },
-                search: { search, handleOnChange,deferredValue }
+                search: { search, handleOnChange, deferredValue }
             }}>
             {children}
         </appCtx.Provider>
