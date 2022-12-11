@@ -7,7 +7,7 @@ import { songCtx } from "../../Context/SongContext";
 import { pauseSong, playSong, forward, backward } from "./controls";
 
 export default function SoundPlayer() {
-
+    const [isReady,setIsReady] = useState(false);
     const { scroll: { lockScroll } } = useContext(appCtx)
     const { currentMusic: {
         music
@@ -146,7 +146,7 @@ export default function SoundPlayer() {
                         <span className="text-xs">{timestamps.duration?.minutes < 10 ? '0' + timestamps.duration?.minutes : timestamps.duration?.minutes} : {timestamps.duration?.seconds < 10 ? '0' + timestamps.duration?.seconds : timestamps.duration?.seconds}</span>
                     </div>
                 </div>
-                {playing &&
+                {isReady ?
                     (
                         <div className="flex justify-center space-x-2 buttons">
                             {(music?.MusicsOnAlbums.length > 1) &&
@@ -176,7 +176,12 @@ export default function SoundPlayer() {
                                     </div>
                                 )}
                         </div>
-                    )}
+                    )
+                :
+                (
+                    <span className="text-xs text-center">Um momento...</span>
+                )
+                }
             </div>
             <audio ref={audioRef}
                 className="absolute hidden "
@@ -204,6 +209,7 @@ export default function SoundPlayer() {
                 onEnded={setToInit}
                 onCanPlay={() => {
                     playSong(audioRef, audioRef.current.src, setPlaying)
+                    setIsReady(true);
                 }}
             ></audio>
         </div >
