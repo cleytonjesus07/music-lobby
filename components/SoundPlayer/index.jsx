@@ -56,7 +56,7 @@ export default function SoundPlayer() {
                 break;
         }
 
-    }, [playing,playingMusicId])
+    }, [playing, playingMusicId])
 
     function setToInit() {
         const id = music?.MusicsOnAlbums[playingMusicId.index]?.Music.id_music;
@@ -66,10 +66,10 @@ export default function SoundPlayer() {
             audioRef.current.currentTime = 0;
             timeBarRef.current.value = 0;
             if (old.index >= (music?.MusicsOnAlbums.length - 1)) {
-                return { id, index: 0 };
+                return { ...old, index: 0 };
             }
 
-            return { id, index: (old + 1) };
+            return { ...old, index: (old + 1) };
         })
 
 
