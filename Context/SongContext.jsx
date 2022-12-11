@@ -8,7 +8,7 @@ export default function SongContext({ children }) {
     const [album, setAlbum] = useState();
     const [showPlayer, setShowPlayer] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
-    const [idMusic, setIdMusic] = useState({ id: Number(0), refId: Number(0) });
+    const [playingMusicId, setPlayingMusicId] = useState({id:null,index:null});
     const [playing, setPlaying] = useState(false);
 
     /*   async function getMusics() {
@@ -22,6 +22,7 @@ export default function SongContext({ children }) {
           getMusics();
       }, [])
    */
+
 
     useEffect(() => {
         if (document.body.clientWidth < 640 && showPlayer) {
@@ -39,7 +40,7 @@ export default function SongContext({ children }) {
                 isPlaying: { playing, setPlaying },
                 albumList: { album, setAlbum },
                 currentMusic: { music, setMusic },
-                choice: { idMusic, setIdMusic },
+                playingMusic: { playingMusicId, setPlayingMusicId },
                 asideMenu: { openMenu, setOpenMenu }
             }}>
             {children}

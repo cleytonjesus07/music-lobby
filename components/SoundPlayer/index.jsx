@@ -15,7 +15,7 @@ export default function SoundPlayer() {
         soundPlayer: { showPlayer, setShowPlayer },
         albumList: { album },
 
-        choice: { idMusic, setIdMusic },
+        playingMusic: { playingMusicId, setPlayingMusicId },
         isPlaying: { playing, setPlaying }
     } = useContext(songCtx);
 
@@ -38,36 +38,38 @@ export default function SoundPlayer() {
         audioRef.current.setAttribute("disabled", true)
     }, [])
 
-
+    useEffect(() => {
+        setPlayingMusicId({ ...playingMusicId, id: music?.MusicsOnAlbums[playingMusicId?.index].Music.id_music })
+    }, [playingMusicId.index])
 
 
     useEffect(() => {
         switch (playing) {
             case true:
-                document.title = `Tocando: ${music?.MusicsOnAlbums[idMusic.refId]?.Music?.music_title}`
+                document.title = `Tocando: ${music?.MusicsOnAlbums[playingMusicId.index]?.Music?.music_title}`
                 break;
             case false:
-                document.title = `Pausado: ${music?.MusicsOnAlbums[idMusic.refId]?.Music?.music_title}`;
+                document.title = `Pausado: ${music?.MusicsOnAlbums[playingMusicId.index]?.Music?.music_title}`;
                 break;
             default:
                 document.title = titleAba;
                 break;
         }
 
-    }, [idMusic, playing])
+    }, [playing,playingMusicId])
 
     function setToInit() {
-        const id = music?.MusicsOnAlbums[idMusic.refId]?.Music.id_music;
-        setIdMusic(old => {
+        const id = music?.MusicsOnAlbums[playingMusicId.index]?.Music.id_music;
+        setPlayingMusicId(old => {
 
             audioRef.current.pause();
             audioRef.current.currentTime = 0;
             timeBarRef.current.value = 0;
-            if (old.refId >= (music?.MusicsOnAlbums.length - 1)) {
-                return { id, refId: 0 };
+            if (old.index >= (music?.MusicsOnAlbums.length - 1)) {
+                return { id, index: 0 };
             }
 
-            return { id, refId: (old.refId + 1) };
+            return { id, index: (old + 1) };
         })
 
 
@@ -105,7 +107,7 @@ export default function SoundPlayer() {
 
 
     function close() {
-        setIdMusic({id:null,refId:null})
+        setPlayingMusicId({ id: null, index: null })
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
         setPlaying(false);
@@ -140,7 +142,7 @@ export default function SoundPlayer() {
             </div>
 
             <div className="w-full flex flex-col justify-center  px-3">
-                <h2 className="font-bold text-sm">{music?.MusicsOnAlbums[idMusic.refId]?.Music?.music_title}</h2>
+                <h2 className="font-bold text-sm">{music?.MusicsOnAlbums[playingMusicId.index]?.Music?.music_title}</h2>
                 <span className="font-extralight text-xs">{music?.Artist?.artist_name}</span>
                 <div className={`relative w-full  max-sm:h-full rounded-md flex flex-col items-center max-sm:my-9 mt-4 h-5  `}>
                     <input id="range" type={"range"} min={0} max={100} ref={timeBarRef} onChange={seekTo} className={`rounded-md overflow-hidden w-full h-full max-sm:h-[2em] `} />
@@ -153,7 +155,7 @@ export default function SoundPlayer() {
                     {(music?.MusicsOnAlbums.length > 1) &&
                         (
                             <div className="hover:cursor-pointer opacity-40 hover:opacity-100  transition-all" title={"backward"}>
-                                <IoMdSkipBackward className="button" onClick={() => backward(setIdMusic, music.MusicsOnAlbums.length,music?.MusicsOnAlbums[idMusic.refId]?.Music.id_music)} />
+                                <IoMdSkipBackward className="button" onClick={() => backward(setPlayingMusicId, music.MusicsOnAlbums.length, music, playingMusicId)} />
                             </div>
                         )}
                     {!playing
@@ -173,14 +175,14 @@ export default function SoundPlayer() {
                     {(music?.MusicsOnAlbums.length > 1) &&
                         (
                             <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"forward"}>
-                                <IoMdSkipForward className="button" onClick={() => forward(setIdMusic, music.MusicsOnAlbums.length,music?.MusicsOnAlbums[idMusic.refId]?.Music.id_music)} />
+                                <IoMdSkipForward className="button" onClick={() => forward(setPlayingMusicId, music.MusicsOnAlbums.length, music, playingMusicId)} />
                             </div>
                         )}
                 </div>
             </div>
             <audio ref={audioRef}
                 className="absolute hidden "
-                src={music?.MusicsOnAlbums[idMusic.refId]?.Music?.music_link}
+                src={music?.MusicsOnAlbums[playingMusicId.index]?.Music?.music_link}
                 onLoadStart={() => timeBarRef.current.value = 0}
                 onLoadedData={() => {
                     timeBarRef.current.removeAttribute("disabled");
