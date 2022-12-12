@@ -107,9 +107,7 @@ export async function getServerSideProps() {
          Album:id_album(*,Artist:id_artist(*))
       `).order("id_music", { ascending: false })
   const recents = data2.data.slice(0, 5);
-
-
-  let songsOfTheWeek = data2.data.map(sortMusics);
+  let songsOfTheWeek = data2.data.sort((a, b) => (a > b) ? 1 : -1);
 
   return {
     props: { data, recents, songsOfTheWeek }, // will be passed to the page component as props
