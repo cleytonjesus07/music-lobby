@@ -39,6 +39,7 @@ export default function SoundPlayer() {
     }, [])
 
     useEffect(() => {
+        setIsReady(false);
         setPlayingMusicId({ ...playingMusicId, id: music?.MusicsOnAlbums[playingMusicId?.index].Music.id_music })
     }, [playingMusicId.index])
 
