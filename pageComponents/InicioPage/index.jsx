@@ -1,11 +1,24 @@
 import Card from "../../components/Card"
 import Section from "../../components/Section"
-import supabase from "../../supabase"
 
-export default function InicioPage({ recents, data, setAlbum, setPage, getArtistMusicsDetails }) {
+export default function InicioPage({ musicsOfTheWeek,recents, data, setAlbum, setPage, getArtistMusicsDetails }) {
     return (
         <>
             <div className="bg-gradient-to-b from-black to-neutral-900">
+            <Section key={"#songsOfTheWeek"} title={"Músicas da semana"} seeMore={false}>
+                    {musicsOfTheWeek?.map(({ Album: { album_cover, Artist: { id_artist, artist_bio } }, Music: { music_title } }, i) => {
+                        return (
+
+                            <Card key={i}
+                                onClick={() => {
+                                    getArtistMusicsDetails(id_artist, setAlbum, setPage)
+                                }}
+                                title={music_title}
+                                cover={album_cover}
+                                desc={artist_bio} />
+                        )
+                    })}
+                </Section>
                 <Section key={"#recent"} title={"Adicionados recentemente"} seeMore={false}>
                     {recents.map(({ Album: { album_cover, Artist: { id_artist, artist_bio } }, Music: { music_title } }, i) => {
                         return (

@@ -1,5 +1,5 @@
 
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import AsideMenu from "../components/AsideMenu"
 import MusicDetails from "../components/Details"
 import TopMenu from "../components/TopMenu"
@@ -9,11 +9,16 @@ import supabase from "../supabase"
 
 import { appCtx } from "../Context/AppContext"
 import SearchPage from "../pageComponents/SearchPage"
-
+const oneWeek = 604800016.56;
 Home.title = "Web Player"
-export default function Home({ data, recents }) {
+export default function Home({ data, recents, songsOfTheWeek }) {
+  const customMusicFavorites = [0, 1, 3, 4, 8];
+  const timeoutRef = useRef();
   const { page: { page, setPage } } = useContext(appCtx);
   const { songsCtx: { setSongs }, albumList: { album, setAlbum }, soundPlayer: { setShowPlayer } } = useContext(songCtx);
+  const [musicsOfTheWeek, setMusicsOfTheWeek] = useState(songsOfTheWeek.slice(0, 5));
+
+
   async function getArtistMusicsDetails(id_artist, setAlbum) {
     await supabase
       .from("MusicsOnAlbums")
@@ -36,7 +41,7 @@ export default function Home({ data, recents }) {
       /* Páginas */
       switch (page) {
         case "início":
-          return <InicioPage recents={recents} data={data} setAlbum={setAlbum} setPage={setPage} getArtistMusicsDetails={getArtistMusicsDetails} />
+          return <InicioPage musicsOfTheWeek={musicsOfTheWeek} recents={recents} data={data} setAlbum={setAlbum} setPage={setPage} getArtistMusicsDetails={getArtistMusicsDetails} />
         case "pesquisar":
           return <SearchPage data={data} getArtistMusicsDetails={getArtistMusicsDetails} setPage={setPage} setAlbum={setAlbum} />
         case "details":
@@ -49,10 +54,20 @@ export default function Home({ data, recents }) {
 
 
   useEffect(() => {
+
     /* pages.data = {data,recents} */
     setSongs(old => ({ ...old, items: data }))
   }, [])
 
+  useEffect(() => {
+    timeoutRef.current = setTimeout(() => {
+      setMusicsOfTheWeek(() => {
+        return songsOfTheWeek.map(sortMusics).slice(0, 5)
+      })
+    }, oneWeek);
+
+    return () => clearTimeout(timeoutRef.current)
+  })
   return (
     <>
       <AsideMenu />
@@ -90,10 +105,18 @@ export async function getServerSideProps() {
     .select(`
          Music:id_music(*),
          Album:id_album(*,Artist:id_artist(*))
-      `).order("id_music", { ascending: false }).limit(5)
-  const recents = data2.data
+      `).order("id_music", { ascending: false })
+  const recents = data2.data.slice(0, 5);
+
+
+  let songsOfTheWeek = data2.data.map(sortMusics);
 
   return {
-    props: { data, recents }, // will be passed to the page component as props
+    props: { data, recents, songsOfTheWeek }, // will be passed to the page component as props
   }
+}
+
+function sortMusics(song, i, arr) {
+  const numberSorted = (Math.floor((Math.random() * (arr.length - 1))))
+  return arr[numberSorted];
 }

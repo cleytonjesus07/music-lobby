@@ -8,20 +8,8 @@ export default function SongContext({ children }) {
     const [album, setAlbum] = useState();
     const [showPlayer, setShowPlayer] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
-    const [playingMusicId, setPlayingMusicId] = useState({id:null,index:null});
+    const [playingMusicId, setPlayingMusicId] = useState({ id: null, index: null });
     const [playing, setPlaying] = useState(false);
-
-    /*   async function getMusics() {
-          let res = await methods.musics();
-  
-          console.log(res)
-          setSongs({ ...songs, items: res });
-      }
-  
-      useEffect(() => {
-          getMusics();
-      }, [])
-   */
 
 
     useEffect(() => {
