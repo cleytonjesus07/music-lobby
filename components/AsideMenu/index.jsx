@@ -1,6 +1,7 @@
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { VscChromeClose } from "react-icons/vsc"
 import { VscLibrary } from "react-icons/vsc";
+import { FaPlay } from "react-icons/fa"
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { songCtx } from "../../Context/SongContext";
@@ -55,13 +56,12 @@ export default function AsideMenu() {
                 }} className="absolute right-10 top-9 md:hidden">
                     <VscChromeClose className="w-7 h-7 opacity-70 hover:opacity-100" />
                 </button>
-                <Link href={"/"} className="flex items-center justify-start ml-5 ">
-                    <div className="bg-no-repeat bg-contain bg-center w-16 h-14 my-5 flex items-center" style={{ backgroundImage: "url(/images/logo.png)" }}>
-                    </div>
+                <Link href={"/"} className="flex items-center  my-14 mx-4  ">
+                    <FaPlay className="  w-6 h-auto mx-2" />
                     <span className="text-lg font-extrabold ">Music Lobby</span>
                 </Link>
                 <div>
-                    <ul className="max-md:flex max-md:flex-col  ">
+                    <ul className="max-md:flex max-md:flex-col   ">
                         {menus.map(({ id, icon, title, href }, index) => {
                             return (
                                 <li key={index} className="flex max-md:justify-center  ">

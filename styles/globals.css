@@ -18,6 +18,8 @@ body {
 
 }
 
+
+
 /* Scrollbar */
 .lockScroll {
   overflow: hidden !important;
@@ -109,7 +111,7 @@ body {
 
   100% {
     right: 1.25rem;
-    
+
   }
 }
 
