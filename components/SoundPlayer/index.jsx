@@ -212,6 +212,7 @@ export default function SoundPlayer() {
                     playSong(audioRef, audioRef.current.src, setPlaying)
                     setIsReady(true);
                 }}
+                preload={true}
             ></audio>
         </div >
     )

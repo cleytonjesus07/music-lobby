@@ -13,7 +13,9 @@ module.exports = {
             return;
         }
         setPlaying(false)
-        audioRef.current.pause();
+        if (audioRef.current.play() != undefined) {
+            audioRef.current.pause();
+        }
 
 
     },
