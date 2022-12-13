@@ -15,7 +15,7 @@ export default function InicioPage({ songsYouMightLike, recents, data, setAlbum,
                                     <Image src={album_cover} fill style={{ objectFit: "cover", objectPosition: "top" }} alt="album cover" />
                                 </div>
                                 <div className="flex  bg-black bg-opacity-70  w-full px-10" style={{ justifyContent: "end", alignItems: "center" }}>
-                                    <span className="z-10 text-sm font-bold  bg-black bg-opacity-70 text-center  rounded-md  p-2"  >{music_title}</span>
+                                    <span className=" text-sm font-bold  bg-black bg-opacity-70 text-center  rounded-md  p-2" style={{zIndex:"10px"}} >{music_title}</span>
                                 </div>
                             </div>
 
