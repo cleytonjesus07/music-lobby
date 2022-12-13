@@ -58,12 +58,12 @@ export default function Home({ data, recents, songs }) {
   }, [])
 
   useEffect(() => {
-    const weekend = 604800016.56;
+    const day = 86400000;
     const data = JSON.parse(localStorage.getItem("songsSorted"));
     if (!localStorage.getItem("songsSorted") || new Date().getTime() > data.expiredAt) {
       const storage = {
         data: sortMusics(songs),
-        expiredAt: new Date().getTime() + weekend
+        expiredAt: new Date().getTime() + day
       }
       localStorage.setItem("songsSorted", JSON.stringify(storage));
 
