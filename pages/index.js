@@ -139,7 +139,5 @@ function sortMusics(arr) {
 
   const musicsSorted = [];
   nonRepeat.forEach(old => musicsSorted.push(arr[old]))
-
-console.log(musicsSorted)
   return musicsSorted;
 }
