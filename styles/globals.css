@@ -18,7 +18,9 @@ body {
 
 }
 
-
+.musicTile:hover{
+  scale: 1.1;
+}
 
 /* Scrollbar */
 .lockScroll {

@@ -87,7 +87,7 @@ function Buttons({ toLeft, toRight, cardContainerRef }) {
 
     }
     return (
-        <div className="absolute btn-container  pointer-events-none flex justify-between items-center h-full w-full z-10">
+        <div className="absolute btn-container  pointer-events-none flex justify-between items-center h-full w-full z-20">
             <div onClick={toLeft} className={`
                 btn-left  bg-opacity-20 h-full flex items-center px-1 pointer-events-auto
                 ${!showBtns?.left && 'invisible'}

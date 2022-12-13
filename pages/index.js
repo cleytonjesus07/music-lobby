@@ -8,14 +8,13 @@ import supabase from "../supabase"
 
 import { appCtx } from "../Context/AppContext"
 import SearchPage from "../pageComponents/SearchPage"
-const oneWeek = 604800016.56;
+
 Home.title = "Web Player"
 
-export default function Home({ data, recents, songsOfTheWeek }) {
-  const timeoutRef = useRef();
+export default function Home({ data, recents, songs }) {
   const { page: { page, setPage } } = useContext(appCtx);
   const { songsCtx: { setSongs }, albumList: { album, setAlbum }, soundPlayer: { setShowPlayer } } = useContext(songCtx);
-  const [musicsOfTheWeek, setMusicsOfTheWeek] = useState(songsOfTheWeek.slice(0, 5));
+  const [songsYouMightLike, setSongsYouMightLike] = useState();
 
 
   async function getArtistMusicsDetails(id_artist, setAlbum) {
@@ -40,7 +39,7 @@ export default function Home({ data, recents, songsOfTheWeek }) {
       /* Páginas */
       switch (page) {
         case "início":
-          return <InicioPage musicsOfTheWeek={musicsOfTheWeek} recents={recents} data={data} setAlbum={setAlbum} setPage={setPage} getArtistMusicsDetails={getArtistMusicsDetails} />
+          return <InicioPage songsYouMightLike={songsYouMightLike} recents={recents} data={data} setAlbum={setAlbum} setPage={setPage} getArtistMusicsDetails={getArtistMusicsDetails} />
         case "pesquisar":
           return <SearchPage data={data} getArtistMusicsDetails={getArtistMusicsDetails} setPage={setPage} setAlbum={setAlbum} />
         case "details":
@@ -69,7 +68,7 @@ export default function Home({ data, recents, songsOfTheWeek }) {
       localStorage.setItem("songsSorted", JSON.stringify(storage));
 
     }
-    setMusicsOfTheWeek(data?.data.slice(0, 5));
+    setSongsYouMightLike(data?.data.slice(0, 5));
   }, [])
 
 
@@ -114,14 +113,9 @@ export async function getServerSideProps() {
          Album:id_album(*,Artist:id_artist(*))
       `).order("id_music", { ascending: false })
   const recents = data2.data.slice(0, 5);
-  const date = new Date();
-  let songsOfTheWeek = data2.data;
-
-
-
-
+  let songs = data2.data;
   return {
-    props: { data, recents, songsOfTheWeek }, // will be passed to the page component as props
+    props: { data, recents, songs }, // will be passed to the page component as props
   }
 }
 
