@@ -70,7 +70,7 @@ export default function Home({ data, recents, songsOfTheWeek }) {
 
     }
     setMusicsOfTheWeek(data?.data.slice(0, 5));
-  }, [])
+  }, [musicsOfTheWeek])
 
 
 
