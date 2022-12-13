@@ -1,4 +1,3 @@
-
 import { useContext, useEffect, useRef, useState } from "react"
 import AsideMenu from "../components/AsideMenu"
 import MusicDetails from "../components/Details"
@@ -11,8 +10,8 @@ import { appCtx } from "../Context/AppContext"
 import SearchPage from "../pageComponents/SearchPage"
 const oneWeek = 604800016.56;
 Home.title = "Web Player"
+
 export default function Home({ data, recents, songsOfTheWeek }) {
-  const customMusicFavorites = [0, 1, 3, 4, 8];
   const timeoutRef = useRef();
   const { page: { page, setPage } } = useContext(appCtx);
   const { songsCtx: { setSongs }, albumList: { album, setAlbum }, soundPlayer: { setShowPlayer } } = useContext(songCtx);
@@ -54,20 +53,27 @@ export default function Home({ data, recents, songsOfTheWeek }) {
 
 
   useEffect(() => {
-
-    /* pages.data = {data,recents} */
     setSongs(old => ({ ...old, items: data }))
+    /* Tentando manter as musicas selecionadas em algum storage */
+    /* pages.data = {data,recents} */
   }, [])
 
   useEffect(() => {
-    timeoutRef.current = setTimeout(() => {
-      setMusicsOfTheWeek(() => {
-        return songsOfTheWeek.map(sortMusics).slice(0, 5)
-      })
-    }, oneWeek);
+    const weekend = 604800016.56;
+    const data = JSON.parse(localStorage.getItem("songsSorted"));
+    if (!localStorage.getItem("songsSorted") || new Date().getTime() > data.expiredAt) {
+      const storage = {
+        data: sortMusics(songsOfTheWeek),
+        expiredAt: new Date().getTime() + weekend
+      }
+      localStorage.setItem("songsSorted", JSON.stringify(storage));
 
-    return () => clearTimeout(timeoutRef.current)
-  })
+    }
+    setMusicsOfTheWeek(data?.data.slice(0, 5));
+  }, [])
+
+
+
   return (
     <>
       <AsideMenu />
@@ -78,6 +84,7 @@ export default function Home({ data, recents, songsOfTheWeek }) {
     </>
   )
 }
+
 
 
 
@@ -107,14 +114,32 @@ export async function getServerSideProps() {
          Album:id_album(*,Artist:id_artist(*))
       `).order("id_music", { ascending: false })
   const recents = data2.data.slice(0, 5);
-  let songsOfTheWeek = data2.data.sort((a, b) => (a > b) ? 1 : -1);
+  const date = new Date();
+  let songsOfTheWeek = data2.data;
+
+
+
 
   return {
     props: { data, recents, songsOfTheWeek }, // will be passed to the page component as props
   }
 }
 
-function sortMusics(song, i, arr) {
-  const numberSorted = (Math.floor((Math.random() * (arr.length - 1))))
-  return arr[numberSorted];
+function sortMusics(arr) {
+  const nonRepeat = [];
+
+  for (let index = 0; index < arr.length; index++) {
+    const temp = parseInt(Math.random() * (arr.length));
+    if (nonRepeat.indexOf(temp) <= -1) {
+      nonRepeat.push(temp)
+    } else {
+      index--;
+    }
+  }
+
+  const musicsSorted = [];
+  nonRepeat.forEach(old => musicsSorted.push(arr[old]))
+
+console.log(musicsSorted)
+  return musicsSorted;
 }
