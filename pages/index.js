@@ -62,7 +62,7 @@ export default function Home({ data, recents, songs }) {
     const data = JSON.parse(localStorage.getItem("songsSorted"));
     if (!localStorage.getItem("songsSorted") || new Date().getTime() > data.expiredAt) {
       const storage = {
-        data: sortMusics(songsOfTheWeek),
+        data: sortMusics(songs),
         expiredAt: new Date().getTime() + weekend
       }
       localStorage.setItem("songsSorted", JSON.stringify(storage));
