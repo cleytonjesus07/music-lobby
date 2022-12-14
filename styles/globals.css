@@ -18,7 +18,7 @@ body {
 
 }
 
-.musicTile:hover{
+.musicTile:hover {
   scale: 1.1;
 }
 
@@ -82,7 +82,7 @@ body {
 }
 
 
-#player {
+.player {
 
   background: linear-gradient(163deg, #ff6600, #57004f, #00ffd5);
   background-size: 600% 600%;

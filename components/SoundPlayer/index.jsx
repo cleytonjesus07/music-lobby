@@ -128,12 +128,12 @@ export default function SoundPlayer() {
 
 
     return (
-        <div id="player" className={`fixed z-50 flex bottom-2 right-5 rounded-md w-80 h-32  bg-neutral-800 ${(showPlayer) ? 'show' : 'hide'} max-sm:top-0 max-sm:left-0 max-sm:w-full max-sm:h-screen max-sm:flex-col max-sm:items-center max-sm:py-10 `}>
+        <div className={` player fixed z-50 flex bottom-2 right-5 rounded-md w-80 h-32  bg-neutral-800 ${(showPlayer) ? 'show' : 'hide'} max-sm:top-0 max-sm:left-0 max-sm:w-full max-sm:h-screen max-sm:flex-col max-sm:items-center max-sm:py-10 `}>
             {/* Close Btn */}
             <button type={"button"} className="absolute right-3 top-2 cursor-pointer opacity-40 hover:opacity-100 transition-all p-1 max-sm:w-10" title="close" onClick={() => close()}><VscChromeClose className="w-full h-full" /></button>
             <div className="h-full w-1/3 mx-5 flex items-center justify-center max-sm:w-full ">
                 <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''} max-sm:w-[calc(100%/.6)] max-sm:h-[calc(100%/.6)] max-sm:max-w-[300px] max-sm:max-h-[300px]`} style={{ backgroundImage: `url(${music?.album_cover})` }}>
-                    <span className="h-3 w-3 bg-neutral-800 absolute rounded-full max-sm:w-1/6 max-sm:h-1/6"></span>
+                    <span  className="player h-3 w-3 bg-neutral-800 absolute rounded-full max-sm:w-[40px] max-sm:h-[40px]"></span>
                 </div>
             </div>
 

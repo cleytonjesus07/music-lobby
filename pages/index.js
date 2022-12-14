@@ -11,7 +11,8 @@ import SearchPage from "../pageComponents/SearchPage"
 
 Home.title = "Web Player"
 
-export default function Home({ data, recents, songs }) {
+export default function Home({ data, recents, songsSorted }) {
+ 
   const { page: { page, setPage } } = useContext(appCtx);
   const { songsCtx: { setSongs }, albumList: { album, setAlbum }, soundPlayer: { setShowPlayer } } = useContext(songCtx);
   const [songsYouMightLike, setSongsYouMightLike] = useState();
@@ -60,15 +61,14 @@ export default function Home({ data, recents, songs }) {
   useEffect(() => {
     const day = 86400000;
     const data = JSON.parse(localStorage.getItem("songsSorted"));
-    if (!localStorage.getItem("songsSorted") || new Date().getTime() > data.expiredAt) {
+    if (!data?.data || !localStorage.getItem("songsSorted") || new Date().getTime() > data.expiredAt) {
       const storage = {
-        data: sortMusics(songs),
+        data: songsSorted,
         expiredAt: new Date().getTime() + day
       }
       localStorage.setItem("songsSorted", JSON.stringify(storage));
-
     }
-    setSongsYouMightLike(data?.data.slice(0, 5));
+    setSongsYouMightLike(data?.data);
   }, [])
 
 
@@ -113,9 +113,9 @@ export async function getServerSideProps() {
          Album:id_album(*,Artist:id_artist(*))
       `).order("id_music", { ascending: false })
   const recents = data2.data.slice(0, 5);
-  let songs = data2.data;
+  let songsSorted = sortMusics(data2.data);
   return {
-    props: { data, recents, songs }, // will be passed to the page component as props
+    props: { data, recents, songsSorted }, // will be passed to the page component as props
   }
 }
 
@@ -133,5 +133,5 @@ function sortMusics(arr) {
 
   const musicsSorted = [];
   nonRepeat.forEach(old => musicsSorted.push(arr[old]))
-  return musicsSorted;
+  return musicsSorted.slice(0, 5);
 }
