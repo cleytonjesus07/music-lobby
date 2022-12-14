@@ -297,3 +297,54 @@ body {
     background-position: 0% 64%
   }
 }
+
+.loading {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: rgb(94, 196, 255);
+  animation: rotation linear 1s infinite;
+}
+
+@keyframes rotation {
+    100%{
+      rotate: 360deg;
+    }
+}
+
+.loading::after {
+  position: absolute;
+  background-color: black;
+  width: 40px;
+  height: 40px;
+  content: "";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 100%;
+}
+
+.loading::before{
+  position: absolute;
+  content: "";
+  width: 100px;
+  height: 10px;
+  background: rgb(0, 0, 0);
+  opacity: .8;
+  bottom: 0;
+  border-radius: 100% 100% 0 0;
+}
+
+.loading span{
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: white;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  border-radius: 100%;
+  box-shadow: white 0 0 5px 1px;
+}

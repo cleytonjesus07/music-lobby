@@ -64,6 +64,7 @@ export default function Home({ data, recents, songsSorted }) {
       }
       localStorage.setItem("songsSorted", JSON.stringify(storage));
     }
+    /* data?.data */
     setSongsYouMightLike(data?.data);
   }, [])
 
@@ -71,6 +72,7 @@ export default function Home({ data, recents, songsSorted }) {
     setSongs(old => ({ ...old, items: data }))
     /* Tentando manter as musicas selecionadas em algum storage */
     /* pages.data = {data,recents} */
+    
   }, [])
 
   return (
