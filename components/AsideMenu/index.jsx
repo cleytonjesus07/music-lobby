@@ -27,13 +27,13 @@ export default function AsideMenu() {
             icon: <AiOutlineSearch className="w-full h-full" />,
             title: "Pesquisar",
             href: "/"
-        },
+        }/* ,
         {
             id: 2,
             icon: <VscLibrary className="w-full h-full" />,
             title: "Biblioteca",
             href: "/"
-        },
+        }, */
     ]
 
  
