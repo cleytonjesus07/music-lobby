@@ -3,15 +3,17 @@ import Card from "../../components/Card";
 import Section from "../../components/Section";
 import { appCtx } from "../../Context/AppContext";
 import supabase from "../../supabase";
-
+import { useRouter } from "next/router"
 export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
+    const router = useRouter();
     const { search: { deferredValue } } = useContext(appCtx)
     const [musics, setMusics] = useState([]);
     const [filteredMusics, setFilteredMusics] = useState(musics);
 
     useEffect(() => {
-
+        router.push("/", `/search?q=${deferredValue}`, { shallow: false })
         if (!deferredValue.length) {
+            router.push("/", "/search", { shallow: false })
             setFilteredMusics(musics)
         } else {
             setFilteredMusics(musics.filter((music) => {
@@ -20,6 +22,7 @@ export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
         }
     }, [deferredValue])
     useEffect(() => {
+        router.push("/", "/search", { shallow: false })
         async function fetchMusics() {
             const { data } = await supabase
                 .from("MusicsOnAlbums")
