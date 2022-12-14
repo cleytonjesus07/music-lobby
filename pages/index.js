@@ -12,7 +12,7 @@ import SearchPage from "../pageComponents/SearchPage"
 Home.title = "Web Player"
 
 export default function Home({ data, recents, songsSorted }) {
- 
+
   const { page: { page, setPage } } = useContext(appCtx);
   const { songsCtx: { setSongs }, albumList: { album, setAlbum }, soundPlayer: { setShowPlayer } } = useContext(songCtx);
   const [songsYouMightLike, setSongsYouMightLike] = useState();
@@ -52,11 +52,7 @@ export default function Home({ data, recents, songsSorted }) {
   }
 
 
-  useEffect(() => {
-    setSongs(old => ({ ...old, items: data }))
-    /* Tentando manter as musicas selecionadas em algum storage */
-    /* pages.data = {data,recents} */
-  }, [])
+
 
   useEffect(() => {
     const day = 86400000;
@@ -71,7 +67,11 @@ export default function Home({ data, recents, songsSorted }) {
     setSongsYouMightLike(data?.data);
   }, [])
 
-
+  useEffect(() => {
+    setSongs(old => ({ ...old, items: data }))
+    /* Tentando manter as musicas selecionadas em algum storage */
+    /* pages.data = {data,recents} */
+  }, [])
 
   return (
     <>
