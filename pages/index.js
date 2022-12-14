@@ -12,7 +12,7 @@ import SearchPage from "../pageComponents/SearchPage"
 Home.title = "Web Player"
 
 export default function Home({ data, recents, songsSorted }) {
-
+ 
   const { page: { page, setPage } } = useContext(appCtx);
   const { songsCtx: { setSongs }, albumList: { album, setAlbum }, soundPlayer: { setShowPlayer } } = useContext(songCtx);
   const [songsYouMightLike, setSongsYouMightLike] = useState();
@@ -59,19 +59,16 @@ export default function Home({ data, recents, songsSorted }) {
   }, [])
 
   useEffect(() => {
-    if (window) {
-      const day = 86400000;
-      const binary = localStorage.getItem("songsSorted");
-      const data = (binary) ? JSON.parse(window.atob(binary)) : null;
-      if (!data?.data || !localStorage.getItem("songsSorted") || new Date().getTime() > data.expiredAt) {
-        const storage = {
-          data: songsSorted,
-          expiredAt: new Date().getTime() + day
-        }
-        localStorage.setItem("songsSorted", window.btoa(JSON.stringify(storage)));
+    const day = 86400000;
+    const data = JSON.parse(localStorage.getItem("songsSorted"));
+    if (!data?.data || !localStorage.getItem("songsSorted") || new Date().getTime() > data.expiredAt) {
+      const storage = {
+        data: songsSorted,
+        expiredAt: new Date().getTime() + day
       }
-      setSongsYouMightLike(data?.data);
+      localStorage.setItem("songsSorted", JSON.stringify(storage));
     }
+    setSongsYouMightLike(data?.data);
   }, [])
 
 
