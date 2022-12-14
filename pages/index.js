@@ -72,7 +72,7 @@ export default function Home({ data, recents, songsSorted }) {
     setSongs(old => ({ ...old, items: data }))
     /* Tentando manter as musicas selecionadas em algum storage */
     /* pages.data = {data,recents} */
-    
+
   }, [])
 
   return (
@@ -80,6 +80,14 @@ export default function Home({ data, recents, songsSorted }) {
       <AsideMenu />
       <TopMenu />
       <main className="ml-56 max-md:ml-0 max-md:flex max-md:flex-col max-md:justify-center max-md:w-full ">
+        <ul className="background">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
         {pageManager.pages(page)}
       </main>
     </>
