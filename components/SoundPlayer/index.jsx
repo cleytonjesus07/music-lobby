@@ -7,8 +7,8 @@ import { songCtx } from "../../Context/SongContext";
 import { pauseSong, playSong, forward, backward } from "./controls";
 
 export default function SoundPlayer() {
-    const [isReady,setIsReady] = useState(false);
-   
+    const [isReady, setIsReady] = useState(false);
+
     const { currentMusic: {
         music
     },
@@ -58,6 +58,7 @@ export default function SoundPlayer() {
     }, [playing, playingMusicId])
 
     function setToInit() {
+        setPlaying(false)
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
         timeBarRef.current.value = 0;
@@ -131,7 +132,7 @@ export default function SoundPlayer() {
             <button type={"button"} className="absolute right-3 top-2 cursor-pointer opacity-40 hover:opacity-100 transition-all p-1 max-sm:w-10" title="close" onClick={() => close()}><VscChromeClose className="w-full h-full" /></button>
             <div className="h-full w-1/3 mx-5 flex items-center justify-center max-sm:w-full ">
                 <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''} max-sm:w-[calc(100%/.6)] max-sm:h-[calc(100%/.6)] max-sm:max-w-[300px] max-sm:max-h-[300px]`} style={{ backgroundImage: `url(${music?.album_cover})` }}>
-                    <span  className="player h-3 w-3 bg-neutral-800 absolute rounded-full max-sm:w-[40px] max-sm:h-[40px]"></span>
+                    <span className="player h-3 w-3 bg-neutral-800 absolute rounded-full max-sm:w-[40px] max-sm:h-[40px]"></span>
                 </div>
             </div>
 
@@ -176,10 +177,10 @@ export default function SoundPlayer() {
                                 )}
                         </div>
                     )
-                :
-                (
-                    <span className="text-xs text-center">Um momento...</span>
-                )
+                    :
+                    (
+                        <span className="text-xs text-center">Um momento...</span>
+                    )
                 }
             </div>
             <audio ref={audioRef}
