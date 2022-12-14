@@ -13,7 +13,7 @@ export default function AsideMenu() {
     const { page: { setPage } } = useContext(appCtx);
     const [whoMenuIsActive, setWhoMenuIsActive] = useState(null);
     const { asideMenu: { openMenu, setOpenMenu } } = useContext(songCtx);
-    const { scroll: { lockScroll } } = useContext(appCtx);
+  
 
     const menus = [
         {
@@ -36,9 +36,7 @@ export default function AsideMenu() {
         },
     ]
 
-    useEffect(() => {
-        openMenu ? lockScroll(true) : lockScroll(false);
-    }, [openMenu])
+ 
 
     function handleActiveMenu(menu) {
         setWhoMenuIsActive({ active: menu });

@@ -93,7 +93,7 @@ function Buttons({ toLeft, toRight, cardContainerRef }) {
                 ${!showBtns?.left && 'invisible'}
             `} >
                 {/* Back */}
-                <button type={"button"} className="cursor-pointer ">
+                <button type={"button"} title="left button" className="cursor-pointer ">
                     <AiFillLeftCircle className="w-8 h-8  " />
                 </button>
             </div>
@@ -102,7 +102,7 @@ function Buttons({ toLeft, toRight, cardContainerRef }) {
                 ${!showBtns?.right && 'invisible'}
             `} >
                 {/* Forward */}
-                <button type={"button"} className="cursor-pointer ">
+                <button type={"button"} title="right button" className="cursor-pointer ">
                     <AiFillRightCircle className="w-8 h-8" />
                 </button>
             </div>

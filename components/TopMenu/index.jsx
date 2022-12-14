@@ -1,8 +1,7 @@
-import Link from "next/link";
 import { AiOutlineSearch } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
-import { useContext, useDeferredValue } from "react";
+import { useContext } from "react";
 import { songCtx } from "../../Context/SongContext";
 import { appCtx } from "../../Context/AppContext";
 export default function TopMenu() {
@@ -22,7 +21,7 @@ export default function TopMenu() {
                     <span className="hidden">{"<"}</span>
                 </button>
             </div>
-            <button type={"button"} onClick={() => setOpenMenu(true)} className="ml-10 mr-5 flex items-center justify-center md:hidden rounded-full hover:bg-white group transition-all p-2 ">
+            <button type={"button"} title="Menu" onClick={() => setOpenMenu(true)} className="ml-10 mr-5 flex items-center justify-center md:hidden rounded-full hover:bg-white group transition-all p-2 ">
                 {/* Menu Hamburguer */}
                 <GiHamburgerMenu className="w-5 h-5 group-hover:fill-black" />
             </button>

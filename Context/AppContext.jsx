@@ -1,5 +1,5 @@
 
-import { createContext, useCallback, useDeferredValue, useState } from "react"
+import { createContext, useDeferredValue, useState } from "react"
 export const appCtx = createContext();
 
 export default function AppContext({ children }) {
@@ -11,21 +11,12 @@ export default function AppContext({ children }) {
         setSearch(value)
 
     }
-    const lockScroll = useCallback((option) => {
-        if (option) {
-            document.body.classList.add(".lockScroll")
-        } else {
-            document.body.style.overflow = "unset";
-        }
-    }, [])
+   
 
     return (
         <appCtx.Provider
             value={{
                 page: { page, setPage },
-                scroll: {
-                    lockScroll
-                },
                 search: { search, handleOnChange, deferredValue }
             }}>
             {children}

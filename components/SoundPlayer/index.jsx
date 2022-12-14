@@ -8,13 +8,11 @@ import { pauseSong, playSong, forward, backward } from "./controls";
 
 export default function SoundPlayer() {
     const [isReady,setIsReady] = useState(false);
-    const { scroll: { lockScroll } } = useContext(appCtx)
+   
     const { currentMusic: {
         music
     },
         soundPlayer: { showPlayer, setShowPlayer },
-        albumList: { album },
-
         playingMusic: { playingMusicId, setPlayingMusicId },
         isPlaying: { playing, setPlaying }
     } = useContext(songCtx);

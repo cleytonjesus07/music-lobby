@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { BsArrowDownCircleFill } from "react-icons/bs"
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { songCtx } from "../../Context/SongContext";
 import supabase from "../../supabase";
 
