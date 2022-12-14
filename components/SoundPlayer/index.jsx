@@ -211,7 +211,7 @@ export default function SoundPlayer() {
                     playSong(audioRef, audioRef.current.src, setPlaying)
                     setIsReady(true);
                 }}
-                preload={true}
+                preload={"metadata"}
             ></audio>
         </div >
     )
