@@ -57,9 +57,9 @@ export default function TopMenu() {
                     {locales.map((local, i) => {
                         switch (local) {
                             case "pt-BR":
-                                return <option key={i} value={local}>Português - BR</option>
+                                return <option key={i} value={local}>{router.locale == "pt-BR" ? "Português - BR" : "Portuguese - BR"}</option>
                             case "en-US":
-                                return <option key={i} value={local}>Inglês - US</option>
+                                return <option key={i} value={local}>{router.locale == "en-US" ? "English - US" : "Inglês - US"}</option>
                             default:
                                 break;
                         }
