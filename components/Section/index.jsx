@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai"
+import { appCtx } from "../../Context/AppContext";
 let scrollStep;
 export default function Section({ children, title, wrap, seeMore,justifyCenter }) {
-
+    const {translate} = useContext(appCtx);
     const cardContainerRef = useRef();
     const [showButtons, setShowButtons] = useState(false);
     useEffect(() => {
@@ -55,7 +56,7 @@ export default function Section({ children, title, wrap, seeMore,justifyCenter }
         <section>
             <div className="flex justify-between px-9 py-4 items-center">
                 <h2 className="text-[1.2em] font-bold">{title}</h2>
-                {seeMore && <span className="font-bold uppercase text-[.7em] text-neutral-400 hover:underline hover:cursor-pointer">Mostrar tudo</span>}
+                {seeMore && <span className="font-bold uppercase text-[.7em] text-neutral-400 hover:underline hover:cursor-pointer">{translate.mainScreen.showAll}</span>}
             </div>
             <div className="relative w-full" >
                 {showButtons && <Buttons toLeft={toLeft} cardContainerRef={cardContainerRef} toRight={toRight} />}

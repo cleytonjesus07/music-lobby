@@ -7,7 +7,8 @@
     },
     "mainScreen":{
         "musicsMightLike":"Songs you might like",
-        "addRecents":"Recently added"
+        "addRecents":"Recently added",
+        "showAll":"Show all"
     },
     "details":{
         "details":"Details",
