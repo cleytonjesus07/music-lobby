@@ -1,0 +1,21 @@
+{
+    "asideMenu": {
+        "home": "Home",
+        "search": "Search",
+        "aboutProject": "Project under development for study only.",
+        "developer": "Developed by Cleyton Jesus"
+    },
+    "mainScreen":{
+        "musicsMightLike":"Songs you might like",
+        "addRecents":"Recently added"
+    },
+    "details":{
+        "details":"Details",
+        "title":"Songs/Soundtracks"
+    },
+    "searchScreen":{
+        "searchInputPlaceholder":"What do you want to hear?",
+        "loading":"Loading...",
+        "notFound":""
+    }
+}

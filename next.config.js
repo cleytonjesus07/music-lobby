@@ -1,11 +1,12 @@
-const { PHASE_DEVELOPMENT_SERVER } = require("next/constants")
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   i18n: {
-    locales: ['pt-BR'],
-    defaultLocale: "pt-BR"
+    locales: ["pt-BR", "en-US"],
+    defaultLocale: "pt-BR",
+
   },
+  trailingSlash: false,
   env: {
     DATABASE_URL: 'postgresql://postgres:dlnitCSn7iVdhkIH@db.oupjkvghjrdngplvhyxv.supabase.co:5432/postgres',
     SUPABASE_URL: 'https://oupjkvghjrdngplvhyxv.supabase.co',

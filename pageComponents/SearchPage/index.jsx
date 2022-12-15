@@ -6,7 +6,7 @@ import supabase from "../../supabase";
 import { useRouter } from "next/router"
 export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
     const router = useRouter();
-    const { search: { deferredValue } } = useContext(appCtx)
+    const { search: { deferredValue }, translate } = useContext(appCtx)
     const [musics, setMusics] = useState([]);
     const [filteredMusics, setFilteredMusics] = useState(musics);
 
@@ -39,18 +39,18 @@ export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
     if (!filteredMusics.length && !musics.length) {
         return (
             <span>
-                Carregando...
+                {translate.searchScreen.loading}
             </span>
         )
     }
 
     if (!filteredMusics.length) {
         return <span>
-            Nenhuma música encontrada. {':('}
+            {translate.searchScreen.notFound}
         </span>
     }
     return (
-        <Section title={"Pesquisar"} wrap={true} justifyCenter={true}>
+        <Section title={translate.asideMenu.search} wrap={true} justifyCenter={true}>
             {filteredMusics.map(({ Music: { id_music, music_title }, Album: { album_cover, Artist: { id_artist, artist_bio } } }) => {
                 return <Card key={id_music} cover={album_cover} desc={artist_bio} title={music_title} onClick={() => getArtistMusicsDetails(id_artist, setAlbum)} />
             })}

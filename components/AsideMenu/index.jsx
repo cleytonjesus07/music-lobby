@@ -1,32 +1,33 @@
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { VscChromeClose } from "react-icons/vsc"
-import { VscLibrary } from "react-icons/vsc";
 import { FaPlay } from "react-icons/fa"
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { songCtx } from "../../Context/SongContext";
 import { appCtx } from "../../Context/AppContext";
+import { useRouter } from "next/router";
 
 
 
 export default function AsideMenu() {
-    const { page: { setPage } } = useContext(appCtx);
+    const router = useRouter();
+    const { page: { setPage }, translate } = useContext(appCtx);
     const [whoMenuIsActive, setWhoMenuIsActive] = useState(null);
     const { asideMenu: { openMenu, setOpenMenu } } = useContext(songCtx);
-  
+
 
     const menus = [
         {
             id: 0,
             icon: <AiFillHome className="w-full h-full" />,
-            title: "Início",
-            href: "/"
+            title: translate.asideMenu.home,
+            href: "inicio"
         },
         {
             id: 1,
             icon: <AiOutlineSearch className="w-full h-full" />,
-            title: "Pesquisar",
-            href: "/"
+            title: translate.asideMenu.search,
+            href: "pesquisar"
         }/* ,
         {
             id: 2,
@@ -36,7 +37,7 @@ export default function AsideMenu() {
         }, */
     ]
 
- 
+
 
     function handleActiveMenu(menu) {
         setWhoMenuIsActive({ active: menu });
@@ -63,9 +64,10 @@ export default function AsideMenu() {
                         {menus.map(({ id, icon, title, href }, index) => {
                             return (
                                 <li key={index} className="flex max-md:justify-center  ">
-                                    <Link href={href}
+                                    <Link href={{ href }}
+                                        
                                         onClick={() => {
-                                            setPage(title.toLowerCase())
+                                            setPage(href.toLowerCase())
                                             setOpenMenu(false)
                                         }}
                                         className={
@@ -100,8 +102,8 @@ export default function AsideMenu() {
                     </ul>
                 </div>
                 <div className="absolute bottom-10 text-center w-full flex flex-col">
-                    <span className="font-thin text-[.7em]">Projeto em desenvolvimento apenas para estudo.</span>
-                    <span className="font-thin text-[.7em]" >Desenvolvido por <span className="font-bold">Cleyton Jesus</span></span>
+                    <span className="font-thin text-[.7em]">{translate.asideMenu.aboutProject}</span>
+                    <span className="font-thin text-[.7em]" >{translate.asideMenu.developer}</span>
                 </div>
             </div>
         </>

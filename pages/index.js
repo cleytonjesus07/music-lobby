@@ -1,24 +1,24 @@
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import AsideMenu from "../components/AsideMenu"
 import MusicDetails from "../components/Details"
 import TopMenu from "../components/TopMenu"
 import { songCtx } from "../Context/SongContext"
 import InicioPage from "../pageComponents/InicioPage"
 import supabase from "../supabase"
-
 import { appCtx } from "../Context/AppContext"
 import SearchPage from "../pageComponents/SearchPage"
+
 
 Home.title = "Web Player"
 
 export default function Home({ data, recents, songsSorted }) {
-
   const { page: { page, setPage } } = useContext(appCtx);
   const { songsCtx: { setSongs }, albumList: { album, setAlbum }, soundPlayer: { setShowPlayer } } = useContext(songCtx);
   const [songsYouMightLike, setSongsYouMightLike] = useState();
 
 
   async function getArtistMusicsDetails(id_artist, setAlbum) {
+
     await supabase
       .from("MusicsOnAlbums")
       .select(`
@@ -39,9 +39,9 @@ export default function Home({ data, recents, songsSorted }) {
     pages: (page) => {
       /* Páginas */
       switch (page) {
-        case "início":
+        case ("inicio"):
           return <InicioPage songsYouMightLike={songsYouMightLike} recents={recents} data={data} setAlbum={setAlbum} setPage={setPage} getArtistMusicsDetails={getArtistMusicsDetails} />
-        case "pesquisar":
+        case ("pesquisar"):
           return <SearchPage data={data} getArtistMusicsDetails={getArtistMusicsDetails} setPage={setPage} setAlbum={setAlbum} />
         case "details":
           return <MusicDetails />
@@ -89,6 +89,7 @@ export default function Home({ data, recents, songsSorted }) {
           <li></li>
         </ul>
         {pageManager.pages(page)}
+
       </main>
     </>
   )

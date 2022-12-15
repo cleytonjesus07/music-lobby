@@ -3,6 +3,7 @@ import { BsArrowDownCircleFill } from "react-icons/bs"
 import { useContext, useEffect, useState } from "react";
 import { songCtx } from "../../Context/SongContext";
 import supabase from "../../supabase";
+import { appCtx } from "../../Context/AppContext";
 
 export default function MusicDetails() {
     const {
@@ -19,7 +20,7 @@ export default function MusicDetails() {
         playingMusic: { playingMusicId, setPlayingMusicId },
         isPlaying: { playing, setPlaying }
     } = useContext(songCtx);
-
+    const {translate} = useContext(appCtx);
 
 
     const [list, setList] = useState([]);
@@ -81,7 +82,7 @@ export default function MusicDetails() {
                 <div className="bg-gradient-to-t from-black to-neutral-800 h-screen w-full">
                     <div className="w-full py-4  bg-black flex items-center">
                         <BsArrowDownCircleFill className="ml-12 w-5 h-5" />
-                        <span className="font-semibold text-1xl ml-2 ">Musics/Soundtracks</span>
+                        <span className="font-semibold text-1xl ml-2 ">{translate.details.title}</span>
                     </div>
                     {list?.MusicsOnAlbums?.length
                         &&

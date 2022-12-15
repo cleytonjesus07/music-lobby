@@ -2,11 +2,14 @@ import Card from "../../components/Card"
 import Section from "../../components/Section"
 import Image from "next/image"
 import Loading from "../../components/Loading"
+import { useContext } from "react"
+import { appCtx } from "../../Context/AppContext"
 export default function InicioPage({ songsYouMightLike, recents, data, setAlbum, setPage, getArtistMusicsDetails }) {
+    const {translate} = useContext(appCtx);
     return (
         <>
             <div className="bg-gradient-to-b from-black to-neutral-900 ">
-                <Section key={"#SongsYouMightLike"} title={"😊 Músicas que talvez você possa gostar"} seeMore={false}>
+                <Section key={"#SongsYouMightLike"} title={`😊 ${translate.mainScreen.musicsMightLike}`} seeMore={false}>
                     {songsYouMightLike
                         ?
                         (
@@ -30,7 +33,7 @@ export default function InicioPage({ songsYouMightLike, recents, data, setAlbum,
                         )
                     }
                 </Section>
-                <Section key={"#recent"} title={"Adicionados recentemente"} seeMore={false}>
+                <Section key={"#recent"} title={translate.mainScreen.addRecents} seeMore={false}>
                     {recents
                         ?
                         (

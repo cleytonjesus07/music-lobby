@@ -1,0 +1,21 @@
+{
+    "asideMenu": {
+        "home": "Inicio",
+        "search": "Pesquisar",
+        "aboutProject": "Projeto em desenvolvimento apenas para estudo.",
+        "developer": "Desenvolvido por Cleyton Jesus"
+    },
+    "mainScreen": {
+        "musicsMightLike": "Músicas que talvez você possa gostar",
+        "addRecents": "Adicionados recentemente"
+    },
+    "details": {
+        "details": "detalhes",
+        "title": "Músicas/Trilhas sonoras"
+    },
+    "searchScreen": {
+        "searchInputPlaceholder": "O que você quer ouvir?",
+        "loading": "Carregando...",
+        "notFound": "No music found. :("
+    }
+}
