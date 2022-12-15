@@ -13,9 +13,13 @@ Home.title = "Web Player"
 
 export default function Home({ data, recents, songsSorted }) {
   const { page: { page, setPage } } = useContext(appCtx);
-  const { songsCtx: { setSongs }, albumList: { album, setAlbum }, soundPlayer: { setShowPlayer } } = useContext(songCtx);
+  const { songsCtx: { setSongs }, albumList: { setAlbum } } = useContext(songCtx);
   const [songsYouMightLike, setSongsYouMightLike] = useState();
-
+  const pages = {
+    inicio: <InicioPage songsYouMightLike={songsYouMightLike} recents={recents} data={data} setAlbum={setAlbum} setPage={setPage} getArtistMusicsDetails={getArtistMusicsDetails} />,
+    pesquisar: <SearchPage data={data} getArtistMusicsDetails={getArtistMusicsDetails} setPage={setPage} setAlbum={setAlbum} />,
+    details: <MusicDetails />
+  }
 
   async function getArtistMusicsDetails(id_artist, setAlbum) {
 
@@ -35,24 +39,6 @@ export default function Home({ data, recents, songsSorted }) {
       .then(setAlbum)
       .then(() => setPage("details"));
   }
-  const pageManager = {
-    pages: (page) => {
-      /* Páginas */
-      switch (page) {
-        case ("inicio"):
-          return <InicioPage songsYouMightLike={songsYouMightLike} recents={recents} data={data} setAlbum={setAlbum} setPage={setPage} getArtistMusicsDetails={getArtistMusicsDetails} />
-        case ("pesquisar"):
-          return <SearchPage data={data} getArtistMusicsDetails={getArtistMusicsDetails} setPage={setPage} setAlbum={setAlbum} />
-        case "details":
-          return <MusicDetails />
-        default:
-          break;
-      }
-    }
-  }
-
-
-
 
   useEffect(() => {
     const day = 86400000;
@@ -70,9 +56,6 @@ export default function Home({ data, recents, songsSorted }) {
 
   useEffect(() => {
     setSongs(old => ({ ...old, items: data }))
-    /* Tentando manter as musicas selecionadas em algum storage */
-    /* pages.data = {data,recents} */
-
   }, [])
 
   return (
@@ -80,22 +63,25 @@ export default function Home({ data, recents, songsSorted }) {
       <AsideMenu />
       <TopMenu />
       <main className="ml-56 max-md:ml-0 max-md:flex max-md:flex-col max-md:justify-center max-md:w-full ">
-        <ul className="background">
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-        {pageManager.pages(page)}
-
+        <BackgroundAnimated />
+        {pages[page]}
       </main>
     </>
   )
 }
 
-
+function BackgroundAnimated() {
+  return (
+    <ul className="background">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  )
+}
 
 
 

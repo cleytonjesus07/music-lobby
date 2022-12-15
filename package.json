@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^4.7.1",
     "@supabase/supabase-js": "^2.1.1",
     "@tailwindcss/line-clamp": "^0.4.2",
     "eslint": "8.28.0",
@@ -17,7 +16,6 @@
     "js-cookie": "^3.0.1",
     "next": "13.0.5",
     "pocketbase": "^0.8.2",
-    "prisma": "^4.7.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1"

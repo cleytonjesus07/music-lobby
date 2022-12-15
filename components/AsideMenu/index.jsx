@@ -5,12 +5,11 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { songCtx } from "../../Context/SongContext";
 import { appCtx } from "../../Context/AppContext";
-import { useRouter } from "next/router";
 
 
 
 export default function AsideMenu() {
-    const router = useRouter();
+   
     const { page: { setPage }, translate } = useContext(appCtx);
     const [whoMenuIsActive, setWhoMenuIsActive] = useState(null);
     const { asideMenu: { openMenu, setOpenMenu } } = useContext(songCtx);
@@ -28,13 +27,7 @@ export default function AsideMenu() {
             icon: <AiOutlineSearch className="w-full h-full" />,
             title: translate.asideMenu.search,
             href: "pesquisar"
-        }/* ,
-        {
-            id: 2,
-            icon: <VscLibrary className="w-full h-full" />,
-            title: "Biblioteca",
-            href: "/"
-        }, */
+        }
     ]
 
 
@@ -61,7 +54,7 @@ export default function AsideMenu() {
                 </Link>
                 <div>
                     <ul className="max-md:flex max-md:flex-col   ">
-                        {menus.map(({ id, icon, title, href }, index) => {
+                        {menus.map(({  icon, title, href }, index) => {
                             return (
                                 <li key={index} className="flex max-md:justify-center  ">
                                     <Link href={{ href }}

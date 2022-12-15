@@ -11,15 +11,6 @@ export default function SongContext({ children }) {
     const [playingMusicId, setPlayingMusicId] = useState({ id: null, index: null });
     const [playing, setPlaying] = useState(false);
 
-
-    useEffect(() => {
-        if (document.body.clientWidth < 640 && showPlayer) {
-            document.body.style.overflow = "hidden"
-        } else {
-            document.body.style.overflow = "auto"
-        }
-    }, [showPlayer])
-
     return (
         <songCtx.Provider
             value={{

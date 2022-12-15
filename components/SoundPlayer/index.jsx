@@ -8,7 +8,7 @@ import { pauseSong, playSong, forward, backward } from "./controls";
 
 export default function SoundPlayer() {
     const [isReady, setIsReady] = useState(false);
-    const {translate} = useContext(appCtx);
+    const { translate } = useContext(appCtx);
     const { currentMusic: {
         music
     },
@@ -38,6 +38,7 @@ export default function SoundPlayer() {
 
     useEffect(() => {
         setIsReady(false);
+        setPlaying(false)
         setPlayingMusicId({ ...playingMusicId, id: music?.MusicsOnAlbums[playingMusicId?.index].Music.id_music })
     }, [playingMusicId.index])
 
@@ -48,6 +49,7 @@ export default function SoundPlayer() {
                 document.title = `Tocando: ${music?.MusicsOnAlbums[playingMusicId.index]?.Music?.music_title}`
                 break;
             case false:
+
                 document.title = `Pausado: ${music?.MusicsOnAlbums[playingMusicId.index]?.Music?.music_title}`;
                 break;
             default:
@@ -152,7 +154,11 @@ export default function SoundPlayer() {
                             {(music?.MusicsOnAlbums.length > 1) &&
                                 (
                                     <div className="hover:cursor-pointer opacity-40 hover:opacity-100  transition-all" title={"backward"}>
-                                        <IoMdSkipBackward className="button" onClick={() => backward(setPlayingMusicId, music.MusicsOnAlbums.length, music, playingMusicId)} />
+                                        <IoMdSkipBackward
+                                            className="button"
+                                            onClick={() => {
+                                                backward(setPlayingMusicId, music.MusicsOnAlbums.length, music, playingMusicId)
+                                            }} />
                                     </div>
                                 )}
                             {!playing
@@ -172,7 +178,11 @@ export default function SoundPlayer() {
                             {(music?.MusicsOnAlbums.length > 1) &&
                                 (
                                     <div className="hover:cursor-pointer opacity-40 hover:opacity-100 transition-all" title={"forward"}>
-                                        <IoMdSkipForward className="button" onClick={() => forward(setPlayingMusicId, music.MusicsOnAlbums.length, music, playingMusicId)} />
+                                        <IoMdSkipForward
+                                            className="button"
+                                            onClick={() => {
+                                                forward(setPlayingMusicId, music.MusicsOnAlbums.length, music, playingMusicId);
+                                            }} />
                                     </div>
                                 )}
                         </div>

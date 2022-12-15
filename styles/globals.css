@@ -303,7 +303,8 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  background-color: rgb(94, 196, 255);
+  background-color: transparent;
+  border-left: rgb(94, 196, 255) 1px solid;
   animation: rotation linear 1s infinite;
 }
 
@@ -311,29 +312,6 @@ body {
     100%{
       rotate: 360deg;
     }
-}
-
-.loading::after {
-  position: absolute;
-  background-color: black;
-  width: 40px;
-  height: 40px;
-  content: "";
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 100%;
-}
-
-.loading::before{
-  position: absolute;
-  content: "";
-  width: 100px;
-  height: 10px;
-  background: rgb(0, 0, 0);
-  opacity: .8;
-  bottom: 0;
-  border-radius: 100% 100% 0 0;
 }
 
 .loading span{

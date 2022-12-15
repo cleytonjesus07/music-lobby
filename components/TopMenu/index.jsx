@@ -9,7 +9,7 @@ import Image from "next/image";
 export default function TopMenu() {
     const router = useRouter();
     const locales = router.locales;
-    const { page: { page, setPage }, search: { search, handleOnChange }, translate } = useContext(appCtx)
+    const { page: { page }, search: { search, handleOnChange }, translate } = useContext(appCtx)
     const { asideMenu: { setOpenMenu } } = useContext(songCtx);
     const [flag, setFlag] = useState(router.locale);
     return (
