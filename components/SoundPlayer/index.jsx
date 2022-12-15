@@ -8,7 +8,7 @@ import { pauseSong, playSong, forward, backward } from "./controls";
 
 export default function SoundPlayer() {
     const [isReady, setIsReady] = useState(false);
-
+    const {translate} = useContext(appCtx);
     const { currentMusic: {
         music
     },
@@ -179,7 +179,7 @@ export default function SoundPlayer() {
                     )
                     :
                     (
-                        <span className="text-xs text-center">Um momento...</span>
+                        <span className="text-xs text-center">{translate.soundPlayerScreen.wait}</span>
                     )
                 }
             </div>

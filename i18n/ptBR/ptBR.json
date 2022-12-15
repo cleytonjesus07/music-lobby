@@ -17,5 +17,8 @@
         "searchInputPlaceholder": "O que você quer ouvir?",
         "loading": "Carregando...",
         "notFound": "No music found. :("
+    },
+    "soundPlayerScreen":{
+        "wait":"Um momento..."
     }
 }

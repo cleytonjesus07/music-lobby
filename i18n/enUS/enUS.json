@@ -17,5 +17,8 @@
         "searchInputPlaceholder":"What do you want to hear?",
         "loading":"Loading...",
         "notFound":""
+    },
+    "soundPlayerScreen":{
+        "wait":"One moment..."
     }
 }
