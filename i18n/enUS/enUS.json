@@ -16,7 +16,7 @@
     "searchScreen":{
         "searchInputPlaceholder":"What do you want to hear?",
         "loading":"Loading...",
-        "notFound":""
+        "notFound":"No music found. :("
     },
     "soundPlayerScreen":{
         "wait":"One moment..."
