@@ -200,8 +200,6 @@ export default function SoundPlayer() {
                 onLoadedData={() => {
                     timeBarRef.current.removeAttribute("disabled");
                 }}
-                /* onPlaying={() => setPlaying(true)} */
-                /* onPause={() => setPlaying(false)} */
                 onTimeUpdate={(e) => updateBar(e)}
                 onDurationChange={(e) => {
                     setTimestamps(old => {
