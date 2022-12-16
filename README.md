@@ -1,4 +1,4 @@
-<h1>🎶▶️ MUSIC LOBBY 🎶(~˘▾˘)~</h1>
+<h1>🎶▶️ MUSIC LOBBY(Português-BR) 🎶(~˘▾˘)~</h1>
 
 ᕕ( ᐛ )ᕗ - Music Lobby é um projeto pessoal(em andamento) que consiste em você ouvir algumas músicas enquanto esteja fazendo qualquer outra coisa.
 
@@ -25,7 +25,39 @@ Foram utilizadas as seguintes tecnologias:
 O projeto está hospedado na Vercel:
     <a href="https://music-lobby.vercel.app/">Music Lobby</a>
 <hr/>
+<br/>
+<br/>
+<br/>
+<h1>🎶▶️ MUSIC LOBBY(English-US) 🎶(~˘▾˘)~</h1>
 
+ᕕ( ᐛ )ᕗ - Music Lobby is a personal (ongoing) project that consists of you listening to some music while doing something else.
+
+<h3>｡◕‿◕｡ - Technologies:</h3>
+The following technologies were used:
+<ul style="list-style:none">
+<li>HTML</li>
+<li>JS</li>
+<li>CSS</li>
+<li>React JS</li>
+<li>Next JS</li>
+<li>Tailwind CSS</li>
+<li>Supabase</li>
+</ul>
+<hr/>
+    <h3> ☜(⌒▽⌒)☞ - Project images:</h3>
+    <h4>Main screen</h4>
+    <img src="public/images/project_1.jpg" alt="imagem do projeto: tela inicial">
+    <h4>Songs screen</h4>
+    <img src="public/images/project_2.jpg" alt="imagem do projeto: tela das músicas">
+    <h4>Search screen</h4>
+    <img src="public/images/project_3.jpg" alt="imagem do projeto: tela de pesquisa">
+<hr/>
+The project is hosted at Vercel:
+    <a href="https://music-lobby.vercel.app/">Music Lobby</a>
+<hr/>
+<br/>
+<br/>
+<br/>
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
