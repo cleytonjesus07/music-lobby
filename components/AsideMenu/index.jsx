@@ -2,15 +2,15 @@ import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { VscChromeClose } from "react-icons/vsc"
 import { FaPlay } from "react-icons/fa"
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, memo } from "react";
 import { songCtx } from "../../Context/SongContext";
 import { appCtx } from "../../Context/AppContext";
 
 
 
 
-export default function AsideMenu() {
-   
+function AsideMenu() {
+
     const { page: { setPage }, translate } = useContext(appCtx);
     const [whoMenuIsActive, setWhoMenuIsActive] = useState(null);
     const { asideMenu: { openMenu, setOpenMenu } } = useContext(songCtx);
@@ -62,7 +62,7 @@ export default function AsideMenu() {
                                 <li key={index} className="flex max-md:justify-center  ">
                                     <Link
                                         href={"/"}
-                                        as={href} 
+                                        as={href}
                                         onClick={() => {
                                             setPage(menu.toLowerCase())
                                             setOpenMenu(false)
@@ -106,3 +106,5 @@ export default function AsideMenu() {
         </>
     )
 }
+
+export default memo(AsideMenu);

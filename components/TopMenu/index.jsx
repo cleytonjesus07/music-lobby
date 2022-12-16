@@ -1,12 +1,12 @@
 import { AiOutlineSearch } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
-import { useContext, useState } from "react";
+import { useContext, useState,memo } from "react";
 import { songCtx } from "../../Context/SongContext";
 import { appCtx } from "../../Context/AppContext";
 import { useRouter } from "next/router";
 import Image from "next/image";
-export default function TopMenu() {
+function TopMenu() {
     const router = useRouter();
     const locales = router.locales;
     const { page: { page }, search: { search, handleOnChange }, translate } = useContext(appCtx)
@@ -69,3 +69,5 @@ export default function TopMenu() {
         </header>
     )
 }
+
+export default memo(TopMenu);

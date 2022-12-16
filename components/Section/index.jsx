@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useContext, useEffect, useRef, useState } from "react"
+
+import { useContext, useEffect, useRef, useState,memo } from "react"
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai"
 import { appCtx } from "../../Context/AppContext";
-import ShowAll from "../../pageComponents/ShowAll";
+
 let scrollStep;
-export default function Section({ children, title, wrap, seeMore, justifyCenter }) {
-    const router = useRouter();
+function Section({ children, title, wrap, seeMore, justifyCenter }) {
+  
     const { page: { setPage }, translate } = useContext(appCtx);
     const cardContainerRef = useRef();
     const [showButtons, setShowButtons] = useState(false);
@@ -124,3 +124,6 @@ function Buttons({ toLeft, toRight, cardContainerRef }) {
         </div>
     )
 }
+
+
+export default memo(Section);

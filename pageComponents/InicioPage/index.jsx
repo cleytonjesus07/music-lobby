@@ -2,9 +2,9 @@ import Card from "../../components/Card"
 import Section from "../../components/Section"
 import Image from "next/image"
 import Loading from "../../components/Loading"
-import { useContext } from "react"
+import { useContext,memo } from "react"
 import { appCtx } from "../../Context/AppContext"
-export default function InicioPage({ songsYouMightLike, recents, data, setAlbum, setPage, getArtistMusicsDetails }) {
+function InicioPage({ songsYouMightLike, recents, data, setAlbum, setPage, getArtistMusicsDetails }) {
     const {translate} = useContext(appCtx);
     return (
         <>
@@ -91,3 +91,4 @@ export default function InicioPage({ songsYouMightLike, recents, data, setAlbum,
 }
 
 
+export default memo(InicioPage);

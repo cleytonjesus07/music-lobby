@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { BsArrowDownCircleFill } from "react-icons/bs"
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState,memo } from "react";
 import { songCtx } from "../../Context/SongContext";
 import supabase from "../../supabase";
 import { appCtx } from "../../Context/AppContext";
 
-export default function MusicDetails() {
+function MusicDetails() {
     const {
         albumList: { album: {
             Album: { album_cover, Artist: { id_artist, artist_name, artist_bio } },
@@ -42,7 +42,7 @@ export default function MusicDetails() {
 
 
 
-    async function getMusic(id_artist, id_music, i) {
+    function getMusic(id_artist, id_music, i) {
 
         if (playingMusicId.id === id_music) {
             /* Bloquear quando faz a requisição para a mesma música */
@@ -51,11 +51,7 @@ export default function MusicDetails() {
 
         setPlaying(false)
 
-        /* const { data } = await supabase
-            .from("Album")
-            .select(`*,Artist(*),
-        MusicsOnAlbums(Music(*))
-`).eq('Artist.id_artist', id_artist) */
+        
         setMusic(()=>{
             return ({
                 Musics:list[0]?.Album[0]?.MusicsOnAlbums,
@@ -111,3 +107,5 @@ export default function MusicDetails() {
         </>
     )
 }
+
+export default memo(MusicDetails)
