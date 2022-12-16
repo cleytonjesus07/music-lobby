@@ -30,7 +30,7 @@ O projeto está hospedado na Vercel:
 <br/>
 <h1>🎶▶️ MUSIC LOBBY(English-US) 🎶(~˘▾˘)~</h1>
 
-ᕕ( ᐛ )ᕗ - Music Lobby is a personal (ongoing) project that consists of you listening to some music while doing something else.
+ᕕ( ᐛ )ᕗ - Music Lobby is a personal (work in progress) project that consists of you listening to some music while doing something else.
 
 <h3>｡◕‿◕｡ - Technologies:</h3>
 The following technologies were used:
