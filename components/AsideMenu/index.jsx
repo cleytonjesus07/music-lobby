@@ -5,12 +5,12 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { songCtx } from "../../Context/SongContext";
 import { appCtx } from "../../Context/AppContext";
-import { useRouter } from "next/router";
+
 
 
 
 export default function AsideMenu() {
-    const router = useRouter();
+   
     const { page: { setPage }, translate } = useContext(appCtx);
     const [whoMenuIsActive, setWhoMenuIsActive] = useState(null);
     const { asideMenu: { openMenu, setOpenMenu } } = useContext(songCtx);
@@ -51,10 +51,10 @@ export default function AsideMenu() {
                 }} className="absolute right-10 top-9 md:hidden">
                     <VscChromeClose className="w-7 h-7 opacity-70 hover:opacity-100" />
                 </button>
-                <Link href={"/"} className="flex items-center  my-14 mx-4  ">
+                <div className="flex items-center  my-14 mx-4  ">
                     <FaPlay className="  w-6 h-auto mx-2" />
                     <span className="text-lg font-extrabold ">Music Lobby</span>
-                </Link>
+                </div>
                 <div>
                     <ul className="max-md:flex max-md:flex-col   ">
                         {menus.map(({ icon, title, menu, href }, index) => {

@@ -21,7 +21,7 @@ export default function InicioPage({ songsYouMightLike, recents, data, setAlbum,
                                             <Image src={album_cover} decoding="sync" loading="eager" fill sizes="(max-width: 768px) 100%,(max-width: 1200px) 50%,33%" style={{ objectFit: "cover", objectPosition: "top" }} alt="album cover" />
                                         </div>
                                         <div className="flex  bg-black bg-opacity-70  w-full px-10" style={{ justifyContent: "end", alignItems: "center" }}>
-                                            <span className=" text-sm font-bold  bg-black bg-opacity-70 text-center  rounded-md  p-2" style={{ zIndex: 10 }} >{music_title}</span>
+                                            <span className=" text-sm font-bold  bg-black bg-opacity-70 text-center  rounded-md  p-2 line-clamp-2" style={{ zIndex: 10 }} >{music_title}</span>
                                         </div>
                                     </div>
                                 )
