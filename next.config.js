@@ -14,7 +14,7 @@ const nextConfig = {
 
   },
   images: {
-    domains: ['127.0.0.1', 'music-lobby.pockethost.io']
+    domains: ['127.0.0.1', 'music-lobby.pockethost.io','upload.pockethost.io']
   }
 }
 
