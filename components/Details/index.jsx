@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { BsArrowDownCircleFill } from "react-icons/bs"
-import { useContext, useEffect, useState,memo } from "react";
+import { useContext, useEffect, useState, memo } from "react";
 import { songCtx } from "../../Context/SongContext";
 import supabase from "../../supabase";
 import { appCtx } from "../../Context/AppContext";
@@ -15,7 +15,7 @@ function MusicDetails() {
             setShowPlayer
         },
         currentMusic: {
-            music,setMusic
+            music, setMusic
         },
         playingMusic: { playingMusicId, setPlayingMusicId },
         isPlaying: { playing, setPlaying }
@@ -38,11 +38,11 @@ function MusicDetails() {
 
     }, [])
 
-  
 
 
 
-    function getMusic(id_artist, id_music, i) {
+
+    function getMusic(id_music, i) {
 
         if (playingMusicId.id === id_music) {
             /* Bloquear quando faz a requisição para a mesma música */
@@ -51,19 +51,19 @@ function MusicDetails() {
 
         setPlaying(false)
 
-        
-        setMusic(()=>{
+
+        setMusic(() => {
             return ({
-                Musics:list[0]?.Album[0]?.MusicsOnAlbums,
-                Artist:list[0]?.artist_name,
-                Album:list[0]?.Album[0]?.album_cover
+                Musics: list[0]?.Album[0]?.MusicsOnAlbums,
+                Artist: list[0]?.artist_name,
+                Album: list[0]?.Album[0]?.album_cover
             })
         })
         setPlayingMusicId({ id: id_music, index: i });
         setShowPlayer(true)
     }
 
-  
+
 
     return (
         <>
@@ -93,7 +93,7 @@ function MusicDetails() {
                             <ul className="block p-10">
                                 {list[0]?.Album[0]?.MusicsOnAlbums?.map(({ Music: { id_music, music_title } }, i) => {
                                     return (
-                                        <li key={id_music} onClick={() => getMusic(list.id_artist, id_music, i)} className={`${((id_music === playingMusicId.id) && playing) ? "bg-white text-neutral-900 " : "bg-gradient-to-r from-neutral-900 to-neutral-600 scale-[.9]"} p-4 rounded-lg opacity-70 hover:opacity-100 transition-all cursor-pointer my-2 flex items-center `}>
+                                        <li key={id_music} onClick={() => getMusic(id_music, i)} className={`${((id_music === playingMusicId.id) && playing) ? "bg-white text-neutral-900 " : "bg-gradient-to-r from-neutral-900 to-neutral-600 scale-[.9]"} p-4 rounded-lg opacity-70 hover:opacity-100 transition-all cursor-pointer my-2 flex items-center `}>
                                             {((id_music === playingMusicId.id) && playing) && <Image src={"/audio/audiowave.gif"} width={20} height={20} className="mr-2" alt="gif" />}
                                             <span className={`font-bold mr-1  group-span ${((id_music === playingMusicId.id) && playing) && "bg-white text-neutral-900"}`}>{i + 1}</span> - {music_title}
                                         </li>

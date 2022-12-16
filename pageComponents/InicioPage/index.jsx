@@ -1,11 +1,11 @@
 import Card from "../../components/Card"
-import Section from "../../components/Section"
 import Image from "next/image"
 import Loading from "../../components/Loading"
-import { useContext,memo } from "react"
+import { useContext, memo, lazy } from "react"
 import { appCtx } from "../../Context/AppContext"
+const Section = lazy(() => import("../../components/Section"))
 function InicioPage({ songsYouMightLike, recents, data, setAlbum, setPage, getArtistMusicsDetails }) {
-    const {translate} = useContext(appCtx);
+    const { translate } = useContext(appCtx);
     return (
         <>
             <div className="bg-gradient-to-b from-black to-neutral-900 ">
