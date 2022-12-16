@@ -5,11 +5,12 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { songCtx } from "../../Context/SongContext";
 import { appCtx } from "../../Context/AppContext";
+import { useRouter } from "next/router";
 
 
 
 export default function AsideMenu() {
-   
+    const router = useRouter();
     const { page: { setPage }, translate } = useContext(appCtx);
     const [whoMenuIsActive, setWhoMenuIsActive] = useState(null);
     const { asideMenu: { openMenu, setOpenMenu } } = useContext(songCtx);
@@ -20,13 +21,15 @@ export default function AsideMenu() {
             id: 0,
             icon: <AiFillHome className="w-full h-full" />,
             title: translate.asideMenu.home,
-            href: "inicio"
+            menu: "inicio",
+            href: '/'
         },
         {
             id: 1,
             icon: <AiOutlineSearch className="w-full h-full" />,
             title: translate.asideMenu.search,
-            href: "pesquisar"
+            menu: "pesquisar",
+            href: "/search"
         }
     ]
 
@@ -54,13 +57,14 @@ export default function AsideMenu() {
                 </Link>
                 <div>
                     <ul className="max-md:flex max-md:flex-col   ">
-                        {menus.map(({  icon, title, href }, index) => {
+                        {menus.map(({ icon, title, menu, href }, index) => {
                             return (
                                 <li key={index} className="flex max-md:justify-center  ">
-                                    <Link href={{ href }}
-                                        
+                                    <Link
+                                        href={"/"}
+                                        as={href} 
                                         onClick={() => {
-                                            setPage(href.toLowerCase())
+                                            setPage(menu.toLowerCase())
                                             setOpenMenu(false)
                                         }}
                                         className={

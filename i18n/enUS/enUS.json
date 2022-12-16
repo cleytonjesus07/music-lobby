@@ -16,7 +16,6 @@
     },
     "searchScreen":{
         "searchInputPlaceholder":"What do you want to hear?",
-        "loading":"Loading...",
         "notFound":"No music found. :("
     },
     "soundPlayerScreen":{

@@ -34,9 +34,9 @@ export default function Home({ data, recents, songsSorted }) {
             album_title,
             Artist:id_artist(*)
         )
-    `).in("Album.id_artist", [id_artist])
+    `).in("Album.Artist.id_artist", [id_artist])
       .then(({ data }) => {
-        return data.filter(({ Album }) => Album !== null)[0]
+        return data.filter(({ Album: { Artist } }) => Artist !== null)[0]
       })
       .then(setAlbum)
       .then(() => setPage("details"));

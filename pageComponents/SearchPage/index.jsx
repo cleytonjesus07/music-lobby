@@ -4,11 +4,15 @@ import Section from "../../components/Section";
 import { appCtx } from "../../Context/AppContext";
 import supabase from "../../supabase";
 import { useRouter } from "next/router"
+import Loading from "../../components/Loading";
+
+let cache = null;
+
 export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
     const router = useRouter();
     const { search: { deferredValue }, translate } = useContext(appCtx)
     const [musics, setMusics] = useState([]);
-    const [filteredMusics, setFilteredMusics] = useState(musics);
+    const [filteredMusics, setFilteredMusics] = useState();
 
     useEffect(() => {
         router.push("/", `/search?q=${deferredValue}`, { shallow: false })
@@ -22,7 +26,6 @@ export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
         }
     }, [deferredValue])
     useEffect(() => {
-        router.push("/", "/search", { shallow: false })
         async function fetchMusics() {
             const { data } = await supabase
                 .from("MusicsOnAlbums")
@@ -33,22 +36,26 @@ export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
             setMusics(data);
             setFilteredMusics(data)
         }
-        fetchMusics();
+
+        if (!cache) {
+            fetchMusics();
+        } else {
+            setMusics(cache);
+            setFilteredMusics(cache);
+        }
     }, [])
 
-    if (!filteredMusics.length && !musics.length) {
-        return (
-            <span>
-                {translate.searchScreen.loading}
-            </span>
-        )
+    useEffect(() => {
+        if (musics.length) {
+            cache = musics;
+        }
+    }, [musics])
+
+    if (!filteredMusics?.length && !musics?.length) {
+        return <Loading />
     }
 
-    if (!filteredMusics.length) {
-        return <span>
-            {translate.searchScreen.notFound}
-        </span>
-    }
+
     return (
         <Section title={translate.asideMenu.search} wrap={true} justifyCenter={true}>
             {filteredMusics.map(({ Music: { id_music, music_title }, Album: { album_cover, Artist: { id_artist, artist_bio } } }) => {

@@ -8,7 +8,7 @@
     "mainScreen": {
         "musicsMightLike": "Músicas que talvez você possa gostar",
         "addRecents": "Adicionados recentemente",
-        "showAll":"Mostrar tudo"
+        "showAll": "Mostrar tudo"
     },
     "details": {
         "details": "detalhes",
@@ -16,11 +16,9 @@
     },
     "searchScreen": {
         "searchInputPlaceholder": "O que você quer ouvir?",
-        "loading": "Carregando...",
         "notFound": "Nenhuma música encontrada. :("
-        
     },
-    "soundPlayerScreen":{
-        "wait":"Um momento..."
+    "soundPlayerScreen": {
+        "wait": "Um momento..."
     }
 }
