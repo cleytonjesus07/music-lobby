@@ -1,4 +1,4 @@
-import {memo} from "react"
+import { memo } from "react"
 import { useContext, useEffect, useRef, useState } from "react"
 import { BsFillPlayCircleFill, BsPauseCircleFill } from "react-icons/bs"
 import { IoMdSkipBackward, IoMdSkipForward } from "react-icons/io"
@@ -8,7 +8,6 @@ import { songCtx } from "../../Context/SongContext";
 import { pauseSong, playSong, forward, backward } from "./controls";
 
 export default function SoundPlayer() {
-    console.log("Soundplayer rendered.")
     const [isReady, setIsReady] = useState(false);
     const { translate } = useContext(appCtx);
     const { currentMusic: {
