@@ -63,7 +63,7 @@ export default function InicioPage({ songsYouMightLike, recents, data, setAlbum,
                     data.map(({ id_category, category_title, CategoriesOnAlbums }) => {
                         return (
                             <Section key={id_category} title={category_title} seeMore={true}>
-                                {CategoriesOnAlbums.map(({ Album: { id_album, album_title, album_cover, Artist: { id_artist, artist_bio }, Music } }) => {
+                                {CategoriesOnAlbums.map(({ Album: { id_album, album_title, album_cover, Artist: { id_artist, artist_bio } } }) => {
 
                                     return (
 

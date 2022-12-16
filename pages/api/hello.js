@@ -1,11 +1,28 @@
 import supabase from "../../supabase"
 
 export default async (req, res) => {
-    const { data } = await supabase
-        .from("Album")
-        .select(`Artist(*),
-        MusicsOnAlbums(Music(*))
-`).eq('id_artist',4)
+    /* let { data } = await supabase
+        .from("Music")
+        .select(`
+        music_title,
+                    MusicsOnAlbums(Album(album_cover,Artist(artist_bio))),
+                    CategoriesOnMusics(Category(category_title))
+                `).filter("CategoriesOnMusics.Category.category_title", "eq", "Games")
+    let m = [];
+    data.forEach((music) => {
+        if (music.CategoriesOnMusics[0].Category !== null) {
+            m.push(music)
+        }
+    }) */
+
+    let { data } = await supabase
+        .from("CategoriesOnMusics")
+        .select(`
+        Category(category_title),
+        Music(music_title,MusicsOnAlbums(Album(album_cover,Artist(id_artist,artist_bio))))  
+    `).eq("Category.category_title", "Pop Rock")
+
+    data = data.filter((music) => (music.Category !== null))
     /* const { data } = await supabase
         .from("CategoriesOnAlbums")
         .select(`

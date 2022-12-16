@@ -7,6 +7,7 @@ import InicioPage from "../pageComponents/InicioPage"
 import supabase from "../supabase"
 import { appCtx } from "../Context/AppContext"
 import SearchPage from "../pageComponents/SearchPage"
+import ShowAll from "../pageComponents/ShowAll"
 
 
 Home.title = "Web Player"
@@ -18,7 +19,8 @@ export default function Home({ data, recents, songsSorted }) {
   const pages = {
     inicio: <InicioPage songsYouMightLike={songsYouMightLike} recents={recents} data={data} setAlbum={setAlbum} setPage={setPage} getArtistMusicsDetails={getArtistMusicsDetails} />,
     pesquisar: <SearchPage data={data} getArtistMusicsDetails={getArtistMusicsDetails} setPage={setPage} setAlbum={setAlbum} />,
-    details: <MusicDetails />
+    details: <MusicDetails />,
+    showAll: <ShowAll getArtistMusicsDetails={getArtistMusicsDetails} setAlbum={setAlbum} />
   }
 
   async function getArtistMusicsDetails(id_artist, setAlbum) {
@@ -62,8 +64,8 @@ export default function Home({ data, recents, songsSorted }) {
     <>
       <AsideMenu />
       <TopMenu />
+      <BackgroundAnimated />
       <main className="ml-56 max-md:ml-0 max-md:flex max-md:flex-col max-md:justify-center max-md:w-full ">
-        <BackgroundAnimated />
         {pages[page]}
       </main>
     </>
@@ -72,7 +74,7 @@ export default function Home({ data, recents, songsSorted }) {
 
 function BackgroundAnimated() {
   return (
-    <ul className="background">
+    <ul className="background -z-50">
       <li></li>
       <li></li>
       <li></li>
