@@ -30,8 +30,6 @@ export default function SoundPlayer() {
         }
     });
 
-    let titleAba = document.title;
-
     useEffect(() => {
         audioRef.current.setAttribute("disabled", true)
     }, [])
@@ -41,23 +39,6 @@ export default function SoundPlayer() {
         setPlaying(false)
         setPlayingMusicId({ ...playingMusicId, id: music?.Musics[playingMusicId?.index].Music.id_music })
     }, [playingMusicId.index])
-
-
-    useEffect(() => {
-        switch (playing) {
-            case true:
-                document.title = `Tocando: ${music?.Musics[playingMusicId.index]?.Music?.music_title}`
-                break;
-            case false:
-
-                document.title = `Pausado: ${music?.Musics[playingMusicId.index]?.Music?.music_title}`;
-                break;
-            default:
-                document.title = titleAba;
-                break;
-        }
-
-    }, [playing, playingMusicId])
 
     function setToInit() {
         setPlaying(false)
@@ -107,7 +88,7 @@ export default function SoundPlayer() {
         setPlayingMusicId({ id: null, index: null })
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
-        setPlaying(false);
+        setPlaying(null);
         setShowPlayer(false);
         setTimestamps(old => {
             return {
