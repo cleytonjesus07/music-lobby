@@ -176,7 +176,7 @@ export default function SoundPlayer() {
             </div>
             <audio ref={audioRef}
                 className="absolute hidden "
-                src={music?.Musics[playingMusicId.index]?.Music?.music_link}
+                src={`${process.env.NEXT_PUBLIC_GOOGLE_DRIVE}${music?.Musics[playingMusicId.index]?.Music?.music_link}`}
                 onLoadStart={() => timeBarRef.current.value = 0}
                 onLoadedData={() => {
                     timeBarRef.current.removeAttribute("disabled");

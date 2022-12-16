@@ -15,16 +15,14 @@ export default async (req, res) => {
         }
     }) */
 
-    const { data } = await supabase
-        .from("MusicsOnAlbums")
-        .select(`
-        id_music(*),
-        Album:id_album(
-            album_cover,
-            album_title,
-            Artist:id_artist(*)
-        )
-    `).in("Album.Artist.id_artist", [1])
+    let { data } = await supabase
+            .from("CategoriesOnMusics")
+            .select(`
+        Category(category_title),
+        Music(music_title,MusicsOnAlbums(Album(album_cover,Artist(id_artist,artist_bio))))  
+    `).eq("Category.category_title", "Pop Rock")
+
+    data = data.filter((music) => (music.Category !== null))
 
 
     /* 
