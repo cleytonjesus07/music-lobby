@@ -65,7 +65,7 @@ export default function SoundPlayer() {
         audioRef.current.currentTime = 0;
         timeBarRef.current.value = 0;
 
-        if (playingMusicId.index >= (music?.MusicsOnAlbums?.length - 1)) {
+        if (playingMusicId.index >= (music?.Musics?.length - 1)) {
             return setPlayingMusicId({ ...playingMusicId, index: 0 });
         } else {
             return setPlayingMusicId({ ...playingMusicId, index: (playingMusicId.index + 1) })
