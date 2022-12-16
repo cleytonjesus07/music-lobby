@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import Section from "../../components/Section";
 import supabase from "../../supabase";
 import Card from "../../components/Card"
@@ -7,7 +7,7 @@ import Loading from "../../components/Loading";
 
 let cache = {}
 
-export default function ShowAll({ getArtistMusicsDetails, setAlbum }) {
+function ShowAll({ getArtistMusicsDetails, setAlbum }) {
     const router = useRouter();
     const [musics, setMusics] = useState([]);
     async function fetchMusicsByCategory() {
@@ -57,7 +57,7 @@ export default function ShowAll({ getArtistMusicsDetails, setAlbum }) {
 
     return (
         <Section title={router.query.cat} wrap={true} >
-            {(!musics.length )
+            {(!musics.length)
                 ?
                 (
                     <Loading />
@@ -72,3 +72,5 @@ export default function ShowAll({ getArtistMusicsDetails, setAlbum }) {
         </Section>
     )
 }
+
+export default memo(ShowAll);

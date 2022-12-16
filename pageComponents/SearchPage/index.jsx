@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, memo } from "react";
 import Card from "../../components/Card";
 import Section from "../../components/Section";
 import { appCtx } from "../../Context/AppContext";
@@ -8,7 +8,7 @@ import Loading from "../../components/Loading";
 
 let cache = null;
 
-export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
+function SearchPage({ getArtistMusicsDetails, setAlbum }) {
     const router = useRouter();
     const { search: { deferredValue }, translate } = useContext(appCtx)
     const [musics, setMusics] = useState([]);
@@ -24,6 +24,7 @@ export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
                 return music.Music?.music_title?.toLowerCase().includes(deferredValue.toLowerCase());
             }))
         }
+        
     }, [deferredValue])
     useEffect(() => {
         async function fetchMusics() {
@@ -43,6 +44,7 @@ export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
             setMusics(cache);
             setFilteredMusics(cache);
         }
+
     }, [])
 
     useEffect(() => {
@@ -54,7 +56,9 @@ export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
     if (!filteredMusics?.length && !musics?.length) {
         return <Loading />
     }
-
+    if (!filteredMusics?.length) {
+        return <div className="flex justify-center font-bold text-lg ">{translate.searchScreen.notFound}</div>
+    }
 
     return (
         <Section title={translate.asideMenu.search} wrap={true} justifyCenter={true}>
@@ -64,3 +68,5 @@ export default function SearchPage({ getArtistMusicsDetails, setAlbum }) {
         </Section>
     )
 }
+
+export default memo(SearchPage);
