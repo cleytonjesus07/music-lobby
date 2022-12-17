@@ -42,7 +42,7 @@ export default function Home({ data, recents, songsSorted }) {
       .then(() => setPage("details"));
   }
 
-  useEffect(() => {
+  function getData() {
     const day = 86400000;
     const data = JSON.parse(localStorage.getItem("songsSorted"));
     if (!data?.data || !localStorage.getItem("songsSorted") || new Date().getTime() > data.expiredAt) {
@@ -54,9 +54,12 @@ export default function Home({ data, recents, songsSorted }) {
     }
     /* data?.data */
     setSongsYouMightLike(data?.data);
-  }, [])
+  }
+
+
 
   useEffect(() => {
+    getData();
     setSongs(old => ({ ...old, items: data }))
   }, [])
 

@@ -36,7 +36,7 @@ function MusicDetails() {
         }
         fetchMusics();
 
-    }, [])
+    }, [id_artist])
 
 
 

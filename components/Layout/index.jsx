@@ -23,12 +23,17 @@ export default function Layout({ children, title }) {
       } */
     }, [])
 
-    useEffect(() => {
+    function setTitleTab() {
         if (!showPlayer) {
             setPageTitle(`Music Lobby - ${title}`);
         } else {
             setPageTitle(`${playing ? 'Tocando: ' : 'Pausado: '}${music?.Musics[playingMusicId?.index]?.Music?.music_title}`)
         }
+    }
+
+
+    useEffect(() => {
+        setTitleTab();
     }, [showPlayer, playing])
 
     return (
