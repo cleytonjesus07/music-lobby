@@ -197,6 +197,7 @@ export default function SoundPlayer() {
                 src={`${process.env.NEXT_PUBLIC_GOOGLE_DRIVE}${music?.Musics[playingMusicId.index]?.Music?.music_link}`}
                 onLoadStart={() => timeBarRef.current.value = 0}
                 onLoadedData={() => {
+                    /* sss */
                     timeBarRef.current.removeAttribute("disabled");
                 }}
                 onTimeUpdate={(e) => updateBar(e)}
