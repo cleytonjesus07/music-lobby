@@ -46,27 +46,21 @@ export default function Home({ data, recents, songsSorted }) {
   function getData() {
     const ttl = ((60 * 60) * 24)
     const key = "songsSorted";
-    const data = (expStorage.getItem(key)) ? expStorage.getItem(key) : null;
-
-    if (!expStorage.getItem(key)) {
-
-      const storage = {
-        data: songsSorted
-      }
-      console.log("set")
-      expStorage.setItem(key, storage, ttl);
-      /* localStorage.setItem("songsSorted", JSON.stringify(storage)); */
-    }
-    /* data?.data */
-    
+    const storage = { data: songsSorted }
+    const ex = new expStorage(localStorage);
+    const data = (ex.getItem(key)) ? ex.getJson(key) : ex.setItem(key, JSON.stringify(storage), ttl);
     setSongsYouMightLike(data?.data);
+
+    /* data?.data */
+
+
   }
 
 
 
   useEffect(() => {
-    getData();
     setSongs(old => ({ ...old, items: data }))
+    getData();
   }, [])
 
   return (

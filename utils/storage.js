@@ -29,4 +29,4 @@ var defaultStorage = {
     }
 };
 
-export const expStorage = new expiredStorage(defaultStorage);
+export const expStorage = expiredStorage;
