@@ -8,6 +8,7 @@ import supabase from "../supabase"
 import { appCtx } from "../Context/AppContext"
 import SearchPage from "../pageComponents/SearchPage"
 import ShowAll from "../pageComponents/ShowAll"
+import { expStorage } from "../utils/storage"
 
 
 Home.title = "Web Player"
@@ -43,16 +44,21 @@ export default function Home({ data, recents, songsSorted }) {
   }
 
   function getData() {
-    const day = 86400000;
-    const data = JSON.parse(localStorage.getItem("songsSorted"));
-    if (!data?.data || !localStorage.getItem("songsSorted") || new Date().getTime() > data.expiredAt) {
+    const ttl = ((60 * 60) * 24)
+    const key = "songsSorted";
+    const data = (expStorage.getItem(key)) ? expStorage.getItem(key) : null;
+
+    if (!expStorage.getItem(key)) {
+
       const storage = {
-        data: songsSorted,
-        expiredAt: new Date().getTime() + day
+        data: songsSorted
       }
-      localStorage.setItem("songsSorted", JSON.stringify(storage));
+      console.log("set")
+      expStorage.setItem(key, storage, ttl);
+      /* localStorage.setItem("songsSorted", JSON.stringify(storage)); */
     }
     /* data?.data */
+    
     setSongsYouMightLike(data?.data);
   }
 

@@ -1046,6 +1046,11 @@ expand-template@^2.0.3:
   resolved "https://registry.yarnpkg.com/expand-template/-/expand-template-2.0.3.tgz#6e14b3fcee0f3a6340ecb57d2e8918692052a47c"
   integrity sha512-XYfuKMvj4O35f/pOXLObndIRvyQ+/+6AhODh+OKWj9S9498pHHn/IMszH+gt0fBCRWMNfk1ZSp5x3AifmnI2vg==
 
+expired-storage@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/expired-storage/-/expired-storage-1.0.2.tgz#0c494185ca58149dc949b846ad8eb7c97fc52933"
+  integrity sha512-HSbMBFe+abIPptDaOFWk69UoEhqC9i+Fax/ntRQQMTD8kAbjPsr8ZynfTGcPYhKVJfEO5Q48WrS5++8iifRNeQ==
+
 ext@^1.1.2:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/ext/-/ext-1.7.0.tgz#0ea4383c0103d60e70be99e9a7f11027a33c4f5f"
