@@ -41,13 +41,7 @@ function MusicDetails() {
 
 
 
-    useEffect(() => {
-        if (!list) {
-            return;
-        }
 
-
-    }, [music])
 
 
 

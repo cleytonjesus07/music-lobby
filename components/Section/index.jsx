@@ -84,10 +84,8 @@ function Section({ children, title, wrap, seeMore, justifyCenter }) {
 
 function Buttons({ toLeft, toRight, cardContainerRef }) {
     const [showBtns, setShowBtns] = useState({ left: false, right: true })
-    useEffect(() => {
-        cardContainerRef.current.addEventListener('scroll', handleScroll)
-    }, [])
-
+    
+    cardContainerRef.current.addEventListener('scroll', handleScroll)
     function handleScroll(e) {
         const container = e.target;
         if (container.scrollLeft == 0) {

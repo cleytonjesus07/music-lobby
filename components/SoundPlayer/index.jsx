@@ -95,15 +95,15 @@ export default function SoundPlayer() {
     useEffect(() => {
         setIsReady(false);
         setPlaying(false)
-        setPlayingMusicId({ ...playingMusicId, id: music.music[playingMusicId.index]?.id })
-    }, [playingMusicId.index])
+        setPlayingMusicId({ ...playingMusicId, id: music.music[playingMusicId.index]?.id });
+    }, [playingMusicId.index, music.music])
 
     function setToInit() {
         setPlaying(false)
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
         timeBarRef.current.value = 0;
-        
+
         if (playingMusicId.index >= (music?.music?.length - 1)) {
             return setPlayingMusicId({ ...playingMusicId, index: 0 });
         } else {
@@ -166,7 +166,7 @@ export default function SoundPlayer() {
         })
     }
 
-   
+
 
 
 
@@ -228,7 +228,7 @@ export default function SoundPlayer() {
                     playSong(audioRef, audioRef.current.src, setPlaying)
                     setIsReady(true);
                 }}
-                
+
             ></audio>
         </div >
     )

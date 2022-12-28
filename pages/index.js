@@ -5,7 +5,7 @@ import { songCtx } from "../Context/SongContext"
 import supabase from "../supabase"
 import { appCtx } from "../Context/AppContext"
 import { expStorage } from "../utils/storage"
-import PagesManager from "../pageComponents/pagesManager"
+import PagesManager from "../pageComponents/PagesManager"
 import { queryClient } from "../utils/rquery"
 import { dehydrate } from "@tanstack/react-query"
 
@@ -49,9 +49,10 @@ export default function Home({ dehydratedState }) {
   }
 
 
+  const setStateSongs = old => ({ ...old, items: categories })
 
   useEffect(() => {
-    setSongs(old => ({ ...old, items: categories }))
+    setSongs(setStateSongs)
     getData();
   }, [])
 
