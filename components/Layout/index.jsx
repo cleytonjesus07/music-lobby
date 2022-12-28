@@ -27,7 +27,7 @@ export default function Layout({ children, title }) {
         if (!showPlayer) {
             setPageTitle(`Music Lobby - ${title}`);
         } else {
-            setPageTitle(`${playing ? 'Tocando: ' : 'Pausado: '}${music?.Musics[playingMusicId?.index]?.Music?.music_title}`)
+            setPageTitle(`${playing ? 'Tocando: ' : 'Pausado: '}${music.music[playingMusicId?.index]?.name}`)
         }
     }
 
