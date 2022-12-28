@@ -70,7 +70,7 @@ function MusicDetails() {
     if (isError) {
         return <h2>Algo deu errado.</h2>
     }
-console.log("Render")
+
     return (
         <>
             <div>
