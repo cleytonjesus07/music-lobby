@@ -1,10 +1,9 @@
-
-import { createContext, useEffect, useState } from "react"
+import { createContext, useRef, useState } from "react"
 export const songCtx = createContext();
 
 export default function SongContext({ children }) {
     const [songs, setSongs] = useState({ items: [], index: 0 });
-    const [music, setMusic] = useState({});
+    const musicRef = useRef();
     const [album, setAlbum] = useState();
     const [showPlayer, setShowPlayer] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
@@ -18,7 +17,7 @@ export default function SongContext({ children }) {
                 soundPlayer: { showPlayer, setShowPlayer },
                 isPlaying: { playing, setPlaying },
                 albumList: { album, setAlbum },
-                currentMusic: { music, setMusic },
+                currentMusic: { musicRef},
                 playingMusic: { playingMusicId, setPlayingMusicId },
                 asideMenu: { openMenu, setOpenMenu }
             }}>

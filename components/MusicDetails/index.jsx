@@ -16,7 +16,7 @@ function MusicDetails() {
             setShowPlayer
         },
         currentMusic: {
-            music, setMusic
+            musicRef
         },
         playingMusic: { playingMusicId, setPlayingMusicId },
         isPlaying: { playing, setPlaying }
@@ -54,13 +54,11 @@ function MusicDetails() {
         setPlaying(false)
 
 
-        setMusic(
-            {
-                artist: list.data.artist_name,
-                cover: list.data.Album[0].album_cover,
-                music
-            }
-        )
+        musicRef.current = {
+            artist: list.data.artist_name,
+            cover: list.data.Album[0].album_cover,
+            music
+        }
         setPlayingMusicId({ id: id_music, index: i });
         setShowPlayer(true)
     }
@@ -72,7 +70,7 @@ function MusicDetails() {
     if (isError) {
         return <h2>Algo deu errado.</h2>
     }
-
+console.log("Render")
     return (
         <>
             <div>

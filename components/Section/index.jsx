@@ -1,9 +1,7 @@
 import Link from "next/link";
-
 import { useContext, useEffect, useRef, useState,memo } from "react"
 import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai"
 import { appCtx } from "../../Context/AppContext";
-
 let scrollStep;
 function Section({ children, title, wrap, seeMore, justifyCenter }) {
   
