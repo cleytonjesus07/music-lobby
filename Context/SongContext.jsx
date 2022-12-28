@@ -3,7 +3,7 @@ export const songCtx = createContext();
 
 export default function SongContext({ children }) {
     const [songs, setSongs] = useState({ items: [], index: 0 });
-    const musicRef = useRef();
+    const [music,setMusic] = useState({});
     const [album, setAlbum] = useState();
     const [showPlayer, setShowPlayer] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
@@ -17,7 +17,7 @@ export default function SongContext({ children }) {
                 soundPlayer: { showPlayer, setShowPlayer },
                 isPlaying: { playing, setPlaying },
                 albumList: { album, setAlbum },
-                currentMusic: { musicRef},
+                currentMusic: { music,setMusic},
                 playingMusic: { playingMusicId, setPlayingMusicId },
                 asideMenu: { openMenu, setOpenMenu }
             }}>

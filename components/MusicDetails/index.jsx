@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Loading from "../../components/Loading";
 import { BsArrowDownCircleFill } from "react-icons/bs";
-import { useContext, useEffect, useState, memo } from "react";
+import { useContext, useState, memo } from "react";
 import { songCtx } from "../../Context/SongContext";
 import { appCtx } from "../../Context/AppContext";
 import { useQuery } from "@tanstack/react-query";
@@ -16,15 +16,18 @@ function MusicDetails() {
             setShowPlayer
         },
         currentMusic: {
-            musicRef
+            setMusic
         },
         playingMusic: { playingMusicId, setPlayingMusicId },
         isPlaying: { playing, setPlaying }
     } = useContext(songCtx);
     const { translate } = useContext(appCtx);
     const [list, setList] = useState([]);
+
     const { isLoading, isError } = useQuery({
-        queryKey: ['artist', id_artist], queryFn: async () => {
+        queryKey: [`artist ${id_artist}`], queryFn: async () => {
+
+            console.log("query")
             if (!id_artist) {
                 return;
             }
@@ -34,9 +37,9 @@ function MusicDetails() {
         }, cacheTime: 8 * 60 * 1000,
         refetchOnWindowFocus: false,
         onSuccess: ({ data }) => setList(data),
-        onError: (error) => console.log({ error })
+        onError: (error) => console.log({ error }),
+        enabled: !!id_artist
     })
-
 
 
 
@@ -54,11 +57,11 @@ function MusicDetails() {
         setPlaying(false)
 
 
-        musicRef.current = {
+        setMusic({
             artist: list.data.artist_name,
             cover: list.data.Album[0].album_cover,
             music
-        }
+        })
         setPlayingMusicId({ id: id_music, index: i });
         setShowPlayer(true)
     }

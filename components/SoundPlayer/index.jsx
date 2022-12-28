@@ -1,4 +1,4 @@
-import { memo } from "react"
+import { memo, useCallback, useMemo } from "react"
 import { useContext, useEffect, useRef, useState } from "react"
 import { BsFillPlayCircleFill, BsPauseCircleFill } from "react-icons/bs"
 import { IoMdSkipBackward, IoMdSkipForward } from "react-icons/io"
@@ -66,7 +66,7 @@ export default function SoundPlayer() {
     const [isReady, setIsReady] = useState(false);
     const { translate } = useContext(appCtx);
     const { currentMusic: {
-        musicRef
+        music
     },
         soundPlayer: { showPlayer, setShowPlayer },
         playingMusic: { playingMusicId, setPlayingMusicId },
@@ -86,15 +86,6 @@ export default function SoundPlayer() {
         }
     });
 
-    useEffect(() => {
-        audioRef.current.setAttribute("disabled", true);
-    }, [])
-
-    useEffect(() => {
-        setIsReady(false);
-        setPlaying(false)
-        setPlayingMusicId({ ...playingMusicId, id: musicRef.current.music[playingMusicId.index]?.id });
-    }, [playingMusicId.index])
 
     function setToInit() {
         setPlaying(false)
@@ -102,7 +93,7 @@ export default function SoundPlayer() {
         audioRef.current.currentTime = 0;
         timeBarRef.current.value = 0;
 
-        if (playingMusicId.index >= (musicRef.current?.music?.length - 1)) {
+        if (playingMusicId.index >= (music?.music?.length - 1)) {
             return setPlayingMusicId({ ...playingMusicId, index: 0 });
         } else {
             return setPlayingMusicId({ ...playingMusicId, index: (playingMusicId.index + 1) })
@@ -143,7 +134,7 @@ export default function SoundPlayer() {
 
 
 
-    function handleClose() {
+    const handleClose = useCallback(() => {
         setPlayingMusicId({ id: null, index: null })
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
@@ -162,7 +153,7 @@ export default function SoundPlayer() {
                 }
             }
         })
-    }
+    }, [setPlaying, setPlayingMusicId, setShowPlayer])
 
 
 
@@ -171,24 +162,24 @@ export default function SoundPlayer() {
             {/* Close Btn */}
             <CloseBtnMemo handleClose={handleClose} />
             <div className="h-full w-auto mx-5 flex items-center justify-center max-sm:w-full ">
-                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''} max-sm:w-[calc(100%/.6)] max-sm:h-[calc(100%/.6)] max-sm:max-w-[300px] max-sm:max-h-[300px]`} style={{ backgroundImage: `url(${musicRef.current?.cover})` }}>
+                <div className={`w-20 h-20 bg-white rounded-full relative flex items-center justify-center bg-center bg-cover bg-no-repeat ${playing ? 'spin' : ''} max-sm:w-[calc(100%/.6)] max-sm:h-[calc(100%/.6)] max-sm:max-w-[300px] max-sm:max-h-[300px]`} style={{ backgroundImage: `url(${music?.cover})` }}>
                     <span className=" h-3 w-3 bg-black absolute rounded-full max-sm:w-[40px] max-sm:h-[40px]"></span>
                 </div>
             </div>
 
             <div className="w-1/4 max-sm:w-full flex flex-col justify-center  px-3">
-                <span className="font-bold text-sm w-[calc(100%-25px)]">{musicRef.current.music[playingMusicId.index]?.name}</span>
-                <span className="font-extralight text-xs">{musicRef.current?.artist}</span>
+                <span className="font-bold text-sm w-[calc(100%-25px)]">{music.music[playingMusicId.index]?.name}</span>
+                <span className="font-extralight text-xs">{music?.artist}</span>
                 <div className={`relative w-full  max-sm:h-full rounded-md flex flex-col items-center max-sm:my-9 mt-4 h-5  `}>
-                    <input id="range" type={"range"} min={0} max={100} ref={timeBarRef} onChange={seekTo} className={`rounded-md overflow-hidden w-full h-full max-sm:h-[2em] `} />
+                    <input id="range" type={"range"} min={0} max={100} ref={timeBarRef} onChange={seekTo} className={`rounded-md overflow-hidden w-full h-full max-sm:h-[2em] `} disabled={true} />
                     <div className="flex w-full justify-between">
                         <span className="text-xs">{(timestamps.currentTime?.minutes < 10) ? '0' + timestamps.currentTime?.minutes : timestamps.currentTime?.minutes} : {(timestamps.currentTime?.seconds < 10) ? '0' + timestamps.currentTime?.seconds : timestamps.currentTime?.seconds} </span>
                         <span className="text-xs">{timestamps.duration?.minutes < 10 ? '0' + timestamps.duration?.minutes : timestamps.duration?.minutes} : {timestamps.duration?.seconds < 10 ? '0' + timestamps.duration?.seconds : timestamps.duration?.seconds}</span>
                     </div>
                 </div>
-                {(isReady && musicRef.current) ?
+                {(isReady) ?
                     (
-                        <ButtonsSoundplayerMemo music={musicRef.current.music} playingMusicId={playingMusicId} setPlayingMusicId={setPlayingMusicId} playing={playing} audioRef={audioRef} setPlaying={setPlaying} />
+                        <ButtonsSoundplayerMemo music={music?.music} playingMusicId={playingMusicId} setPlayingMusicId={setPlayingMusicId} playing={playing} audioRef={audioRef} setPlaying={setPlaying} />
                     )
                     :
                     (
@@ -198,12 +189,7 @@ export default function SoundPlayer() {
             </div>
             <audio ref={audioRef}
                 className="absolute hidden "
-                src={musicRef.current.music[playingMusicId.index]?.google_drive}
-                onLoadStart={() => timeBarRef.current.value = 0}
-                onLoadedData={() => {
-                    /* sss */
-                    timeBarRef.current.removeAttribute("disabled");
-                }}
+                src={music.music[playingMusicId.index]?.google_drive}
                 onTimeUpdate={(e) => updateBar(e)}
                 onDurationChange={(e) => {
                     setTimestamps(old => {
@@ -220,10 +206,22 @@ export default function SoundPlayer() {
                 }}
                 onEnded={setToInit}
                 onCanPlay={() => {
-                    playSong(audioRef, audioRef.current.src, setPlaying)
+                    playSong(audioRef, audioRef.current.src, setPlaying);
+                    timeBarRef.current.removeAttribute("disabled");
                     setIsReady(true);
                 }}
-
+                onLoadStart={() => {
+                    setPlayingMusicId(() => {
+                        timeBarRef.current.value = 0
+                        setIsReady(false);
+                        setPlaying(false)
+                        return (
+                            {
+                                ...playingMusicId,
+                                id: music.music[playingMusicId?.index]?.id
+                            })
+                    })
+                }}
             ></audio>
         </div >
     )

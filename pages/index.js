@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import AsideMenu from "../components/AsideMenu"
 import TopMenu from "../components/TopMenu"
 import { songCtx } from "../Context/SongContext"
@@ -39,22 +39,20 @@ export default function Home({ dehydratedState }) {
       .then(() => setPage("details"));
   }
 
-  function getData() {
+  const getData = useCallback(() => {
     const ttl = ((60 * 60) * 24)
     const key = "songsSorted";
     const storage = { data: songs.songsSorted }
     const ex = new expStorage(localStorage);
     const data = (ex.getItem(key)) ? ex.getJson(key) : ex.setItem(key, JSON.stringify(storage), ttl);
     setSongsYouMightLike(data?.data);
-  }
+  }, [songs.songsSorted])
 
-
-  const setStateSongs = old => ({ ...old, items: categories })
 
   useEffect(() => {
-    setSongs(setStateSongs)
+    setSongs(old => ({ ...old, items: categories }))
     getData();
-  }, [])
+  }, [getData, setSongs, categories])
 
   return (
     <>
