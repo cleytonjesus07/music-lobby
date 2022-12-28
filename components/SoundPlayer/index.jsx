@@ -188,7 +188,8 @@ export default function SoundPlayer() {
                 }
             </div>
             <audio ref={audioRef}
-                className="absolute hidden "
+                className="absolute hidden"
+                preload={"metadata"}
                 src={music.music[playingMusicId.index]?.google_drive}
                 onTimeUpdate={(e) => updateBar(e)}
                 onDurationChange={(e) => {

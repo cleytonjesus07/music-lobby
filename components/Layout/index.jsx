@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react'
 import { songCtx } from '../../Context/SongContext'
 import SoundPlayer from '../SoundPlayer'
@@ -9,30 +10,12 @@ export default function Layout({ children, title }) {
     const { currentMusic: { music }, playingMusic: { playingMusicId }, soundPlayer: { showPlayer }, isPlaying: { playing } } = useContext(songCtx);
 
     useEffect(() => {
-
-        /*  switch (playing) {
-          case true:
-              pageTitleRef.current = `Tocando: ${music?.Musics[playingMusicId.index]?.Music?.music_title}`;
-              break;
-          case false:
-              pageTitleRef.current = `Pausado: ${music?.Musics[playingMusicId.index]?.Music?.music_title}`;
-              break;
-          default:
-              pageTitleRef.current = `Music Lobby - ${title}`;
-              break;
-      } */
-    }, [])
-
-    
-
-
-    useEffect(() => {
         if (!showPlayer) {
             setPageTitle(`Music Lobby - ${title}`);
         } else {
             setPageTitle(`${playing ? 'Tocando: ' : 'Pausado: '}${music.music[playingMusicId?.index]?.name}`)
         }
-    }, [showPlayer, playing,music.music,playingMusicId?.index,title])
+    }, [showPlayer, playing, music.music, playingMusicId?.index, title])
 
     return (
         <>
