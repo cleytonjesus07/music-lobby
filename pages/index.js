@@ -85,7 +85,7 @@ const getCategories = async () => {
         )
     )
     `
-    )
+    ).limit(6, { foreignTable: "CategoriesOnAlbums" })
 
   return data;
 }
