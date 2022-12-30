@@ -91,7 +91,7 @@ function MusicDetails() {
                         </div>
                     </div>
                 </section>
-                <div className="bg-gradient-to-t from-black to-neutral-800 h-screen w-full">
+                <div className="bg-gradient-to-t from-black to-neutral-800 min-h-screen w-full">
                     <div className="w-full py-4  bg-black flex items-center">
                         <BsArrowDownCircleFill className="ml-12 w-5 h-5" />
                         <span className="font-semibold text-1xl ml-2 ">{translate.details.title}</span>
@@ -99,7 +99,7 @@ function MusicDetails() {
                     {list.musics
                         ?
                         (
-                            <ul className="block p-10">
+                            <ul className="p-10">
                                 {list.musics?.map(({ id, name }, i) => {
                                     return (
                                         <li key={id} onClick={() => getMusic(id, list.musics, i)} className={`${((id === playingMusicId.id) && playing) ? "bg-white text-neutral-900 " : "bg-gradient-to-r from-neutral-900 to-neutral-600 scale-[.9]"} p-4 rounded-lg opacity-70 hover:opacity-100 transition-all cursor-pointer my-2 flex items-center `}>
