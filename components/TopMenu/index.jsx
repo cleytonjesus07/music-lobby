@@ -1,7 +1,7 @@
 import { AiOutlineSearch } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
-import { useContext, useState,memo } from "react";
+import { useContext, useState, memo } from "react";
 import { songCtx } from "../../Context/SongContext";
 import { appCtx } from "../../Context/AppContext";
 import { useRouter } from "next/router";
@@ -13,7 +13,7 @@ function TopMenu() {
     const { asideMenu: { setOpenMenu } } = useContext(songCtx);
     const [flag, setFlag] = useState(router.locale);
     return (
-        <header className="w-[calc(100%-w-56)] ml-56 max-md:ml-0 h-16 bg-black bg-opacity-70 flex items-center">
+        <header className="relative w-[calc(100%-w-56)] ml-56 max-md:ml-0 h-16 bg-black bg-opacity-70  flex items-center">
             <div className="w-32 mr-5  items-center justify-center hidden ">
                 <button type={"button"} className="bg-black p-2 rounded-full mx-5 opacity-70 hover:opacity-100 transition-all">
                     <FaChevronLeft />
@@ -40,20 +40,13 @@ function TopMenu() {
                     </div>
                 )}
             </div>
-            {/* <div className="absolute right-8">
-                <Link href={"#"}>
-                    <button type={"button"} className="bg-white text-black font-semibold py-2 px-7 rounded-full">
-                        Entrar
-                    </button>
-                </Link>
-            </div> */}
-            <div className="right-10 absolute flex items-center space-x-2">
-                {flag && <Image src={`/images/${flag == "pt-BR" ? "brazil" : "eua"}.png`} width={40} height={40} alt="flag" />}
+            <div className={`right-10  absolute flex items-center space-x-2  p-1 ${page === "pesquisar" && 'hidden'}`}>
+                {flag && <Image src={`/images/${flag == "pt-BR" ? "brazil" : "eua"}.png`} width={35} height={35} alt="flag" />}
                 <select defaultValue={router.locale} onChange={({ target }) => {
                     setFlag(target.value)
                     router.locale = target.value;
                     router.push("/", "/", { locale: target.value, shallow: true })
-                }} className="bg-neutral-900 border-white border-solid border-2 p-1 cursor-pointer">
+                }} className={`bg-neutral-900 border-white border-solid border-[1px] p-[2px] cursor-pointer`}>
                     {locales.map((local, i) => {
                         switch (local) {
                             case "pt-BR":

@@ -18,7 +18,7 @@ function ShowAll({ getArtistMusicsDetails, setAlbum }) {
     `).eq("Category.category_title", router.query.cat)
         return data;
     }
-    const { isLoading, isError } = useQuery({
+    const { isLoading } = useQuery({
         queryKey: ['category', router.query.cat],
         queryFn: fetchMusicsByCategory,
         cacheTime: 8 * 60 * 1000,
@@ -31,7 +31,7 @@ function ShowAll({ getArtistMusicsDetails, setAlbum }) {
         return <Loading />
     }
     return (
-        <Section title={router.query.cat} wrap={true} >
+        <Section title={router.query.cat} wrap={true} justifyCenter={true} >
             {musics.map(({ Music: { music_title, MusicsOnAlbums: [{ Album: { album_cover, Artist: { id_artist, artist_bio } } }] } }, i) => {
                 return <Card key={i} title={music_title} cover={album_cover} desc={artist_bio} onClick={() => getArtistMusicsDetails(id_artist, setAlbum)} />
             })}
