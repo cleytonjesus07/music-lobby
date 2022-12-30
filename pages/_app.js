@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
       <ReactQuery pageProps={pageProps}>
         <AppContext>
           <SongContext>
-            <Layout title={Component.title}>
+            <Layout>
               <Component {...pageProps} />
             </Layout>
           </SongContext>

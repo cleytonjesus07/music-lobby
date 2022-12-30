@@ -1,24 +1,29 @@
 {
+    "systemTitle": "Music Lobby (Web Music Player)",
+    "tab": {
+        "play": "Playing: ",
+        "pause": "Paused: "
+    },
     "asideMenu": {
         "home": "Home",
         "search": "Search",
         "aboutProject": "Project under development for study only.",
         "developer": "Developed by Cleyton Jesus"
     },
-    "mainScreen":{
-        "musicsMightLike":"Songs you might like",
-        "addRecents":"Recently added",
-        "showAll":"Show all"
+    "mainScreen": {
+        "musicsMightLike": "Songs you might like",
+        "addRecents": "Recently added",
+        "showAll": "Show all"
     },
-    "details":{
-        "details":"Details",
-        "title":"Songs/Soundtracks"
+    "details": {
+        "details": "Details",
+        "title": "Songs/Soundtracks"
     },
-    "searchScreen":{
-        "searchInputPlaceholder":"What do you want to hear?",
-        "notFound":"No music found. :("
+    "searchScreen": {
+        "searchInputPlaceholder": "What do you want to hear?",
+        "notFound": "No music found. :("
     },
-    "soundPlayerScreen":{
-        "wait":"One moment..."
+    "soundPlayerScreen": {
+        "wait": "One moment..."
     }
 }

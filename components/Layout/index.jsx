@@ -1,21 +1,22 @@
 import Head from 'next/head'
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react'
+import { appCtx } from '../../Context/AppContext';
 import { songCtx } from '../../Context/SongContext'
 import SoundPlayer from '../SoundPlayer'
 
-export default function Layout({ children, title }) {
-    const [pageTitle, setPageTitle] = useState(`Music Lobby - ${title}`);
-
+export default function Layout({ children,  }) {
+    const { translate } = useContext(appCtx);
+    const [pageTitle, setPageTitle] = useState(`${translate.systemTitle}`);
     const { currentMusic: { music }, playingMusic: { playingMusicId }, soundPlayer: { showPlayer }, isPlaying: { playing } } = useContext(songCtx);
 
     useEffect(() => {
         if (!showPlayer) {
-            setPageTitle(`Music Lobby - ${title}`);
+            setPageTitle(`${translate.systemTitle}`);
         } else {
-            setPageTitle(`${playing ? 'Tocando: ' : 'Pausado: '}${music.music[playingMusicId?.index]?.name}`)
+            setPageTitle(`${playing ? translate.tab.play : translate.tab.pause}${music.music[playingMusicId?.index]?.name}`)
         }
-    }, [showPlayer, playing, music.music, playingMusicId?.index, title])
+    }, [showPlayer, playing, music.music, playingMusicId?.index])
 
     return (
         <>

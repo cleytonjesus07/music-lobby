@@ -1,4 +1,9 @@
 {
+    "systemTitle":"Music Lobby (Player de música da web)",
+    "tab": {
+        "play": "Executando: ",
+        "pause": "Pausado: "
+    },
     "asideMenu": {
         "home": "Inicio",
         "search": "Pesquisar",
