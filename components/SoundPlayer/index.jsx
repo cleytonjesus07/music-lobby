@@ -87,6 +87,8 @@ export default function SoundPlayer() {
     });
 
 
+
+
     function setToInit() {
         setPlaying(false)
         audioRef.current.pause();
@@ -190,8 +192,8 @@ export default function SoundPlayer() {
             <audio ref={audioRef}
                 className="absolute hidden"
                 preload={"metadata"}
-                src={music.music[playingMusicId.index]?.google_drive}
-                onTimeUpdate={(e) => updateBar(e)}
+                src={music.music[playingMusicId.index]?.song}
+                onTimeUpdate={updateBar}
                 onDurationChange={(e) => {
                     setTimestamps(old => {
                         const minutes = (Math.floor(e.target.duration / 60));

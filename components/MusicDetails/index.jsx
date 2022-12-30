@@ -27,7 +27,7 @@ function MusicDetails() {
     const { isLoading, isError } = useQuery({
         queryKey: [`artist ${id_artist}`], queryFn: async () => {
 
-            console.log("query")
+           
             if (!id_artist) {
                 return;
             }

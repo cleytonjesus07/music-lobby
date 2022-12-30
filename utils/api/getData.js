@@ -14,7 +14,7 @@ export async function getDataFromArtist(id_artist) {
         res.push({
             id: id_music,
             name: music_title,
-            google_drive: `${process.env.NEXT_PUBLIC_GOOGLE_DRIVE}${music_link}`
+            song: `${music_link}`
         })
     })
 
