@@ -3,6 +3,7 @@ import Image from "next/image"
 import Loading from "../../components/Loading"
 import { useContext, memo, lazy } from "react"
 import { appCtx } from "../../Context/AppContext"
+import MusicTiles from "../../components/MusicTiles"
 const Section = lazy(() => import("../../components/Section"))
 function InicioPage({ songsYouMightLike, recents, data, setAlbum, setPage, getArtistMusicsDetails }) {
     const { translate } = useContext(appCtx);
@@ -13,19 +14,21 @@ function InicioPage({ songsYouMightLike, recents, data, setAlbum, setPage, getAr
                     {songsYouMightLike
                         ?
                         (
-                            songsYouMightLike?.map(({ Album: { album_cover, Artist: { id_artist, artist_bio } }, Music: { music_title } }, i) => {
-                                return (
-
-                                    <div key={i} onClick={() => getArtistMusicsDetails(id_artist, setAlbum, setPage)} className="musicTile bg-gradient-to-b from-neutral-800 to-neutral-900 flex  w-80 hover:to-neutral-700 hover:from-neutral-700 transition-all cursor-pointer rounded-lg overflow-hidden  min-w-[calc(200px)] max-sm:w-[100%] relative bg-center bg-no-repeat bg-cover" style={{ margin: "10px", height: 80, backgroundImage: `url(${album_cover})` }}>
-                                        <div className="max-md:hidden absolute  overflow-hidden   bg-neutral-900  bg-center bg-no-repeat bg-cover" style={{ width: 90, height: 90, left: "-20px", borderRadius: "0 100px 100px 0" }}>
-                                            <Image src={album_cover} decoding="sync" loading="eager" fill sizes="(max-width: 768px) 100%,(max-width: 1200px) 50%,33%" style={{ objectFit: "cover", objectPosition: "top" }} alt="album cover" />
-                                        </div>
-                                        <div className="flex justify-center items-center  bg-black bg-opacity-70 w-full px-3 ">
-                                            <div className=" text-sm font-bold w-full  bg-black bg-opacity-70   rounded-md  p-2 text-center z-50 "  ><span className="line-clamp-2">{music_title}</span></div>
-                                        </div>
-                                    </div>
-                                )
-                            })
+                            songsYouMightLike?.map(
+                                ({ Album: { album_cover,
+                                    Artist: { id_artist } },
+                                    Music: { music_title } },
+                                    index
+                                ) => <MusicTiles
+                                        key={index}
+                                        id_artist={id_artist}
+                                        setPage={setPage}
+                                        setAlbum={setAlbum}
+                                        album_cover={album_cover}
+                                        music_title={music_title}
+                                        getArtistMusicsDetails={getArtistMusicsDetails}
+                                    />
+                            )
                         )
                         :
                         (
@@ -37,18 +40,18 @@ function InicioPage({ songsYouMightLike, recents, data, setAlbum, setPage, getAr
                     {recents
                         ?
                         (
-                            recents.map(({ Album: { album_cover, Artist: { id_artist, artist_bio } }, Music: { music_title } }, i) => {
-                                return (
-
-                                    <Card key={i}
-                                        onClick={() => {
-                                            getArtistMusicsDetails(id_artist, setAlbum, setPage)
-                                        }}
+                            recents.map(
+                                ({ Album: { album_cover,
+                                    Artist: { id_artist, artist_bio } },
+                                    Music: { music_title } },
+                                    i
+                                ) => <Card key={i}
+                                        onClick={() => getArtistMusicsDetails(id_artist, setAlbum, setPage)}
                                         title={music_title}
                                         cover={album_cover}
-                                        desc={artist_bio} />
-                                )
-                            })
+                                        desc={artist_bio}
+                                    />
+                            )
                         )
                         :
                         (
