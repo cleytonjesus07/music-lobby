@@ -16,12 +16,12 @@ function InicioPage({ songsYouMightLike, recents, data, setAlbum, setPage, getAr
                             songsYouMightLike?.map(({ Album: { album_cover, Artist: { id_artist, artist_bio } }, Music: { music_title } }, i) => {
                                 return (
 
-                                    <div key={i} onClick={() => getArtistMusicsDetails(id_artist, setAlbum, setPage)} className="musicTile bg-gradient-to-b from-neutral-800 to-neutral-900 flex  w-80 hover:to-neutral-700 hover:from-neutral-700 transition-all mx-2 my-4  cursor-pointer rounded-lg overflow-hidden  min-w-[calc(200px)] max-sm:w-[100%] relative " style={{ margin: "10px", height: 80, backgroundImage: `url(${album_cover})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover" }}>
+                                    <div key={i} onClick={() => getArtistMusicsDetails(id_artist, setAlbum, setPage)} className="musicTile bg-gradient-to-b from-neutral-800 to-neutral-900 flex  w-80 hover:to-neutral-700 hover:from-neutral-700 transition-all cursor-pointer rounded-lg overflow-hidden  min-w-[calc(200px)] max-sm:w-[100%] relative bg-center bg-no-repeat bg-cover" style={{ margin: "10px", height: 80, backgroundImage: `url(${album_cover})` }}>
                                         <div className="max-md:hidden absolute  overflow-hidden   bg-neutral-900  bg-center bg-no-repeat bg-cover" style={{ width: 90, height: 90, left: "-20px", borderRadius: "0 100px 100px 0" }}>
                                             <Image src={album_cover} decoding="sync" loading="eager" fill sizes="(max-width: 768px) 100%,(max-width: 1200px) 50%,33%" style={{ objectFit: "cover", objectPosition: "top" }} alt="album cover" />
                                         </div>
                                         <div className="flex  bg-black bg-opacity-70  w-full px-10" style={{ justifyContent: "end", alignItems: "center" }}>
-                                            <span className=" text-sm font-bold  bg-black bg-opacity-70 text-center  rounded-md  p-2 line-clamp-2" style={{ zIndex: 10 }} >{music_title}</span>
+                                            <div className=" text-sm font-bold  bg-black bg-opacity-70   rounded-md  p-2 text-center " style={{ zIndex: 10 }} ><span className="line-clamp-2">{music_title}</span></div>
                                         </div>
                                     </div>
                                 )
