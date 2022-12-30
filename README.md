@@ -21,6 +21,8 @@ Foram utilizadas as seguintes tecnologias:
     <img src="public/images/project_2.jpg" alt="imagem do projeto: tela das músicas">
     <h4>Tela de pesquisa</h4>
     <img src="public/images/project_3.jpg" alt="imagem do projeto: tela de pesquisa">
+    <h4>Player de música para telas menores</h4>
+    <img src="public/images/project_4.jpg" alt="imagem do projeto: tela de pesquisa">
 <hr/>
 O projeto está hospedado na Vercel:
     <a href="https://music-lobby.vercel.app/">Music Lobby</a>
@@ -51,6 +53,8 @@ The following technologies were used:
     <img src="public/images/project_2.jpg" alt="imagem do projeto: tela das músicas">
     <h4>Search screen</h4>
     <img src="public/images/project_3.jpg" alt="imagem do projeto: tela de pesquisa">
+    <h4>Music player for smaller screens</h4>
+    <img src="public/images/project_4.jpg" alt="imagem do projeto: tela de pesquisa">
 <hr/>
 The project is hosted at Vercel:
     <a href="https://music-lobby.vercel.app/">Music Lobby</a>

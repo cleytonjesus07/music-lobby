@@ -76,7 +76,6 @@ function AsideMenu() {
                                         max-md:items-center
                                         max-md:w-[200px]
                                         my-3
-                                       
                                         `
                                         }>
                                         <div className="w-7 mx-5 py-2 opacity-70">{icon}</div>
@@ -92,10 +91,8 @@ function AsideMenu() {
                                         >{title}</div>
                                     </Link>
                                 </li>
-
                             )
                         })}
-
                     </ul>
                 </div>
                 <div className="absolute bottom-10 text-center w-full flex flex-col">
