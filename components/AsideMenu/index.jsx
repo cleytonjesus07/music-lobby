@@ -64,6 +64,7 @@ function AsideMenu() {
                                         href={"/"}
                                         as={href}
                                         onClick={() => {
+                                            handleActiveMenu(title)
                                             setPage(menu.toLowerCase())
                                             setOpenMenu(false)
                                         }}
@@ -80,7 +81,6 @@ function AsideMenu() {
                                         }>
                                         <div className="w-7 mx-5 py-2 opacity-70">{icon}</div>
                                         <div
-                                            onClick={() => handleActiveMenu(title)}
                                             className={`
                                             font-semibold 
                                             text-sm 
