@@ -7,7 +7,6 @@ import { useRouter } from "next/router"
 import Loading from "../../components/Loading";
 import { useQuery } from "@tanstack/react-query";
 
-
 function SearchPage({ getArtistMusicsDetails, setAlbum }) {
     const router = useRouter();
     const { search: { deferredValue }, translate } = useContext(appCtx)
@@ -59,7 +58,7 @@ function SearchPage({ getArtistMusicsDetails, setAlbum }) {
 
     return (
         <Section title={translate.asideMenu.search} wrap={true} justifyCenter={true}>
-            {(filteredMusics?.length > 0)
+            {(filteredMusics?.length)
                 ?
                 (
                     filteredMusics.map(({ Music: { id_music, music_title }, Album: { album_cover, Artist: { id_artist, artist_bio } } }) => {

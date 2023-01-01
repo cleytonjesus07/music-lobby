@@ -63,6 +63,7 @@ function AsideMenu() {
                                     <Link
                                         href={"/"}
                                         as={href}
+                                        scroll={false}
                                         onClick={() => {
                                             handleActiveMenu(title)
                                             setPage(menu.toLowerCase())
